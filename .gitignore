@@ -1,0 +1,12 @@
+/.idea
+/vendor
+/extra
+/var
+
+composer.lock
+commitsar
+.php_cs.cache
+.phpunit.result.cache
+phpunit.xml
+
+CHECKLIST-README.md

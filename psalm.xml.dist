@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<psalm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="https://getpsalm.org/schema/config"
+       xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+       cacheDirectory="var/psalm"
+       totallyTyped="true">
+
+    <projectFiles>
+        <directory name="src/"/>
+        <directory name="todo-list/src/"/>
+        <ignoreFiles allowMissingFiles="true">
+            <directory name="vendor/"/>
+            <directory name="var/"/>
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <DeprecatedMethod>
+            <errorLevel type="info">
+             </errorLevel>
+        </DeprecatedMethod>
+        <InvalidCatch>
+            <errorLevel type="info">
+            </errorLevel>
+        </InvalidCatch>
+        <InternalMethod>
+            <errorLevel type="info">
+            </errorLevel>
+        </InternalMethod>
+        <MissingConstructor>
+            <errorLevel type="info">
+            </errorLevel>
+        </MissingConstructor>
+        <RedundantCondition>
+            <errorLevel type="info">
+            </errorLevel>
+        </RedundantCondition>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="info">
+                <directory name="todo-list/tests/" />
+                <directory name="tests/" />
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+
+        <!-- false positives -->
+        <MixedMethodCall>
+            <errorLevel type="info">
+            </errorLevel>
+        </MixedMethodCall>
+    </issueHandlers>
+
+    <mockClasses>
+        <class name="PHPUnit\Framework\MockObject\MockObject"/>
+    </mockClasses>
+</psalm>
