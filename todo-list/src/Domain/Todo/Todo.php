@@ -1,0 +1,42 @@
+<?php declare(strict_types=1);
+
+
+namespace MedicalMundi\TodoList\Domain\Todo;
+
+class Todo implements TodoInterface
+{
+    /** @var TodoId */
+    private $todoId;
+
+    /** @var Title */
+    private $title;
+
+    /** @var Description|null */
+    private $description;
+
+    /**
+     * Todo constructor.
+     * @param TodoId $todoId
+     * @param Title $title
+     */
+    public function __construct(TodoId $todoId, Title $title)
+    {
+        $this->todoId = $todoId;
+        $this->title = $title;
+    }
+
+    public function id(): TodoId
+    {
+        return $this->todoId;
+    }
+
+    public function title(): Title
+    {
+        return $this->title;
+    }
+
+    public function description(): ?Description
+    {
+        return $this->description;
+    }
+}

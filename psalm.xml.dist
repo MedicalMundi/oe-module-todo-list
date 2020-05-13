@@ -47,6 +47,14 @@
             <errorLevel type="info">
             </errorLevel>
         </MixedMethodCall>
+
+        <!-- false positives UseCase Interface are defined without return type. -->
+        <MissingReturnType>
+            <errorLevel type="info">
+                <directory name="todo-list/src/Application/Port/In" />
+            </errorLevel>
+        </MissingReturnType>
+
     </issueHandlers>
 
     <mockClasses>

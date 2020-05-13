@@ -10,12 +10,14 @@
     <testsuites>
         <testsuite name="all">
             <directory>./tests</directory>
+            <directory>./todo-list/tests</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
             <directory>./src</directory>
+            <directory>./todo-list/src</directory>
         </whitelist>
     </filter>
 
