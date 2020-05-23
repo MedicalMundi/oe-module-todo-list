@@ -87,7 +87,7 @@ install-module:
 install-module-dev:
 	echo "Install ${MODULE_ENV} in openemr:${OE_RELEASE_ENV}"
 	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec openemr composer config repositories.medicalmundi/oe-module-todo-list vcs https://github.com/MedicalMundi/oe-module-todo-list.git --working-dir /var/www/localhost/htdocs/openemr
-	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec openemr composer require ${MODULE_ENV}:dev-master --prefer-source --working-dir /var/www/localhost/htdocs/openemr
+	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec openemr composer require ${MODULE_ENV}:dev-develop --no-cache --prefer-source --working-dir /var/www/localhost/htdocs/openemr
 	echo "Module ${MODULE_ENV} installed in Openemr:${OE_RELEASE_ENV}"
 
 remove-module:
@@ -97,5 +97,5 @@ remove-module:
 
 update-module:
 	echo "Update ${MODULE_ENV} in openemr:${OE_RELEASE_ENV}"
-	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec openemr composer update ${MODULE_ENV} --working-dir /var/www/localhost/htdocs/openemr
+	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec openemr composer update ${MODULE_ENV} --no-cache --working-dir /var/www/localhost/htdocs/openemr
 	echo "Module ${MODULE_ENV} updated in Openemr:${OE_RELEASE_ENV}"
