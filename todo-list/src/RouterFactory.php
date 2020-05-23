@@ -10,15 +10,26 @@ use Psr\Container\ContainerInterface;
 
 class RouterFactory
 {
+    private const PREFIX_URL = '/interface/modules/custom_modules/oe-module-todo-list/';
+
     public function __invoke(ContainerInterface $container): Router
     {
+        // /interface/modules/custom_modules/oe-module-todo-list/
         $strategy = new ApplicationStrategy();
         $strategy->setContainer($container);
         $router   = new Router();
         $router->setStrategy($strategy);
 
-        $router->map('GET', '/', HomeController::class);
-        $router->group('/todos', function (RouteGroup $route) : void {
+        if ((new isModuleStandAlone)()) {
+            //$router->map('GET', self::PREFIX_URL, HomeController::class);
+            $routerGroupUrl = '/';
+        } else {
+            $router->map('GET', '/', HomeController::class);
+            $routerGroupUrl = self::PREFIX_URL;
+        }
+        $router->map('GET', $routerGroupUrl.'home', HomeController::class);
+
+        $router->group($routerGroupUrl, function (RouteGroup $route) : void {
             $route->map('GET', '/', ToDoListController::class);
             $route->map('GET', '/{id}', ToDoReadController::class);
         });

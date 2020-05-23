@@ -12,11 +12,19 @@ declare(strict_types=1);
 //require_once __DIR__ . '/../../../../vendor/autoload.php';
 
 use Laminas\HttpHandlerRunner\Emitter\SapiStreamEmitter;
+use MedicalMundi\TodoList\isModuleStandAlone;
 use MedicalMundi\TodoList\Module;
 
 (
     static function (): void {
-        require __DIR__ . '/vendor/autoload.php';
+        require __DIR__ . '/todo-list/src/isModuleStandAlone.php';
+
+        if ((new isModuleStandAlone)()) {
+            require __DIR__ . '/vendor/autoload.php';
+        } else {
+            require __DIR__ . '/../../../../vendor/autoload.php';
+        }
+
 
         $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();
         $serverRequestFactory = new \Nyholm\Psr7Server\ServerRequestCreator(

@@ -12,7 +12,7 @@ class isModuleStandAlone
 
     private function getGlobalsFile(): string
     {
-        $interfaceRootDirectory = \dirname(__DIR__, 7);
+        $interfaceRootDirectory = \dirname(__DIR__, 5);
 
         return $interfaceRootDirectory . DIRECTORY_SEPARATOR . "globals.php";
     }
