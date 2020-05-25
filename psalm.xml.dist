@@ -3,7 +3,8 @@
        xmlns="https://getpsalm.org/schema/config"
        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
        cacheDirectory="var/psalm"
-       totallyTyped="true">
+       totallyTyped="true"
+       errorBaseline="psalm-baseline.xml">
 
     <projectFiles>
         <directory name="src/"/>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="3.11.4@58e1d8e68e5098bf4fbfdfb420c38d563f882549">
+  <file src="todo-list/src/Module.php">
+    <MixedAssignment occurrences="1">
+      <code>$module-&gt;container</code>
+    </MixedAssignment>
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>$container</code>
+    </PropertyNotSetInConstructor>
+    <UndefinedClass occurrences="1">
+      <code>HttpException</code>
+    </UndefinedClass>
+  </file>
+  <file src="todo-list/src/ToDoReadController.php">
+    <MixedOperand occurrences="1">
+      <code>$args['id']</code>
+    </MixedOperand>
+  </file>
+</files>

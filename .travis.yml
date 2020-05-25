@@ -65,7 +65,10 @@ jobs:
       before_script:
         - *lint-composer
       script:
-        - *run-code-style-check
+        - make composer-validate
+        - make cs-check
+        - make phpstan
+        - ./vendor/bin/psalm
         - *run-phpunit-tests-with-coverage
       after_success:
         - if [[ $RUN_SONAR_SCANNER == "1" ]]; then sonar-scanner -Dproject.settings=sonar-project.properties -Dsonar.projectVersion=$TRAVIS_TAG; fi
@@ -80,7 +83,9 @@ jobs:
       before_script:
         - composer dumpautoload
       script:
-        - make check
+        - ./vendor/bin/psalm
+        - make phpstan
+        - make phpunit
 
     - name: '(PHP 7.4)'
       php: '7.4'
@@ -92,4 +97,6 @@ jobs:
       before_script:
         - composer dumpautoload
       script:
-        - make check
+        - ./vendor/bin/psalm
+        - make phpstan
+        - make phpunit
