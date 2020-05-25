@@ -9,8 +9,6 @@ declare(strict_types=1);
  * @see pag. 15 - https://www.open-emr.org/wiki/images/6/61/ModuleInstaller-DeveloperGuide.pdf - custom module section.
  */
 
-//require_once __DIR__ . '/../../../../vendor/autoload.php';
-
 use Laminas\HttpHandlerRunner\Emitter\SapiStreamEmitter;
 use MedicalMundi\TodoList\isModuleStandAlone;
 use MedicalMundi\TodoList\Module;
@@ -35,13 +33,16 @@ use MedicalMundi\TodoList\Module;
         );
 
         try {
-            $module = Module::bootstrap(); //dump($module);
+            $module = Module::bootstrap();
 
             // TODO CREATE REQUEST FROM GLOBALS
-            $request = $serverRequestFactory->fromGlobals(); //dump($serverRequest);
-
-            // TODO HANDLE REQUEST
-            $response = $module->handle($request);
+            $request = $serverRequestFactory->fromGlobals();
+            if ($request === null) {
+                $responseBody = $psr17Factory->createStream(json_encode([ 'error' => 'malformed request' ]));
+                $response = $psr17Factory->createResponse(400)->withBody($responseBody);
+            } else {
+                $response =  $module->handle($request);
+            }
         } catch (Throwable $e) {
             //logger()->error($e, ['exception' => $e, 'request' => $request ?? null]);
             $responseBody = $psr17Factory->createStream(json_encode([ 'error' => $e->getMessage() ]));

@@ -5,9 +5,7 @@ namespace MedicalMundi\TodoList;
 
 use HttpException;
 use League\Route\Router;
-use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -47,9 +45,6 @@ class Module implements ContainerInterface, RequestHandlerInterface
      *
      * @param string $id Identifier of the entry to look for.
      *
-     * @throws NotFoundExceptionInterface  No entry was found for **this** identifier.
-     * @throws ContainerExceptionInterface Error while retrieving the entry.
-     *
      * @return mixed Entry.
      */
     public function get($id)
@@ -61,14 +56,11 @@ class Module implements ContainerInterface, RequestHandlerInterface
      * Returns true if the container can return an entry for the given identifier.
      * Returns false otherwise.
      *
-     * `has($id)` returning true does not mean that `get($id)` will not throw an exception.
-     * It does however mean that `get($id)` will not throw a `NotFoundExceptionInterface`.
-     *
      * @param string $id Identifier of the entry to look for.
      *
      * @return bool
      */
-    public function has($id)
+    public function has($id): bool
     {
         return $this->container->has($id);
     }
@@ -77,11 +69,18 @@ class Module implements ContainerInterface, RequestHandlerInterface
      * Handles a request and produces a response.
      *
      * May call other collaborating code to generate the response.
+     *
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
+     *
+     * @psalm-suppress MixedInferredReturnType
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();
+
         try {
+            /** @psalm-suppress PossiblyNullReference */
             $response = $this->router->dispatch($request);
             //} catch (InvalidDataException $e) {
             //return new JsonResponse([ 'error' => exception_to_array($e) ], 400);

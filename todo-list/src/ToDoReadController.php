@@ -12,6 +12,7 @@ class ToDoReadController
     {
         $page = '<div>ToDoRead Controller !!</div>';
         $page .= '<div>request_uri: '.$request->getUri().'</div>';
+        $page .= '<div>arguments count: '.count($args).'</div>';
         $page .= '<div>arguments id: '.$args['id'].'</div>';
 
         $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();

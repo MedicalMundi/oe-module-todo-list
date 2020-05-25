@@ -14,7 +14,6 @@ class RouterFactory
 
     public function __invoke(ContainerInterface $container): Router
     {
-        // /interface/modules/custom_modules/oe-module-todo-list/
         $strategy = new ApplicationStrategy();
         $strategy->setContainer($container);
         $router   = new Router();
@@ -22,17 +21,29 @@ class RouterFactory
 
         if ((new isModuleStandAlone)()) {
             //$router->map('GET', self::PREFIX_URL, HomeController::class);
-            $routerGroupUrl = '/';
+            $routerGroupdefaultUrl = '/';
+            $routerGroupTodoUrl = '/todos';
+            $routerGroupModuleSettingUrl = '/module-setting';
         } else {
-            $router->map('GET', '/', HomeController::class);
-            $routerGroupUrl = self::PREFIX_URL;
+            //$router->map('GET', '/', HomeController::class);
+            $routerGroupdefaultUrl = self::PREFIX_URL;
+            $routerGroupTodoUrl = self::PREFIX_URL . '/todos';
+            $routerGroupModuleSettingUrl = self::PREFIX_URL . '/module-setting';
         }
-        $router->map('GET', $routerGroupUrl.'home', HomeController::class);
+        //$router->map('GET', $routerGroupUrl.'about', AboutController::class);
 
-        $router->group($routerGroupUrl, function (RouteGroup $route) : void {
-            $route->map('GET', '/', ToDoListController::class);
-            $route->map('GET', '/{id}', ToDoReadController::class);
+        $router->group($routerGroupdefaultUrl, function (RouteGroup $route) : void {
+            $route->map('GET', '/', HomeController::class);
+            $route->map('GET', '/about', AboutController::class);
+            $route->map('GET', '/help', AboutController::class);
         });
+
+        $router->group($routerGroupTodoUrl, function (RouteGroup $route) : void {
+            $route->map('GET', '/', ToDoListController::class);
+            $route->map('GET', '/{id:number}', ToDoReadController::class);
+        });
+
+
 
         return $router;
     }
