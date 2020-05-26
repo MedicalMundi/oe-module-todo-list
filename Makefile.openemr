@@ -1,9 +1,10 @@
-# Makefile.custom
+# Makefile.openemr
 #
 # This file contains the custom commands and/or aliases.
 #
-# To use it, copy/paste this file with the name Makefile.custom and add commands as you wish.
-# This file is in .gitignore, so it will not be committed and is specific to you.
+# To use it, run make -f Makefile.openemr <command>.
+# To see the command list run make -f Makefile.openemr help
+
 #
 
 # Mute all `make` specific output. Comment this out to get some debug information.
@@ -17,13 +18,13 @@ SHELL='/bin/bash'
 .DEFAULT default:
 	if [ "$@" != "" ]; then echo "Command '$@' not found."; fi;
 	$(MAKE) help                        # goes to the main Makefile
-	$(MAKE) -f Makefile.custom help     # goes to this Makefile
+	$(MAKE) -f Makefile.openemr help     # goes to this Makefile
 	if [ "$@" != "" ]; then exit 2; fi;
 
 help:
 	@echo
 	@echo "Available custom commands:"
-	@grep '^[^#[:space:]].*:' Makefile.custom | grep -v '^help' | grep -v '^default' | grep -v '^\.' | grep -v '=' | grep -v '^_' | sed 's/://' | xargs -n 1 echo ' -'
+	@grep '^[^#[:space:]].*:' Makefile.openemr | grep -v '^help' | grep -v '^default' | grep -v '^\.' | grep -v '=' | grep -v '^_' | sed 's/://' | xargs -n 1 echo ' -'
 
 ########################################################################################################################
 
@@ -52,6 +53,7 @@ remove-oe-release:
 
 init-oe-instance:
 	echo "Init Openemr instance version: ${OE_RELEASE_ENV}"
+	rm -fR var/openemr-instance/${OE_RELEASE_ENV}/
 	cp -fR var/openemr-release/${OE_RELEASE_ENV}/ var/openemr-instance/${OE_RELEASE_ENV}
 
 start-oe-instance:

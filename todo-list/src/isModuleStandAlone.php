@@ -5,7 +5,7 @@ namespace MedicalMundi\TodoList;
 
 class isModuleStandAlone
 {
-    public function __invoke()
+    public function __invoke(): bool
     {
         return !file_exists($this->getGlobalsFile());
     }

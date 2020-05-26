@@ -3,13 +3,16 @@
 
 namespace MedicalMundi\TodoList;
 
-use HttpException;
+use const Fpp\dump;
+use League\Route\Http\Exception as HttpException;
 use League\Route\Router;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 class Module implements ContainerInterface, RequestHandlerInterface
 {
@@ -29,12 +32,23 @@ class Module implements ContainerInterface, RequestHandlerInterface
     public static function bootstrap(): self
     {
         $containerBuilder = new ContainerBuilder();
+        // create a loader for php configuration files in same directory
+        $loader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__.'/Config'));
+        //$loader->load('container-config.php');
         $router = (new RouterFactory)($containerBuilder);
         $containerBuilder->set('router', $router);
 
         $module = new self();
         $containerBuilder->set('module', $module);
-        $module->container = $containerBuilder->compile();
+        //$containerBuilder->set('url_service', new UrlService());
+        $containerBuilder->set('MedicalMundi\TodoList\UrlService', new UrlService());
+
+        $loader->load('container-config.php');
+        //dump($containerBuilder);
+        $containerBuilder->compile(); //dump($containerBuilder);
+
+
+        $module->container = $containerBuilder;
         $module->router = $router;
 
         return $module;

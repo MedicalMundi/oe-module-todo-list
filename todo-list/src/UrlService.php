@@ -19,7 +19,8 @@ class UrlService
         'about',
         'settings',
         'todo-list',
-        'todo'
+        'todo',
+        'help'
     ];
 
     /**
@@ -47,7 +48,7 @@ class UrlService
     public function renderUrl(string $routeName, array $arguments=[]): string
     {
         if (!in_array($routeName, $this->routes)) {
-            throw new \InvalidArgumentException('Route with name: '. $routeName . 'not found.');
+            throw new \InvalidArgumentException('Route with name: '. $routeName . ' not found.');
         }
 
         if ($routeName === 'todo-list') {
@@ -59,7 +60,7 @@ class UrlService
 
     private function main(): string
     {
-        return $this->baseUrl.'main';
+        return $this->baseUrl;
     }
 
     private function about(): string
@@ -67,13 +68,18 @@ class UrlService
         return $this->baseUrl.'about';
     }
 
-    private function settings(): string
+    private function help(): string
     {
-        return $this->baseUrl.'settings';
+        return $this->baseUrl.'help';
     }
 
     private function todoList(): string
     {
-        return $this->baseUrl.'todo-list';
+        return $this->baseUrl.'todos';
+    }
+
+    private function settings(): string
+    {
+        return $this->baseUrl.'settings';
     }
 }

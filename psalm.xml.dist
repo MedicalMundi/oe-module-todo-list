@@ -48,6 +48,13 @@
             <errorLevel type="info">
             </errorLevel>
         </MixedMethodCall>
+        <UndefinedGlobalVariable>
+            <errorLevel type="error">
+                <file name="todo-list/src/Config/container-config.php" />
+            </errorLevel>
+        </UndefinedGlobalVariable>
+
+
     </issueHandlers>
 
     <mockClasses>
