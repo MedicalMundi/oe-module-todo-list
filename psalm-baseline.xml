@@ -14,8 +14,5 @@
     <PropertyNotSetInConstructor occurrences="1">
       <code>$container</code>
     </PropertyNotSetInConstructor>
-    <UndefinedClass occurrences="1">
-      <code>HttpException</code>
-    </UndefinedClass>
   </file>
 </files>
