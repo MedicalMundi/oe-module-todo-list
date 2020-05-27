@@ -37,3 +37,11 @@ $loader->registerClasses(
     '../../src/Adapter/Http/Web/*',
     '../../src/Adapter/Http/Web/{WebController.php}'
 );
+
+// classes in the namespace MedicalMundi\TodoList\Adapter\Http\Web\ and the directory src/ will be register in the container
+$loader->registerClasses(
+    $publicDefinition,
+    'MedicalMundi\\TodoList\\Adapter\\Http\\Common\\',
+    '../../src/Adapter/Http/Common/*',
+    '../../src/Adapter/Http/Common/{WebController.php}'
+);
