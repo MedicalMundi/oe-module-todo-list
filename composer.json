@@ -21,13 +21,13 @@
     "require": {
         "php": ">=7.2",
         "doctrine/collections": "^1.6",
-        "ramsey/uuid": "^4.0",
         "laminas/laminas-httphandlerrunner": "^1.1",
         "league/route": "^4.5",
         "nyholm/psr7": "^1.2",
         "nyholm/psr7-server": "^0.4.1",
         "openemr/oe-module-installer-plugin": "^0.1",
         "psr/container": "^1.0",
+        "ramsey/uuid": "^4.0",
         "symfony/config": "^3.4 || ^4.4",
         "symfony/dependency-injection": "^3.4 || ^4.4",
         "symfony/event-dispatcher": "^3.4 || ^4.4"
