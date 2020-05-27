@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 
-namespace MedicalMundi\TodoList;
+namespace MedicalMundi\TodoList\Adapter\Http\Common;
 
 use League\Route\RouteGroup;
 use League\Route\Router;
@@ -11,6 +11,7 @@ use MedicalMundi\TodoList\Adapter\Http\Web\HelpController;
 use MedicalMundi\TodoList\Adapter\Http\Web\HomeController;
 use MedicalMundi\TodoList\Adapter\Http\Web\ToDoListController;
 use MedicalMundi\TodoList\Adapter\Http\Web\ToDoReadController;
+use MedicalMundi\TodoList\isModuleStandAlone;
 use Psr\Container\ContainerInterface;
 
 class RouterFactory
@@ -30,7 +31,6 @@ class RouterFactory
             $routerGroupModuleSettingUrl = '/module-setting';
         } else {
             $prefix = self::PREFIX_URL;
-            ;
             $routerGroupTodoUrl = self::PREFIX_URL . '/todos';
             $routerGroupModuleSettingUrl = self::PREFIX_URL . '/module-setting';
         }
@@ -44,6 +44,9 @@ class RouterFactory
             $route->map('GET', '/{id:number}', ToDoReadController::class);
         });
 
+        $router->group($routerGroupModuleSettingUrl, function (RouteGroup $route) : void {
+            $route->map('GET', '/', HomeController::class);
+        });
 
 
         return $router;

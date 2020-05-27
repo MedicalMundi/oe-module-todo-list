@@ -5,6 +5,7 @@ namespace MedicalMundi\TodoList;
 
 use League\Route\Http\Exception as HttpException;
 use League\Route\Router;
+use MedicalMundi\TodoList\Adapter\Http\Common\RouterFactory;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -31,15 +32,15 @@ class Module implements ContainerInterface, RequestHandlerInterface
     public static function bootstrap(): self
     {
         $containerBuilder = new ContainerBuilder();
-        // create a loader for php configuration files in same directory
+
         $loader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__.'/Config'));
-        //$loader->load('container-config.php');
+
         $router = (new RouterFactory)($containerBuilder);
         $containerBuilder->set('router', $router);
 
         $module = new self();
         $containerBuilder->set('module', $module);
-        //$containerBuilder->set('url_service', new UrlService());
+
         $containerBuilder->set('MedicalMundi\TodoList\UrlService', new UrlService());
 
         $loader->load('container-config.php');
