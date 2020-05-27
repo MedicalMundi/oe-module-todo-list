@@ -78,7 +78,7 @@ tail-error:
 	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec -T openemr tail -f /var/log/apache2/error.log
 
 tail-access:
-	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec -T openemr tail -f /var/log/apache2/error.log
+	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec -T openemr tail -f /var/log/apache2/access.log
 
 install-module:
 	echo "Install ${MODULE_ENV} in openemr:${OE_RELEASE_ENV}"
