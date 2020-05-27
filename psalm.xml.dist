@@ -3,7 +3,8 @@
        xmlns="https://getpsalm.org/schema/config"
        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
        cacheDirectory="var/psalm"
-       totallyTyped="true">
+       totallyTyped="true"
+       errorBaseline="psalm-baseline.xml">
 
     <projectFiles>
         <directory name="src/"/>
@@ -47,14 +48,17 @@
             <errorLevel type="info">
             </errorLevel>
         </MixedMethodCall>
-
         <!-- false positives UseCase Interface are defined without return type. -->
         <MissingReturnType>
             <errorLevel type="info">
                 <directory name="todo-list/src/Application/Port/In" />
             </errorLevel>
         </MissingReturnType>
-
+        <UndefinedGlobalVariable>
+            <errorLevel type="error">
+                <file name="todo-list/src/Config/container-config.php" />
+            </errorLevel>
+        </UndefinedGlobalVariable>
     </issueHandlers>
 
     <mockClasses>

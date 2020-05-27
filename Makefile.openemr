@@ -1,0 +1,103 @@
+# Makefile.openemr
+#
+# This file contains the custom commands and/or aliases.
+#
+# To use it, run make -f Makefile.openemr <command>.
+# To see the command list run make -f Makefile.openemr help
+
+#
+
+# Mute all `make` specific output. Comment this out to get some debug information.
+.SILENT:
+
+# make commands be run with `bash` instead of the default `sh`
+SHELL='/bin/bash'
+
+# .DEFAULT: If command does not exist in this makefile
+# default:  If no command was specified:
+.DEFAULT default:
+	if [ "$@" != "" ]; then echo "Command '$@' not found."; fi;
+	$(MAKE) help                        # goes to the main Makefile
+	$(MAKE) -f Makefile.openemr help     # goes to this Makefile
+	if [ "$@" != "" ]; then exit 2; fi;
+
+help:
+	@echo
+	@echo "Available custom commands:"
+	@grep '^[^#[:space:]].*:' Makefile.openemr | grep -v '^help' | grep -v '^default' | grep -v '^\.' | grep -v '=' | grep -v '^_' | sed 's/://' | xargs -n 1 echo ' -'
+
+########################################################################################################################
+
+# stable available openemr release: v5_0_2|v5_0_2_1|v5_0_2_2|v5_0_2_3
+# develop available openemr branch: rel-502|master
+
+ifndef OE_RELEASE_ENV
+OE_RELEASE_ENV=master
+endif
+
+ifndef MODULE_ENV
+MODULE_ENV=medicalmundi/oe-module-todo-list
+endif
+
+download-oe-release:
+	echo
+	echo "Download Openemr:${OE_RELEASE_ENV}"
+	git clone https://github.com/openemr/openemr.git -b ${OE_RELEASE_ENV} var/openemr-release/${OE_RELEASE_ENV}
+	echo
+	echo "Openemr:${OE_RELEASE_ENV} downloaded"
+
+remove-oe-release:
+	echo "Remove release folder for Openemr:${OE_RELEASE_ENV}"
+	rm -fR var/openemr-release/${OE_RELEASE_ENV}
+
+
+init-oe-instance:
+	echo "Init Openemr instance version: ${OE_RELEASE_ENV}"
+	rm -fR var/openemr-instance/${OE_RELEASE_ENV}/
+	cp -fR var/openemr-release/${OE_RELEASE_ENV}/ var/openemr-instance/${OE_RELEASE_ENV}
+
+start-oe-instance:
+	echo "Start Openemr instance version: ${OE_RELEASE_ENV}"
+	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml up
+	docker-compose -f  var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec -T openemr chown -R apache:apache /var/www/localhost/htdocs/openemr
+
+fix-oe-instance-permission:
+	echo "Fix file & folder permission in Openemr instance version: ${OE_RELEASE_ENV}"
+	docker-compose -f  var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec -T openemr chown -R apache:apache /var/www/localhost/htdocs/openemr
+
+stop-oe-instance:
+	echo "Stop Openemr instance version: ${OE_RELEASE_ENV}"
+	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml down -v
+
+
+config-oe-instance:
+	echo "Config Openemr instance version: ${OE_RELEASE_ENV}"
+	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec -T openemr php -f /var/www/localhost/htdocs/openemr/contrib/util/installScripts/InstallerAuto.php rootpass=root server=mysql loginhost=%
+
+tail-error:
+	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec -T openemr tail -f /var/log/apache2/error.log
+
+tail-access:
+	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec -T openemr tail -f /var/log/apache2/error.log
+
+install-module:
+	echo "Install ${MODULE_ENV} in openemr:${OE_RELEASE_ENV}"
+	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec openemr composer config repositories.medicalmundi/oe-module-todo-list vcs https://github.com/MedicalMundi/oe-module-todo-list.git --working-dir /var/www/localhost/htdocs/openemr
+	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec openemr composer require ${MODULE_ENV}:^0.1 --prefer-source --working-dir /var/www/localhost/htdocs/openemr
+	echo "Module ${MODULE_ENV} installed in Openemr:${OE_RELEASE_ENV}"
+
+install-module-dev:
+	echo "Install ${MODULE_ENV} in openemr:${OE_RELEASE_ENV}"
+	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec openemr composer config repositories.medicalmundi/oe-module-todo-list vcs https://github.com/MedicalMundi/oe-module-todo-list.git --working-dir /var/www/localhost/htdocs/openemr
+	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec openemr composer require ${MODULE_ENV}:dev-develop --no-cache --prefer-source --working-dir /var/www/localhost/htdocs/openemr
+	echo "Module ${MODULE_ENV} installed in Openemr:${OE_RELEASE_ENV}"
+
+remove-module:
+	echo "Remove ${MODULE_ENV} in openemr:${OE_RELEASE_ENV}"
+	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec openemr composer remove ${MODULE_ENV} --working-dir /var/www/localhost/htdocs/openemr
+	echo "Module ${MODULE_ENV} removed in Openemr:${OE_RELEASE_ENV}"
+
+update-module:
+	echo "Update ${MODULE_ENV} in openemr:${OE_RELEASE_ENV}"
+	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml exec openemr composer update ${MODULE_ENV} --no-cache --working-dir /var/www/localhost/htdocs/openemr
+	echo "Module ${MODULE_ENV} updated in Openemr:${OE_RELEASE_ENV}"
