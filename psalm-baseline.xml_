@@ -5,6 +5,11 @@
       <code>$args['id']</code>
     </MixedOperand>
   </file>
+  <file src="todo-list/src/Config/container-config.php">
+    <UndefinedGlobalVariable occurrences="1">
+      <code>$container</code>
+    </UndefinedGlobalVariable>
+  </file>
   <file src="todo-list/src/Module.php">
     <PropertyNotSetInConstructor occurrences="1">
       <code>$container</code>

@@ -3,7 +3,6 @@
 
 namespace MedicalMundi\TodoList;
 
-use const Fpp\dump;
 use League\Route\Http\Exception as HttpException;
 use League\Route\Router;
 use Psr\Container\ContainerInterface;
