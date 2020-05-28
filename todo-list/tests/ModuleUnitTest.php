@@ -6,6 +6,7 @@ namespace MedicalMundi\TodoList\Tests;
 use League\Route\Http\Exception as HttpException;
 use League\Route\Router;
 use MedicalMundi\TodoList\Adapter\Http\Common\UrlService;
+use MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository;
 use MedicalMundi\TodoList\Module;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
@@ -67,5 +68,13 @@ class ModuleUnitTest extends TestCase
         $module = Module::bootstrap();
 
         self::assertInstanceOf(UrlService::class, $module->get('MedicalMundi\TodoList\Adapter\Http\Common\UrlService'));
+    }
+
+    /** @test */
+    public function has_a_inMemoryRepository(): void
+    {
+        $module = Module::bootstrap();
+
+        self::assertInstanceOf(InMemoryTodoRepository::class, $module->get('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository'));
     }
 }
