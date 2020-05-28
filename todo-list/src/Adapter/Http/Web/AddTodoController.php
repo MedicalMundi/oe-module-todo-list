@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MedicalMundi\TodoList\Adapter\Http;
+namespace MedicalMundi\TodoList\Adapter\Http\Web;
 
 use MedicalMundi\TodoList\Application\Port\In\AddTodoUseCase;
 

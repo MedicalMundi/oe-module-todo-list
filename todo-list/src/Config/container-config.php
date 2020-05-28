@@ -2,6 +2,7 @@
 
 use MedicalMundi\TodoList\Adapter\Http\Web\WebController;
 use MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository;
+use MedicalMundi\TodoList\Application\AddTodoService;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
@@ -51,4 +52,8 @@ $loader->registerClasses(
 
 $container
     ->register('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository', InMemoryTodoRepository::class)
+    ->setPublic(true);
+
+$container
+    ->register('MedicalMundi\TodoList\Application\AddTodoService', AddTodoService::class)
     ->setPublic(true);
