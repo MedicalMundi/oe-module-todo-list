@@ -40,8 +40,9 @@ class Module implements ContainerInterface, RequestHandlerInterface
 
         $module = new self();
         $containerBuilder->set('module', $module);
+        //TODO refactoring the container initialization
+        //$containerBuilder->set('module', $this); write private function buildContainer(): ContainerInterface
 
-        //$containerBuilder->set('MedicalMundi\TodoList\UrlService', new UrlService());
 
         $loader->load('container-config.php');
         //dump($containerBuilder);
