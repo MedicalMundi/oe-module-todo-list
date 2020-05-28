@@ -7,6 +7,7 @@ use League\Route\RouteGroup;
 use League\Route\Router;
 use League\Route\Strategy\ApplicationStrategy;
 use MedicalMundi\TodoList\Adapter\Http\Web\AboutController;
+use MedicalMundi\TodoList\Adapter\Http\Web\AddTodoController;
 use MedicalMundi\TodoList\Adapter\Http\Web\HelpController;
 use MedicalMundi\TodoList\Adapter\Http\Web\HomeController;
 use MedicalMundi\TodoList\Adapter\Http\Web\ToDoListController;
@@ -40,6 +41,7 @@ class RouterFactory
         $router->map('GET', $prefix.'/help', HelpController::class);
 
         $router->group($routerGroupTodoUrl, function (RouteGroup $route) : void {
+            $route->map('GET', '/new', AddToDoController::class);
             $route->map('GET', '/', ToDoListController::class);
             $route->map('GET', '/{id:number}', ToDoReadController::class);
         });

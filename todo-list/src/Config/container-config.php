@@ -5,6 +5,7 @@ use MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository;
 use MedicalMundi\TodoList\Application\AddTodoService;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 
 $privateDefinition = new Definition();
 $privateDefinition
@@ -56,4 +57,5 @@ $container
 
 $container
     ->register('MedicalMundi\TodoList\Application\AddTodoService', AddTodoService::class)
+    ->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository'))
     ->setPublic(true);
