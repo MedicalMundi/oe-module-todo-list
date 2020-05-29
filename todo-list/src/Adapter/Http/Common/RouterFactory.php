@@ -43,7 +43,7 @@ class RouterFactory
         $router->group($routerGroupTodoUrl, function (RouteGroup $route) : void {
             $route->map('GET', '/new', AddToDoController::class);
             $route->map('GET', '/', ToDoListController::class);
-            $route->map('GET', '/{id:number}', ToDoReadController::class);
+            $route->map('GET', '/{id:uuid}', ToDoReadController::class);
         });
 
         $router->group($routerGroupModuleSettingUrl, function (RouteGroup $route) : void {

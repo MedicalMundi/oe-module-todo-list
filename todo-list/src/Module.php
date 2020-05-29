@@ -46,6 +46,7 @@ class Module implements ContainerInterface, RequestHandlerInterface
 
 
         $loader->load('container-config.php');
+        //$loader->load('service.php');
         //dump($containerBuilder);
         $containerBuilder->compile(); //dump($containerBuilder);
 
