@@ -3,7 +3,7 @@
 
 namespace MedicalMundi\TodoList\Tests;
 
-use MedicalMundi\TodoList\UrlService;
+use MedicalMundi\TodoList\Adapter\Http\Common\UrlService;
 use PHPUnit\Framework\TestCase;
 
 class UrlServiceTest extends TestCase

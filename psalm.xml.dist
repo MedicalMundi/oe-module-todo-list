@@ -12,6 +12,7 @@
         <ignoreFiles allowMissingFiles="true">
             <directory name="vendor/"/>
             <directory name="var/"/>
+            <directory name="todo-list/src/Config/"/>
         </ignoreFiles>
     </projectFiles>
 
@@ -48,13 +49,17 @@
             <errorLevel type="info">
             </errorLevel>
         </MixedMethodCall>
+        <!-- false positives UseCase Interface are defined without return type. -->
+        <MissingReturnType>
+            <errorLevel type="info">
+                <directory name="todo-list/src/Application/Port/In" />
+            </errorLevel>
+        </MissingReturnType>
         <UndefinedGlobalVariable>
             <errorLevel type="error">
                 <file name="todo-list/src/Config/container-config.php" />
             </errorLevel>
         </UndefinedGlobalVariable>
-
-
     </issueHandlers>
 
     <mockClasses>
