@@ -69,6 +69,7 @@ $loader->registerClasses(
 
 
 
+
 $container
     ->register('MedicalMundi\TodoList\Adapter\Http\Web\ToDoReadController', ToDoReadController::class)
     ->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository'))
@@ -84,4 +85,5 @@ $container
 $container
     ->register('MedicalMundi\TodoList\Application\AddTodoService', AddTodoService::class)
     ->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository'))
+    ->addArgument(new Reference('Psr\Log\LoggerInterface'))
     ->setPublic(true);
