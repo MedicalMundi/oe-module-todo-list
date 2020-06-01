@@ -47,6 +47,7 @@ class Module implements ContainerInterface, RequestHandlerInterface
 
         $loader->load('container-config.php');
         $loader->load('monolog.php');
+        $loader->load('twig.php');
         //$loader->load('service.php');
         //dump($containerBuilder);
         $containerBuilder->compile(); //dump($containerBuilder);

@@ -10,6 +10,7 @@ use Nyholm\Psr7\ServerRequest;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
+use Twig\Environment;
 
 class TodoReadControllerTest extends TestCase
 {
@@ -30,7 +31,11 @@ class TodoReadControllerTest extends TestCase
     {
         $this->repository = $this->getMockForAbstractClass(LoadTodoPort::class);
         $this->urlService = $this->createMock(UrlService::class);
-        $this->controller = new TodoReadController($this->repository, $this->urlService);
+        $this->controller = new TodoReadController(
+            $this->repository,
+            $this->urlService,
+            $this->createMock(Environment::class)
+        );
     }
 
     public function testSuccess(): void

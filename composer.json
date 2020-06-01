@@ -32,7 +32,8 @@
         "ramsey/uuid": "^4.0",
         "symfony/config": "^3.4 || ^4.4",
         "symfony/dependency-injection": "^3.4 || ^4.4",
-        "symfony/event-dispatcher": "^3.4 || ^4.4"
+        "symfony/event-dispatcher": "^3.4 || ^4.4",
+        "twig/twig": "^3.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",

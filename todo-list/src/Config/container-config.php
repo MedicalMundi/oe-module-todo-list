@@ -74,6 +74,7 @@ $container
     ->register('MedicalMundi\TodoList\Adapter\Http\Web\ToDoReadController', ToDoReadController::class)
     ->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository'))
     ->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Http\Common\UrlService'))
+    ->addArgument(new Reference('Twig\Environment'))
     ->setPublic(true)
 ;
 
