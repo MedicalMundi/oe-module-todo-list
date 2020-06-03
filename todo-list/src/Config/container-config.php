@@ -2,6 +2,7 @@
 
 use MedicalMundi\TodoList\Adapter\Http\Web\ToDoReadController;
 use MedicalMundi\TodoList\Adapter\Http\Web\WebController;
+use MedicalMundi\TodoList\Adapter\Persistence\FileSystem\JsonTodoRepository;
 use MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository;
 use MedicalMundi\TodoList\Application\AddTodoService;
 use MedicalMundi\TodoList\Application\Port\Out\Persistence\LoadTodoPort;
@@ -72,7 +73,8 @@ $loader->registerClasses(
 
 $container
     ->register('MedicalMundi\TodoList\Adapter\Http\Web\ToDoReadController', ToDoReadController::class)
-    ->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository'))
+    ->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\FileSystem\JsonTodoRepository'))
+    //->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository'))
     ->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Http\Common\UrlService'))
     ->addArgument(new Reference('Twig\Environment'))
     ->setPublic(true)
@@ -80,6 +82,11 @@ $container
 
 $container
     ->register('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository', InMemoryTodoRepository::class)
+    ->setPublic(true)
+;
+
+$container
+    ->register('MedicalMundi\TodoList\Adapter\Persistence\FileSystem\JsonTodoRepository', JsonTodoRepository::class)
     ->setPublic(true)
 ;
 
