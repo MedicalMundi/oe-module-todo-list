@@ -44,9 +44,4 @@ final class Title
     {
         return $this->value === $other->value;
     }
-
-    public function equals(Title $other): bool
-    {
-        return $this->value === $other->value;
-    }
 }
