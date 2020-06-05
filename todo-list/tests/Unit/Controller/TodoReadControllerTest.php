@@ -6,6 +6,7 @@ namespace MedicalMundi\TodoList\Tests\Unit\Controller;
 use MedicalMundi\TodoList\Adapter\Http\Common\UrlService;
 use MedicalMundi\TodoList\Adapter\Http\Web\ToDoReadController;
 use MedicalMundi\TodoList\Application\Port\Out\Persistence\LoadTodoPort;
+use MedicalMundi\TodoList\Domain\Todo\TodoId;
 use Nyholm\Psr7\ServerRequest;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -26,28 +27,35 @@ class TodoReadControllerTest extends TestCase
     /** @var UrlService|MockObject */
     private $urlService;
 
+    /** @var Environment|MockObject */
+    private $templateEngine;
 
     protected function setUp(): void
     {
         $this->repository = $this->getMockForAbstractClass(LoadTodoPort::class);
         $this->urlService = $this->createMock(UrlService::class);
+        $this->templateEngine = $this->createMock(Environment::class);
         $this->controller = new TodoReadController(
             $this->repository,
             $this->urlService,
-            $this->createMock(Environment::class)
+            $this->templateEngine
         );
     }
 
     public function testSuccess(): void
     {
-        self::markTestIncomplete('Remove final from TodoId class.');
         $params = ['id' => self::UUID];
         $request = new ServerRequest('GET', '/todos/', [], null, '1.1', $params);
 
         $this->repository
             ->expects($this->once())
             ->method('withTodoId')
-            //->with(TodoId::fromString($uuid))
+            ->with(TodoId::fromString(self::UUID))
+        ;
+
+        $this->templateEngine
+            ->expects($this->once())
+            ->method('render')
         ;
 
         $response = $this->controller->__invoke($request, $params);

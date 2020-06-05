@@ -41,7 +41,7 @@ use MedicalMundi\TodoList\Module;
                 $responseBody = $psr17Factory->createStream(json_encode([ 'error' => 'malformed request' ]));
                 $response = $psr17Factory->createResponse(400)->withBody($responseBody);
             } else {
-                $response =  $module->handle($request);
+                $response =  $module->handle($request); //var_dump($response);
             }
         } catch (Throwable $e) {
             //logger()->error($e, ['exception' => $e, 'request' => $request ?? null]);

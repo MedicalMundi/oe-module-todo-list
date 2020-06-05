@@ -35,7 +35,10 @@ class ToDoReadController
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
     {
-        $todo = $this->repository->withTodoId(TodoId::fromString((string)$args['id']));
+        $todoId = TodoId::fromString((string)$args['id']);
+        if (!$todo = $this->repository->withTodoId($todoId)) {
+            die('fix this in ToDoReadController ');
+        };
 
         $content = $this->templateEngine->render('todo/show.html.twig', [
             'todo' => $todo,
