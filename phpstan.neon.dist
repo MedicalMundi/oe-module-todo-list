@@ -1,5 +1,6 @@
 includes:
-    - phpstan-baseline.neon   # https://medium.com/@ondrejmirtes/phpstans-baseline-feature-lets-you-hold-new-code-to-a-higher-standard-e77d815a5dff ### vendor/bin/phpstan analyse --level 7     --configuration phpstan.neon.dist     --error-format baselineNeon     src/ tests/ > phpstan-baseline.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - phpstan-baseline.neon   # https://medium.com/@ondrejmirtes/phpstans-baseline-feature-lets-you-hold-new-code-to-a-higher-standard-e77d815a5dff ### vendor/bin/phpstan analyse --level 7     --configuration phpstan.neon.dist --generate-baseline
 
 parameters:
     level: 7
@@ -14,6 +15,15 @@ parameters:
 
 
     excludes_analyse:
+        # Remove
+        - src/Config/container-config.php
+        - src/Config/monolog.php
+        - src/Config/twig.php
+
+
+        - src/Adapter/Http/Web/AboutController.php
+        - src/Adapter/Http/Web/HelpController.php
+        - src/Adapter/Http/Web/HomeController.php
         - '*/vendor/*'
         - '*/var/*'
         - '*/extra/*'

@@ -15,7 +15,7 @@ use MedicalMundi\TodoList\Module;
 
 (
     static function (): void {
-        require __DIR__ . '/todo-list/src/isModuleStandAlone.php';
+        require __DIR__ . '/src/isModuleStandAlone.php';
 
         if ((new isModuleStandAlone)()) {
             require __DIR__ . '/vendor/autoload.php';

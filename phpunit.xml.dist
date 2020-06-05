@@ -10,19 +10,17 @@
     <testsuites>
         <testsuite name="all">
             <directory>./tests</directory>
-            <directory>./todo-list/tests</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
             <directory>./src</directory>
-            <directory>./todo-list/src</directory>
             <exclude>
-                <file>./todo-list/src/Adapter/Http/Web/HomeController.php</file>
-                <file>./todo-list/src/Adapter/Http/Web/AboutController.php</file>
-                <file>./todo-list/src/Adapter/Http/Web/HelpController.php</file>
-                <file>./todo-list/src/Adapter/Http/Web/ToDoListController.php</file>
+                <file>./src/Adapter/Http/Web/HomeController.php</file>
+                <file>./src/Adapter/Http/Web/AboutController.php</file>
+                <file>./src/Adapter/Http/Web/HelpController.php</file>
+                <file>./src/Adapter/Http/Web/ToDoListController.php</file>
             </exclude>
         </whitelist>
     </filter>

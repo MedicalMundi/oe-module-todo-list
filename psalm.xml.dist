@@ -8,11 +8,10 @@
 
     <projectFiles>
         <directory name="src/"/>
-        <directory name="todo-list/src/"/>
         <ignoreFiles allowMissingFiles="true">
             <directory name="vendor/"/>
             <directory name="var/"/>
-            <directory name="todo-list/src/Config/"/>
+            <directory name="src/Config/"/>
         </ignoreFiles>
     </projectFiles>
 
@@ -39,7 +38,6 @@
         </RedundantCondition>
         <PropertyNotSetInConstructor>
             <errorLevel type="info">
-                <directory name="todo-list/tests/" />
                 <directory name="tests/" />
             </errorLevel>
         </PropertyNotSetInConstructor>
@@ -52,12 +50,12 @@
         <!-- false positives UseCase Interface are defined without return type. -->
         <MissingReturnType>
             <errorLevel type="info">
-                <directory name="todo-list/src/Application/Port/In" />
+                <directory name="src/Application/Port/In" />
             </errorLevel>
         </MissingReturnType>
         <UndefinedGlobalVariable>
             <errorLevel type="error">
-                <file name="todo-list/src/Config/container-config.php" />
+                <file name="src/Config/container-config.php" />
             </errorLevel>
         </UndefinedGlobalVariable>
     </issueHandlers>

@@ -1,3 +1,97 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: "#^Method MedicalMundi\\\\TodoList\\\\Adapter\\\\Http\\\\Web\\\\AddTodoController\\:\\:__invoke\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Adapter/Http/Web/AddTodoController.php
+
+		-
+			message: "#^Method MedicalMundi\\\\TodoList\\\\Adapter\\\\Http\\\\Web\\\\ToDoListController\\:\\:__invoke\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Adapter/Http/Web/ToDoListController.php
+
+		-
+			message: "#^Method MedicalMundi\\\\TodoList\\\\Adapter\\\\Http\\\\Web\\\\ToDoReadController\\:\\:__invoke\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Adapter/Http/Web/ToDoReadController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Adapter/Http/Web/ToDoReadController.php
+
+		-
+			message: "#^Method MedicalMundi\\\\TodoList\\\\Adapter\\\\Persistence\\\\FileSystem\\\\JsonTodoRepository\\:\\:todoToArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Adapter/Persistence/FileSystem/JsonTodoRepository.php
+
+		-
+			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/Adapter/Persistence/FileSystem/JsonTodoRepository.php
+
+		-
+			message: "#^Method MedicalMundi\\\\TodoList\\\\Adapter\\\\Persistence\\\\FileSystem\\\\TodoDataTransformer\\:\\:transformFromTodo\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Adapter/Persistence/FileSystem/TodoDataTransformer.php
+
+		-
+			message: "#^Property MedicalMundi\\\\TodoList\\\\Domain\\\\Todo\\\\TodoId\\:\\:\\$uuid has no typehint specified\\.$#"
+			count: 1
+			path: src/Domain/Todo/TodoId.php
+
+		-
+			message: "#^Parameter \\#1 \\$content of method Nyholm\\\\Psr7\\\\Factory\\\\Psr17Factory\\:\\:createStream\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/Module.php
+
+		-
+			message: "#^Property MedicalMundi\\\\TodoList\\\\Tests\\\\Functional\\\\PersistenceAdapter\\\\InMemoryTodoRepositoryTest\\:\\:\\$repository \\(MedicalMundi\\\\TodoList\\\\Adapter\\\\Persistence\\\\InMemory\\\\InMemoryTodoRepository\\) does not accept null\\.$#"
+			count: 1
+			path: tests/Functional/PersistenceAdapter/InMemoryTodoRepositoryTest.php
+
+		-
+			message: "#^Property MedicalMundi\\\\TodoList\\\\Tests\\\\Functional\\\\PersistenceAdapter\\\\JsonTodoRepositoryTest\\:\\:\\$repository \\(MedicalMundi\\\\TodoList\\\\Adapter\\\\Persistence\\\\FileSystem\\\\JsonTodoRepository\\) does not accept null\\.$#"
+			count: 1
+			path: tests/Functional/PersistenceAdapter/JsonTodoRepositoryTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$todoArray of method MedicalMundi\\\\TodoList\\\\Adapter\\\\Persistence\\\\FileSystem\\\\TodoDataTransformer\\:\\:transformFromArray\\(\\) expects array\\<int, mixed\\>, array\\<string, array\\<string, string\\>\\> given\\.$#"
+			count: 1
+			path: tests/Functional/PersistenceAdapter/TodoDataTransformerTest.php
+
+		-
+			message: "#^Property MedicalMundi\\\\TodoList\\\\Tests\\\\Functional\\\\PersistenceAdapter\\\\TodoDataTransformerTest\\:\\:\\$transformer \\(MedicalMundi\\\\TodoList\\\\Adapter\\\\Persistence\\\\FileSystem\\\\TodoDataTransformer\\) does not accept null\\.$#"
+			count: 1
+			path: tests/Functional/PersistenceAdapter/TodoDataTransformerTest.php
+
+		-
+			message: "#^Property MedicalMundi\\\\TodoList\\\\Tests\\\\Integration\\\\AddTodoServiceTest\\:\\:\\$useCase \\(MedicalMundi\\\\TodoList\\\\Application\\\\AddTodoService\\) does not accept null\\.$#"
+			count: 1
+			path: tests/Integration/AddTodoServiceTest.php
+
+		-
+			message: "#^Property MedicalMundi\\\\TodoList\\\\Tests\\\\Integration\\\\AddTodoServiceTest\\:\\:\\$repository \\(MedicalMundi\\\\TodoList\\\\Application\\\\Port\\\\Out\\\\Persistence\\\\AddTodoPort&PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\) does not accept null\\.$#"
+			count: 1
+			path: tests/Integration/AddTodoServiceTest.php
+
+		-
+			message: "#^Property MedicalMundi\\\\TodoList\\\\Tests\\\\ModuleUnitTest\\:\\:\\$router has unknown class MedicalMundi\\\\TodoList\\\\Tests\\\\MockObject as its type\\.$#"
+			count: 1
+			path: tests/ModuleUnitTest.php
+
+		-
+			message: "#^Property MedicalMundi\\\\TodoList\\\\Tests\\\\ModuleUnitTest\\:\\:\\$router \\(League\\\\Route\\\\Router&MedicalMundi\\\\TodoList\\\\Tests\\\\MockObject\\) does not accept League\\\\Route\\\\Router&PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\.$#"
+			count: 1
+			path: tests/ModuleUnitTest.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: tests/ModuleUnitTest.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 2
+			path: tests/Unit/Controller/AddTodoControllerTest.php
 
