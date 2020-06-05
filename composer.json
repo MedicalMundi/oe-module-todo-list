@@ -33,7 +33,7 @@
         "symfony/config": "^3.4 || ^4.4",
         "symfony/dependency-injection": "^3.4 || ^4.4",
         "symfony/event-dispatcher": "^3.4 || ^4.4",
-        "twig/twig": "^3.0",
+        "twig/twig": "^2.12 || ^3.0",
         "webmozart/assert": "^1.8"
     },
     "require-dev": {
