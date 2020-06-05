@@ -1,0 +1,43 @@
+{% extends 'bootstrap-layout.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    <!-- Navbar -->
+    {{ include('partials/_navbar.html.twig') }}
+    <div class="container pt-3 border">
+        <div class="row">
+            <div class="container">
+                <h1>Title</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Todo id: </th>
+                        <td>{{ todo.id ? todo.id : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Title</th>
+                        <td>{{ todo.title ? todo.title : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ todo.description ? todo.description : '' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3">
+                <div class="d-flex flex-column">
+                    side menu (todo...)
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
