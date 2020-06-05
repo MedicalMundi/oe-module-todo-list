@@ -29,7 +29,7 @@ class TitleTest extends TestCase
     }
 
     /** @test */
-    public function can_be_campared(): void
+    public function can_be_compared(): void
     {
         $first = Title::fromString(self::VALID_TITLE);
         $second = Title::fromString('a secoond title');
