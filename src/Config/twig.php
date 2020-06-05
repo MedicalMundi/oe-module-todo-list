@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-$moduleDir = \dirname(__DIR__, 3);
-//var_dump($moduleDir);
-$loader = new \Twig\Loader\FilesystemLoader("$moduleDir/todo-list/src/Adapter/Http/Web/Template");
+$moduleDir = \dirname(__DIR__, 2);
+
+$loader = new \Twig\Loader\FilesystemLoader($moduleDir."/src/Adapter/Http/Web/Template");
 
 $twigOptions =[];
 

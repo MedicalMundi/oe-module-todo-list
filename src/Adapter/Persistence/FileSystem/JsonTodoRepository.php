@@ -54,6 +54,7 @@ class JsonTodoRepository implements AddTodoPort, LoadTodoPort
             'id' => $todo->id()->toString(),
             'title' => $todo->title()->toString()
         ];
+
         return [
             $key => $value
         ];

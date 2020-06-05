@@ -39,6 +39,7 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
         "phpstan/phpstan": "^0.12.9",
+        "phpstan/phpstan-phpunit": "^0.12.11",
         "phpunit/phpunit": "~8.4",
         "prolic/fpp": "^0.1",
         "symfony/var-dumper": "^3.4",
@@ -57,14 +58,12 @@
     },
     "autoload": {
         "psr-4": {
-            "OpenEMR\\Modules\\MedicalMundiTodoList\\": "src/",
-            "MedicalMundi\\TodoList\\": "todo-list/src/"
+            "MedicalMundi\\TodoList\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "OpenEMR\\Modules\\MedicalMundiTodoList\\Tests\\": "tests/",
-            "MedicalMundi\\TodoList\\Tests\\": "todo-list/tests/"
+            "MedicalMundi\\TodoList\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "stable"
