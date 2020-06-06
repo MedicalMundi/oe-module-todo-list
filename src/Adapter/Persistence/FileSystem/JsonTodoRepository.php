@@ -5,13 +5,14 @@ namespace MedicalMundi\TodoList\Adapter\Persistence\FileSystem;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use MedicalMundi\TodoList\Application\Port\Out\Persistence\AddTodoPort;
+use MedicalMundi\TodoList\Application\Port\Out\Persistence\FindTodosPort;
 use MedicalMundi\TodoList\Application\Port\Out\Persistence\LoadTodoPort;
 use MedicalMundi\TodoList\Domain\Todo\Exception\CouldNotRetrieveTodo;
 use MedicalMundi\TodoList\Domain\Todo\Exception\CouldNotSaveTodo;
 use MedicalMundi\TodoList\Domain\Todo\Todo;
 use MedicalMundi\TodoList\Domain\Todo\TodoId;
 
-class JsonTodoRepository implements AddTodoPort, LoadTodoPort
+class JsonTodoRepository implements AddTodoPort, LoadTodoPort, FindTodosPort
 {
     /** @var string */
     private $filename;
@@ -109,5 +110,14 @@ class JsonTodoRepository implements AddTodoPort, LoadTodoPort
         }
 
         return $todo;
+    }
+
+    /**
+     * @return Todo[]
+     */
+    public function findTodos(): array
+    {
+        $this->readData();
+        return $this->todos->getValues();
     }
 }

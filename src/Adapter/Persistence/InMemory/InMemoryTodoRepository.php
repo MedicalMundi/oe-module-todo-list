@@ -6,13 +6,14 @@ namespace MedicalMundi\TodoList\Adapter\Persistence\InMemory;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use MedicalMundi\TodoList\Application\Port\Out\Persistence\AddTodoPort;
+use MedicalMundi\TodoList\Application\Port\Out\Persistence\FindTodosPort;
 use MedicalMundi\TodoList\Application\Port\Out\Persistence\LoadTodoPort;
 use MedicalMundi\TodoList\Domain\Todo\Exception\CouldNotRetrieveTodo;
 use MedicalMundi\TodoList\Domain\Todo\Exception\CouldNotSaveTodo;
 use MedicalMundi\TodoList\Domain\Todo\Todo;
 use MedicalMundi\TodoList\Domain\Todo\TodoId;
 
-class InMemoryTodoRepository implements AddTodoPort, LoadTodoPort
+class InMemoryTodoRepository implements AddTodoPort, LoadTodoPort, FindTodosPort
 {
     /** @var ArrayCollection<string, Todo> $todos */
     private $todos;
@@ -56,5 +57,13 @@ class InMemoryTodoRepository implements AddTodoPort, LoadTodoPort
         }
 
         return $todo;
+    }
+
+    /**
+     * @return Todo[]
+     */
+    public function findTodos(): array
+    {
+        return $this->todos->getValues();
     }
 }

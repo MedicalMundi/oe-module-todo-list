@@ -67,6 +67,20 @@ class JsonTodoRepositoryTest extends TestCase
         $this->repository->withTodoId($todoId);
     }
 
+    /** @test */
+    public function should_find_all_todos(): void
+    {
+        $this->repository->addTodo($this->generateFixtureTodo());
+        $this->repository->addTodo($this->generateFixtureTodo());
+        $this->repository->addTodo($this->generateFixtureTodo());
+
+        $result = $this->repository->findTodos();
+
+        self::assertNotEmpty($result);
+        self::assertIsArray($result);
+        self::assertEquals(3, count($result));
+    }
+
     private function generateFixtureTodo(string $uuid = null): Todo
     {
         $todoId = $uuid ?TodoId::fromString($uuid) : TodoId::generate();
