@@ -67,6 +67,10 @@ fix-oe-instance-permission:
 
 stop-oe-instance:
 	echo "Stop Openemr instance version: ${OE_RELEASE_ENV}"
+	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml down
+
+clean-oe-instance:
+	echo "Stop Openemr instance version: ${OE_RELEASE_ENV}"
 	docker-compose -f var/openemr-instance/${OE_RELEASE_ENV}/docker-compose.yml down -v
 
 
