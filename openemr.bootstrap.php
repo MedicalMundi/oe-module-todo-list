@@ -12,7 +12,8 @@ function oe_module_TodoList_add_menu_item(MenuEvent $event)
     $menuItem->target = 'mod';
     $menuItem->menu_id = 'mod0';
     $menuItem->label = xlt("TodoList");
-    $menuItem->url = "/interface/modules/custom_modules/oe-module-todo-list";
+    //$menuItem->url = "/interface/modules/custom_modules/oe-module-todo-list";
+    $menuItem->url = "/interface/modules/custom_modules/oe-module-todo-list/todos";
     $menuItem->children = [];
     $menuItem->acl_req = [];
     $menuItem->global_req = [];
