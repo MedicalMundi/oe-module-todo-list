@@ -33,23 +33,8 @@ class ToDoListController
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
     {
-//        $page = '<div><h1>ToDoList Controller !!</h1></div>';
-//        $page .= '<div>request_uri: '.$request->getUri().'</div>';
-//        $page .= '<div>arguments count: '.count($args).'</div>';
-//        $page .= '<hr>';
-//        $page .= '<hr>';
-//        $page .= '<div>Menu</div>';
-//        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('main').'">home page</a></div>';
-//        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('about').'">about page</a></div>';
-//        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('help').'">help page</a></div>';
-//        $page .= '<hr>';
-//        $page .= '<hr>';
-//        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('todo-list').'">show todo list</a></div>';
-//        $page .= '<div>Link test - <a href="'.$request->getUri().'/23'.'">show todo by id 23</a></div>';
-//        $page .= '<hr>';
-
-
         $todos = $this->repository->findTodos();
+
         $content = $this->templateEngine->render('todo/list.html.twig', [
             'todos' => $todos,
         ]);
