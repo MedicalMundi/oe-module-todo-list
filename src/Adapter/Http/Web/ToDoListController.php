@@ -5,43 +5,58 @@ namespace MedicalMundi\TodoList\Adapter\Http\Web;
 
 use MedicalMundi\TodoList\Adapter\Http\Common\UrlService;
 
+use MedicalMundi\TodoList\Application\Port\Out\Persistence\FindTodosPort;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Twig\Environment;
 
 class ToDoListController
 {
+    /** @var FindTodosPort */
+    private $repository;
+
     /** @var UrlService */
     private $urlService;
 
+    /** @var Environment */
+    private $templateEngine;
     /**
      * TodoListController constructor.
      * @param UrlService $urlService
      */
-    public function __construct(UrlService $urlService)
+    public function __construct(FindTodosPort $repository, UrlService $urlService, Environment $templateEngine)
     {
+        $this->repository = $repository;
         $this->urlService = $urlService;
+        $this->templateEngine = $templateEngine;
     }
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
     {
-        $page = '<div><h1>ToDoList Controller !!</h1></div>';
-        $page .= '<div>request_uri: '.$request->getUri().'</div>';
-        $page .= '<div>arguments count: '.count($args).'</div>';
-        $page .= '<hr>';
-        $page .= '<hr>';
-        $page .= '<div>Menu</div>';
-        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('main').'">home page</a></div>';
-        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('about').'">about page</a></div>';
-        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('help').'">help page</a></div>';
-        $page .= '<hr>';
-        $page .= '<hr>';
-        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('todo-list').'">show todo list</a></div>';
-        $page .= '<div>Link test - <a href="'.$request->getUri().'/23'.'">show todo by id 23</a></div>';
-        $page .= '<hr>';
+//        $page = '<div><h1>ToDoList Controller !!</h1></div>';
+//        $page .= '<div>request_uri: '.$request->getUri().'</div>';
+//        $page .= '<div>arguments count: '.count($args).'</div>';
+//        $page .= '<hr>';
+//        $page .= '<hr>';
+//        $page .= '<div>Menu</div>';
+//        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('main').'">home page</a></div>';
+//        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('about').'">about page</a></div>';
+//        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('help').'">help page</a></div>';
+//        $page .= '<hr>';
+//        $page .= '<hr>';
+//        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('todo-list').'">show todo list</a></div>';
+//        $page .= '<div>Link test - <a href="'.$request->getUri().'/23'.'">show todo by id 23</a></div>';
+//        $page .= '<hr>';
+
+
+        $todos = $this->repository->findTodos();
+        $content = $this->templateEngine->render('todo/list.html.twig', [
+            'todos' => $todos,
+        ]);
 
         $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();
 
-        $responseBody = $psr17Factory->createStream($page);
+        $responseBody = $psr17Factory->createStream($content);
 
         return $psr17Factory->createResponse(200)->withBody($responseBody);
     }

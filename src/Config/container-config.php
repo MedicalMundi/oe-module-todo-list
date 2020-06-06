@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use MedicalMundi\TodoList\Adapter\Http\Web\ToDoListController;
 use MedicalMundi\TodoList\Adapter\Http\Web\ToDoReadController;
 use MedicalMundi\TodoList\Adapter\Http\Web\WebController;
 use MedicalMundi\TodoList\Adapter\Persistence\FileSystem\JsonTodoRepository;
@@ -79,6 +80,17 @@ $container
     ->addArgument(new Reference('Twig\Environment'))
     ->setPublic(true)
 ;
+
+$container
+    ->register('MedicalMundi\TodoList\Adapter\Http\Web\ToDoListController', ToDoListController::class)
+    ->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\FileSystem\JsonTodoRepository'))
+    //->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository'))
+    ->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Http\Common\UrlService'))
+    ->addArgument(new Reference('Twig\Environment'))
+    ->setPublic(true)
+;
+
+
 
 $container
     ->register('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository', InMemoryTodoRepository::class)
