@@ -14,7 +14,7 @@ final class TodoId
 
     public static function fromString(string $todoId): TodoId
     {
-        return new self(\Ramsey\Uuid\Uuid::fromString($todoId));
+        return new self(\Ramsey\Uuid\Uuid::fromString(trim($todoId)));
     }
 
     private function __construct(\Ramsey\Uuid\UuidInterface $todoId)
