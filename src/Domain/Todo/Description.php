@@ -13,6 +13,7 @@ final class Description
 
     public function __construct(string $value)
     {
+        $value = trim($value);
         if (strlen($value) < self::MIN_LENGHT || strlen($value) > self::MAX_LENGHT) {
             throw new \InvalidArgumentException(sprintf('Description should be min %s char and max %s char.', self::MIN_LENGHT, self::MAX_LENGHT));
         }

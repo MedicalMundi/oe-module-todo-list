@@ -13,6 +13,7 @@ final class Title
 
     public function __construct(string $value)
     {
+        $value = trim($value);
         if (strlen($value) < self::MIN_LENGHT || strlen($value) > self::MAX_LENGHT) {
             throw new \InvalidArgumentException(sprintf('Title should be min %s char and max %s char.', self::MIN_LENGHT, self::MAX_LENGHT));
         }

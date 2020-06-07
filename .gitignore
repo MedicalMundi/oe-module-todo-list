@@ -2,6 +2,7 @@
 /vendor
 /extra
 /var
+/src/Adapter/Persistence/todos.json
 
 
 composer.lock

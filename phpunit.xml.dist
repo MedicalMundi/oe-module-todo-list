@@ -20,7 +20,6 @@
                 <file>./src/Adapter/Http/Web/HomeController.php</file>
                 <file>./src/Adapter/Http/Web/AboutController.php</file>
                 <file>./src/Adapter/Http/Web/HelpController.php</file>
-                <file>./src/Adapter/Http/Web/ToDoListController.php</file>
             </exclude>
         </whitelist>
     </filter>
