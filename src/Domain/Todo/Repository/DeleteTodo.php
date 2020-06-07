@@ -1,15 +1,16 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: zero
- * Date: 07/06/20
- * Time: 19.45
- */
+<?php declare(strict_types=1);
+
 
 namespace MedicalMundi\TodoList\Domain\Todo\Repository;
 
+use MedicalMundi\TodoList\Domain\Todo\Exception\CouldNotDeleteTodo;
+use MedicalMundi\TodoList\Domain\Todo\TodoId;
 
-class DeleteTodo
+interface DeleteTodo
 {
-
+    /**
+     * @param TodoId $todoId
+     * @throws CouldNotDeleteTodo
+     */
+    public function deleteTodoWithId(TodoId $todoId): void;
 }
