@@ -30,6 +30,16 @@ class Todo implements TodoInterface
         return $this->todoId;
     }
 
+    public function changeTitle(Title $title): void
+    {
+        $this->title = $title;
+    }
+
+    public function changeDescription(Description $description): void
+    {
+        $this->description = $description;
+    }
+
     public function title(): Title
     {
         return $this->title;
