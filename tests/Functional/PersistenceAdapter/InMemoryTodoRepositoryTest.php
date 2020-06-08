@@ -81,8 +81,17 @@ class InMemoryTodoRepositoryTest extends TestCase
         self::assertEquals(3, count($result));
     }
 
+    /** @test */
+    public function should_delete_a_todo(): void
+    {
+        $this->repository->addTodo($todo = $this->generateFixtureTodo());
+        $this->repository->addTodo($this->generateFixtureTodo());
+        $this->repository->addTodo($this->generateFixtureTodo());
 
+        $this->repository->deleteTodoWithId($todo->id());
 
+        self::assertEquals(2, count($this->repository->findTodos()));
+    }
 
     private function generateFixtureTodo(string $uuid = null): Todo
     {
