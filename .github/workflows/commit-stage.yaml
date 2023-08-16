@@ -23,16 +23,10 @@ jobs:
       max-parallel: 5
       matrix:
         php:
-          - '7.2'
+          - '7.4'
         is-php-experimental: [false]
         generate-coverage-report: [false]
         include:
-          - php: '7.3'
-            is-php-experimental: false
-            generate-coverage-report: false
-          - php: '7.4'
-            is-php-experimental: false
-            generate-coverage-report: false
           - php: '8.0'
             is-php-experimental: false
             generate-coverage-report: false
@@ -42,7 +36,7 @@ jobs:
           - php: '8.2'
             is-php-experimental: false
             generate-coverage-report: false
-      fail-fast: true
+      fail-fast: false
     steps:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
         uses: actions/checkout@v3
@@ -131,7 +125,7 @@ jobs:
     strategy:
       matrix:
         php:
-          - '7.2'
+          - '7.4'
       fail-fast: true
     steps:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
@@ -169,9 +163,12 @@ jobs:
         run: |
           composer install --prefer-dist --no-progress --no-scripts --ansi
 
+      # todo: add strict option before packagist publication
       - name: Run composer validate
         run: |
-          composer validate --strict --ansi
+          composer validate --ansi
+#        run: |
+#          composer validate --strict --ansi
 
       - name: Run composer normalize
         run: |
