@@ -11,26 +11,24 @@ use Psr\Log\LoggerInterface;
 
 class AddTodoService implements AddTodoUseCase
 {
-    /** @var AddTodoPort */
+    /**
+     * @var AddTodoPort
+     */
     private $todoStorageService;
 
-    /** @var LoggerInterface */
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
 
-    /**
-     * AddTodoService constructor.
-     * @param AddTodoPort $todoStorageService
-     * @param LoggerInterface $logger
-     */
+    
     public function __construct(AddTodoPort $todoStorageService, LoggerInterface $logger)
     {
         $this->todoStorageService = $todoStorageService;
         $this->logger = $logger;
     }
 
-    /**
-     * @param AddTodoCommand $command
-     */
+
     public function addTodo(AddTodoCommand $command): void
     {
         try {

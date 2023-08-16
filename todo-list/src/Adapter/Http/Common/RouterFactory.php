@@ -23,10 +23,10 @@ class RouterFactory
     {
         $strategy = new ApplicationStrategy();
         $strategy->setContainer($container);
-        $router   = new Router();
+        $router = new Router();
         $router->setStrategy($strategy);
 
-        if ((new isModuleStandAlone)()) {
+        if ((new isModuleStandAlone())()) {
             $prefix = '';
             $routerGroupTodoUrl = '/todos';
             $routerGroupModuleSettingUrl = '/module-setting';
@@ -36,20 +36,19 @@ class RouterFactory
             $routerGroupModuleSettingUrl = self::PREFIX_URL . '/module-setting';
         }
 
-        $router->map('GET', $prefix.'/', HomeController::class);
-        $router->map('GET', $prefix.'/about', AboutController::class);
-        $router->map('GET', $prefix.'/help', HelpController::class);
+        $router->map('GET', $prefix . '/', HomeController::class);
+        $router->map('GET', $prefix . '/about', AboutController::class);
+        $router->map('GET', $prefix . '/help', HelpController::class);
 
-        $router->group($routerGroupTodoUrl, function (RouteGroup $route) : void {
+        $router->group($routerGroupTodoUrl, function (RouteGroup $route): void {
             $route->map('GET', '/new', AddToDoController::class);
             $route->map('GET', '/', ToDoListController::class);
             $route->map('GET', '/{id:uuid}', ToDoReadController::class);
         });
 
-        $router->group($routerGroupModuleSettingUrl, function (RouteGroup $route) : void {
+        $router->group($routerGroupModuleSettingUrl, function (RouteGroup $route): void {
             $route->map('GET', '/', HomeController::class);
         });
-
 
         return $router;
     }

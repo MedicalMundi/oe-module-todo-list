@@ -10,8 +10,6 @@ use MedicalMundi\TodoList\Domain\Todo\TodoId;
 interface LoadTodo
 {
     /**
-     * @param TodoId $todoId
-     * @return Todo
      * @throws CouldNotRetrieveTodo
      */
     public function withTodoId(TodoId $todoId): Todo;

@@ -16,18 +16,27 @@ use Twig\Environment;
 class TodoReadControllerTest extends TestCase
 {
     private const UUID = '945a0258-7751-478a-9d01-7d925963c740';
+
     private const INVALID_UUID = '945a0258-7751-478a-9d01-';
 
-    /** @var TodoReadController */
+    /**
+     * @var TodoReadController
+     */
     private $controller;
 
-    /** @var LoadTodoPort|MockObject */
+    /**
+     * @var LoadTodoPort|MockObject
+     */
     private $repository;
 
-    /** @var UrlService|MockObject */
+    /**
+     * @var UrlService|MockObject
+     */
     private $urlService;
 
-    /** @var Environment|MockObject */
+    /**
+     * @var Environment|MockObject
+     */
     private $templateEngine;
 
     protected function setUp(): void
@@ -44,7 +53,9 @@ class TodoReadControllerTest extends TestCase
 
     public function testSuccess(): void
     {
-        $params = ['id' => self::UUID];
+        $params = [
+            'id' => self::UUID,
+        ];
         $request = new ServerRequest('GET', '/todos/', [], null, '1.1', $params);
 
         $this->repository
@@ -63,10 +74,14 @@ class TodoReadControllerTest extends TestCase
         self::assertSame(200, $response->getStatusCode());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function canHandleInvalidUuidRequestParam(): void
     {
-        $params = ['id' => self::INVALID_UUID];
+        $params = [
+            'id' => self::INVALID_UUID,
+        ];
         $request = new ServerRequest('GET', '/todos/', [], null, '1.1', $params);
 
         $this->expectException(InvalidUuidStringException::class);

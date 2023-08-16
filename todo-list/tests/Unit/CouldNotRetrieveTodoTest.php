@@ -10,7 +10,9 @@ class CouldNotRetrieveTodoTest extends TestCase
 {
     private const UUID = '048a23d9-db59-4d49-87e0-36a05ee08593';
 
-    /** @test */
+    /**
+     * @test
+     */
     public function when_database_connection_is_down_should_return_a_correct_error_message(): void
     {
         $this->expectException(CouldNotRetrieveTodo::class);
@@ -19,7 +21,9 @@ class CouldNotRetrieveTodoTest extends TestCase
         throw CouldNotRetrieveTodo::becauseDatabaseConnection();
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function when_unknow_database_error_occour_should_return_a_generic_error_message(): void
     {
         $this->expectException(CouldNotRetrieveTodo::class);

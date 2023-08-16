@@ -11,7 +11,9 @@ class CouldNotSaveTodoTest extends TestCase
 {
     private const UUID = '048a23d9-db59-4d49-87e0-36a05ee08593';
 
-    /** @test */
+    /**
+     * @test
+     */
     public function when_todo_doest_exist_should_return_a_correct_error_message(): void
     {
         $this->expectException(CouldNotSaveTodo::class);
@@ -20,7 +22,9 @@ class CouldNotSaveTodoTest extends TestCase
         throw CouldNotSaveTodo::becauseTodoNotExist(TodoId::fromString(self::UUID)->toString());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function when_a_duplicated_todo_id_is_detected_should_return_a_correct_error_message(): void
     {
         $this->expectException(CouldNotSaveTodo::class);
@@ -29,7 +33,9 @@ class CouldNotSaveTodoTest extends TestCase
         throw CouldNotSaveTodo::becauseDuplicateTodoIdDetected(TodoId::fromString(self::UUID)->toString());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function when_database_connection_is_down_should_return_a_correct_error_message(): void
     {
         $this->expectException(CouldNotSaveTodo::class);
@@ -38,7 +44,9 @@ class CouldNotSaveTodoTest extends TestCase
         throw CouldNotSaveTodo::becauseDatabaseConnection();
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function when_unknow_database_error_occour_should_return_a_generic_error_message(): void
     {
         $this->expectException(CouldNotSaveTodo::class);

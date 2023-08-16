@@ -12,9 +12,12 @@ use PHPUnit\Framework\TestCase;
 class TodoDataTransformerTest extends TestCase
 {
     private const UUID = '945a0258-7751-478a-9d01-7d925963c740';
+
     private const TITLE = 'irrelevant title';
 
-    /** @var TodoDataTransformer */
+    /**
+     * @var TodoDataTransformer
+     */
     private $transformer;
 
     protected function setUp(): void
@@ -22,7 +25,9 @@ class TodoDataTransformerTest extends TestCase
         $this->transformer = new TodoDataTransformer();
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_transform_TodoInput_in_to_array(): void
     {
         $todoInput = new Todo(
@@ -39,10 +44,17 @@ class TodoDataTransformerTest extends TestCase
         self::assertEquals(self::TITLE, $result['title']);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_transform_arrayInput_to_Todo_object(): void
     {
-        $input =   [self::UUID => ['id' => self::UUID, 'title' => self::TITLE]];
+        $input = [
+            self::UUID => [
+                'id' => self::UUID,
+                'title' => self::TITLE,
+            ],
+        ];
 
         $result = $this->transformer->transformFromArray($input);
 
@@ -51,7 +63,9 @@ class TodoDataTransformerTest extends TestCase
         self::assertEquals(self::TITLE, $result->title()->toString());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_throw_transform_exception(): void
     {
         self::markTestIncomplete('Implement..');

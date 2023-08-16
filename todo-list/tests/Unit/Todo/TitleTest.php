@@ -9,9 +9,12 @@ use PHPUnit\Framework\TestCase;
 class TitleTest extends TestCase
 {
     private const VALID_TITLE = 'A valid title';
+
     private const INVALID_TITLE = '';
 
-    /** @test */
+    /**
+     * @test
+     */
     public function can_be_created(): void
     {
         $title = Title::fromString(self::VALID_TITLE);
@@ -19,7 +22,9 @@ class TitleTest extends TestCase
         self::assertEquals(self::VALID_TITLE, $title->value());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_return_value_as_string(): void
     {
         $title = Title::fromString(self::VALID_TITLE);
@@ -28,7 +33,9 @@ class TitleTest extends TestCase
         self::assertEquals(self::VALID_TITLE, $title->__toString());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function can_be_compared(): void
     {
         $first = Title::fromString(self::VALID_TITLE);
@@ -40,7 +47,9 @@ class TitleTest extends TestCase
         self::assertFalse($second->equals($copyOfFirst));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function short_values_should_throw_exception(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -49,7 +58,9 @@ class TitleTest extends TestCase
         Title::fromString(self::INVALID_TITLE);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function long_values_should_throw_exception(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -60,7 +71,9 @@ class TitleTest extends TestCase
         Title::fromString($longTitle);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function invalid_values_should_throw_exception(): void
     {
         self::markTestIncomplete('Add dataprovider, check invalid char, sql injection, ecc..');

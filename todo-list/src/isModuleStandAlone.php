@@ -7,7 +7,7 @@ class isModuleStandAlone
 {
     public function __invoke(): bool
     {
-        return !file_exists($this->getGlobalsFile());
+        return ! file_exists($this->getGlobalsFile());
     }
 
     private function getGlobalsFile(): string

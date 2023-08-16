@@ -12,33 +12,31 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class HelpController
 {
-    /** @var UrlService */
+    /**
+     * @var UrlService
+     */
     private $urlService;
 
-    /**
-     * AboutController constructor.
-     * @param UrlService $urlService
-     */
+    
     public function __construct(UrlService $urlService)
     {
         $this->urlService = $urlService;
     }
+
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
     {
-        $page = '<div><h1>Help controller !!<h1> standAlone: '.(new isModuleStandAlone)().'</div>';
-        $page .= '<div>request_uri: '.$request->getUri().'</div>';
+        $page = '<div><h1>Help controller !!<h1> standAlone: ' . (new isModuleStandAlone())() . '</div>';
+        $page .= '<div>request_uri: ' . $request->getUri() . '</div>';
         $page .= '<hr>';
         $page .= '<hr>';
         $page .= '<div>Menu</div>';
-        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('main').'">home page</a></div>';
-        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('about').'">about page</a></div>';
-        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('help').'">help page</a></div>';
+        $page .= '<div>Link test - <a href="' . $this->urlService->renderUrl('main') . '">home page</a></div>';
+        $page .= '<div>Link test - <a href="' . $this->urlService->renderUrl('about') . '">about page</a></div>';
+        $page .= '<div>Link test - <a href="' . $this->urlService->renderUrl('help') . '">help page</a></div>';
         $page .= '<hr>';
         $page .= '<hr>';
-        $page .= '<div>Link test - <a href="'.$this->urlService->renderUrl('todo-list').'">show todo list</a></div>';
-        $page .= '<div>Link test - <a href="'.$request->getUri().'todos/23'.'">show todo by id 23</a></div>';
-
-
+        $page .= '<div>Link test - <a href="' . $this->urlService->renderUrl('todo-list') . '">show todo list</a></div>';
+        $page .= '<div>Link test - <a href="' . $request->getUri() . 'todos/23' . '">show todo by id 23</a></div>';
 
         $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();
         $responseBody = $psr17Factory->createStream($page);

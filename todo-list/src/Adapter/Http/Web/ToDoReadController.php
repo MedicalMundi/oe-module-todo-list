@@ -12,20 +12,22 @@ use Twig\Environment;
 
 class ToDoReadController
 {
-    /** @var LoadTodoPort */
+    /**
+     * @var LoadTodoPort
+     */
     private $repository;
 
-    /** @var UrlService */
+    /**
+     * @var UrlService
+     */
     private $urlService;
 
-    /** @var Environment */
+    /**
+     * @var Environment
+     */
     private $templateEngine;
 
-    /**
-     * TodoListController constructor.
-     * @param LoadTodoPort $repository
-     * @param UrlService $urlService
-     */
+    
     public function __construct(LoadTodoPort $repository, UrlService $urlService, Environment $templateEngine)
     {
         $this->repository = $repository;
@@ -35,8 +37,8 @@ class ToDoReadController
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
     {
-        $todoId = TodoId::fromString((string)$args['id']);
-        if (!$todo = $this->repository->withTodoId($todoId)) {
+        $todoId = TodoId::fromString((string) $args['id']);
+        if (! $todo = $this->repository->withTodoId($todoId)) {
             die('fix this in ToDoReadController ');
         };
 

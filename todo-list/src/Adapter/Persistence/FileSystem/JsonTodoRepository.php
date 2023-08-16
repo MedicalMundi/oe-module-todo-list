@@ -14,25 +14,28 @@ use MedicalMundi\TodoList\Domain\Todo\TodoId;
 
 class JsonTodoRepository implements AddTodoPort, LoadTodoPort, FindTodosPort
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $filename;
 
-    /** @var ArrayCollection<string, Todo> $todos */
+    /**
+     * @var ArrayCollection<string, Todo>
+     */
     private $todos;
 
-    /** @var TodoDataTransformer */
+    /**
+     * @var TodoDataTransformer
+     */
     private $transformer;
 
-    /**
-     * JsonTodoRepository constructor.
-     * @param string $filename
-     */
-    public function __construct(string $filename='todos.json')
+    
+    public function __construct(string $filename = 'todos.json')
     {
         $dataDir = \dirname(__DIR__);
-        $this->filename = $dataDir.'/'.$filename;
+        $this->filename = $dataDir . '/' . $filename;
         $this->transformer = new TodoDataTransformer();
-        $this->todos= new arrayCollection();
+        $this->todos = new arrayCollection();
     }
 
     private function writeData(): void
@@ -47,17 +50,16 @@ class JsonTodoRepository implements AddTodoPort, LoadTodoPort, FindTodosPort
         file_put_contents($this->filename, $jsonData);
     }
 
-
     private function todoToArray(Todo $todo): array
     {
         $key = $todo->id()->toString();
         $value = [
             'id' => $todo->id()->toString(),
-            'title' => $todo->title()->toString()
+            'title' => $todo->title()->toString(),
         ];
 
         return [
-            $key => $value
+            $key => $value,
         ];
     }
 
@@ -67,9 +69,9 @@ class JsonTodoRepository implements AddTodoPort, LoadTodoPort, FindTodosPort
         $data = array_values(json_decode($jsonData, true));
         $newCollection = new arrayCollection();
         foreach ($data as $key => $value) {
-            $id = (string) array_values(array_values($value)[0])[0] ;
+            $id = (string) array_values(array_values($value)[0])[0];
 
-            $newCollection->set((string)$id, $this->transformer->transformFromArray($value));
+            $newCollection->set((string) $id, $this->transformer->transformFromArray($value));
         }
         $this->todos = $newCollection;
     }
@@ -80,7 +82,6 @@ class JsonTodoRepository implements AddTodoPort, LoadTodoPort, FindTodosPort
     }
 
     /**
-     * @param Todo $todo
      * @throws CouldNotSaveTodo
      */
     public function addTodo(Todo $todo): void
@@ -98,14 +99,12 @@ class JsonTodoRepository implements AddTodoPort, LoadTodoPort, FindTodosPort
     }
 
     /**
-     * @param TodoId $todoId
-     * @return Todo
      * @throws CouldNotRetrieveTodo
      */
     public function withTodoId(TodoId $todoId): Todo
     {
         $this->readData();
-        if (!$todo = $this->todos->get($todoId->toString())) {
+        if (! $todo = $this->todos->get($todoId->toString())) {
             throw CouldNotRetrieveTodo::becauseTodoNotExist($todoId->toString());
         }
 

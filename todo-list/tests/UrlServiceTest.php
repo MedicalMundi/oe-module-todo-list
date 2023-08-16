@@ -10,7 +10,9 @@ class UrlServiceTest extends TestCase
 {
     private const MODULE_MAIN_URL = '/interface/modules/custom_modules/oe-module-todo-list/';
 
-    /** @test */
+    /**
+     * @test
+     */
     public function can_be_created(): void
     {
         $isStandAloneMode = false;
@@ -19,7 +21,9 @@ class UrlServiceTest extends TestCase
         self::assertEquals(self::MODULE_MAIN_URL, $service->baseUrl());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function can_be_created_in_standAlone_mode(): void
     {
         $isStandAloneMode = true;
@@ -28,7 +32,9 @@ class UrlServiceTest extends TestCase
         self::assertEquals('/', $service->baseUrl());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function unknow_routeName_should_throw_exception(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -38,8 +44,9 @@ class UrlServiceTest extends TestCase
         $service->renderUrl('fake-route');
     }
 
-
-    /** @test */
+    /**
+     * @test
+     */
     public function can_render_main_url(): void
     {
         $isStandAloneMode = false;
@@ -49,43 +56,51 @@ class UrlServiceTest extends TestCase
         self::assertEquals(self::MODULE_MAIN_URL, $service->renderUrl('main'));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function can_render_about_url(): void
     {
         $isStandAloneMode = false;
         $service = new UrlService($isStandAloneMode);
 
         self::assertIsString($service->renderUrl('about'));
-        self::assertEquals(self::MODULE_MAIN_URL.'about', $service->renderUrl('about'));
+        self::assertEquals(self::MODULE_MAIN_URL . 'about', $service->renderUrl('about'));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function can_render_help_url(): void
     {
         $isStandAloneMode = false;
         $service = new UrlService($isStandAloneMode);
 
         self::assertIsString($service->renderUrl('help'));
-        self::assertEquals(self::MODULE_MAIN_URL.'help', $service->renderUrl('help'));
+        self::assertEquals(self::MODULE_MAIN_URL . 'help', $service->renderUrl('help'));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function can_render_settings_url(): void
     {
         $isStandAloneMode = false;
         $service = new UrlService($isStandAloneMode);
 
         self::assertIsString($service->renderUrl('settings'));
-        self::assertEquals(self::MODULE_MAIN_URL.'settings', $service->renderUrl('settings'));
+        self::assertEquals(self::MODULE_MAIN_URL . 'settings', $service->renderUrl('settings'));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function can_render_todolist_url(): void
     {
         $isStandAloneMode = false;
         $service = new UrlService($isStandAloneMode);
 
         self::assertIsString($service->renderUrl('todo-list'));
-        self::assertEquals(self::MODULE_MAIN_URL.'todos', $service->renderUrl('todo-list'));
+        self::assertEquals(self::MODULE_MAIN_URL . 'todos', $service->renderUrl('todo-list'));
     }
 }

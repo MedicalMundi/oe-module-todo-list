@@ -12,7 +12,9 @@ use PHPUnit\Framework\TestCase;
 class TodoTest extends TestCase
 {
     private const UUID = '048a23d9-db59-4d49-87e0-36a05ee08593';
+
     private const TITLE = 'A title';
+
     private const DESCRIPTION = 'A description';
 
     /**
@@ -26,7 +28,9 @@ class TodoTest extends TestCase
         new Todo(TodoId::fromString(self::UUID), Title::fromString(self::TITLE));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_return_the_identifier(): void
     {
         $todo = new Todo(TodoId::fromString(self::UUID), Title::fromString(self::TITLE));
@@ -36,7 +40,9 @@ class TodoTest extends TestCase
         self::assertEquals(self::UUID, $id->toString());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_return_the_title(): void
     {
         $todo = new Todo(TodoId::fromString(self::UUID), Title::fromString(self::TITLE));
@@ -46,7 +52,9 @@ class TodoTest extends TestCase
         self::assertEquals(self::TITLE, $title->toString());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function can_assign_a_new_title(): void
     {
         $todo = new Todo(TodoId::fromString(self::UUID), Title::fromString(self::TITLE));
@@ -56,7 +64,9 @@ class TodoTest extends TestCase
         self::assertEquals($newTitle, $todo->title());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function can_assign_a_new_description(): void
     {
         $todo = new Todo(TodoId::fromString(self::UUID), Title::fromString(self::TITLE));
@@ -66,7 +76,9 @@ class TodoTest extends TestCase
         self::assertEquals($newDescription, $todo->description());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_return_null_as_description(): void
     {
         $todo = new Todo(TodoId::fromString(self::UUID), Title::fromString(self::TITLE));

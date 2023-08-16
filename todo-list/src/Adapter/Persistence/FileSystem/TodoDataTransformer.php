@@ -13,7 +13,7 @@ class TodoDataTransformer
     {
         $data = [
             'id' => $todo->id()->toString(),
-            'title' => $todo->title()->toString()
+            'title' => $todo->title()->toString(),
         ];
 
         return $data;
@@ -21,15 +21,14 @@ class TodoDataTransformer
 
     /**
      * @param array <int, mixed> $todoArray
-     * @return Todo
      */
     public function transformFromArray(array $todoArray): Todo
     {
         $data = array_values($todoArray)[0];
         //TODO CHECK MINIMUM DATA EXIST ID AND TITLE
         $todo = new Todo(
-            TodoId::fromString((string)$data['id']),
-            Title::fromString((string)$data['title'])
+            TodoId::fromString((string) $data['id']),
+            Title::fromString((string) $data['title'])
         );
 
         return $todo;

@@ -14,13 +14,19 @@ use Psr\Log\LoggerInterface;
 
 class AddTodoServiceTest extends TestCase
 {
-    /** @var AddTodoPort|MockObject $repository */
+    /**
+     * @var AddTodoPort|MockObject
+     */
     private $repository;
 
-    /** @var LoggerInterface|MockObject $logger */
+    /**
+     * @var LoggerInterface|MockObject
+     */
     private $logger;
 
-    /** @var AddTodoService $useCase */
+    /**
+     * @var AddTodoService
+     */
     private $useCase;
 
     protected function setUp(): void
@@ -30,7 +36,9 @@ class AddTodoServiceTest extends TestCase
         $this->useCase = new AddTodoService($this->repository, $this->logger);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_add_a_new_todo(): void
     {
         $command = $this->getMockBuilder(AddTodoCommand::class)
@@ -52,8 +60,9 @@ class AddTodoServiceTest extends TestCase
         $this->useCase->addTodo($command);
     }
 
-
-    /** @test */
+    /**
+     * @test
+     */
     public function should_log_an_exception(): void
     {
         $command = $this->getMockBuilder(AddTodoCommand::class)

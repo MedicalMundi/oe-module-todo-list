@@ -14,7 +14,9 @@ use PHPUnit\Framework\TestCase;
 
 class InMemoryTodoRepositoryTest extends TestCase
 {
-    /** @var InMemoryTodoRepository */
+    /**
+     * @var InMemoryTodoRepository
+     */
     private $repository;
 
     protected function setUp(): void
@@ -22,7 +24,9 @@ class InMemoryTodoRepositoryTest extends TestCase
         $this->repository = new InMemoryTodoRepository();
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_add_a_todo(): void
     {
         $todo = $this->generateFixtureTodo();
@@ -32,8 +36,9 @@ class InMemoryTodoRepositoryTest extends TestCase
         self::assertInstanceOf(Todo::class, $this->repository->withTodoId($todo->id()));
     }
 
-
-    /** @test */
+    /**
+     * @test
+     */
     public function adding_duplicated_todo_should_throw_exception(): void
     {
         $uuid = '048a23d9-db59-4d49-87e0-36a05ee08593';
@@ -46,7 +51,9 @@ class InMemoryTodoRepositoryTest extends TestCase
         $this->repository->addTodo($todo);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_retrieve_a_todo_by_identifier(): void
     {
         $todo = $this->generateFixtureTodo();
@@ -57,7 +64,9 @@ class InMemoryTodoRepositoryTest extends TestCase
         self::assertTrue($todo->id()->equals($todoFromDatabase->id()));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function loading_todo_for_update_should_throw_exception_if_a_todo_doesnt_exist(): void
     {
         $todoId = TodoId::fromString($uuid = '048a23d9-db59-4d49-87e0-36a05ee08593');
@@ -67,7 +76,9 @@ class InMemoryTodoRepositoryTest extends TestCase
         $this->repository->withTodoId($todoId);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_find_all_todos(): void
     {
         $this->repository->addTodo($this->generateFixtureTodo());
@@ -81,12 +92,9 @@ class InMemoryTodoRepositoryTest extends TestCase
         self::assertEquals(3, count($result));
     }
 
-
-
-
     private function generateFixtureTodo(string $uuid = null): Todo
     {
-        $todoId = $uuid ?TodoId::fromString($uuid) : TodoId::generate();
+        $todoId = $uuid ? TodoId::fromString($uuid) : TodoId::generate();
         $title = Title::fromString('a todo title');
         $description = Description::fromString('a todo description');
 

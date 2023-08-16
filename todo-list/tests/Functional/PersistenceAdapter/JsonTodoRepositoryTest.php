@@ -14,7 +14,9 @@ use PHPUnit\Framework\TestCase;
 
 class JsonTodoRepositoryTest extends TestCase
 {
-    /** @var JsonTodoRepository */
+    /**
+     * @var JsonTodoRepository
+     */
     private $repository;
 
     protected function setUp(): void
@@ -22,7 +24,9 @@ class JsonTodoRepositoryTest extends TestCase
         $this->repository = new JsonTodoRepository();
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_add_a_todo(): void
     {
         $todo = $this->generateFixtureTodo();
@@ -32,7 +36,9 @@ class JsonTodoRepositoryTest extends TestCase
         self::assertInstanceOf(Todo::class, $this->repository->withTodoId($todo->id()));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function adding_duplicated_todo_should_throw_exception(): void
     {
         $uuid = '048a23d9-db59-4d49-87e0-36a05ee08593';
@@ -45,7 +51,9 @@ class JsonTodoRepositoryTest extends TestCase
         $this->repository->addTodo($todo);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_retrieve_a_todo_by_identifier(): void
     {
         $todo = $this->generateFixtureTodo();
@@ -57,7 +65,9 @@ class JsonTodoRepositoryTest extends TestCase
         self::assertTrue($todo->title()->equals($todoFromDatabase->title()));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function loading_todo_for_update_should_throw_exception_if_a_todo_doesnt_exist(): void
     {
         $todoId = TodoId::fromString($uuid = '048a23d9-db59-4d49-87e0-36a05ee08593');
@@ -67,7 +77,9 @@ class JsonTodoRepositoryTest extends TestCase
         $this->repository->withTodoId($todoId);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_find_all_todos(): void
     {
         $this->repository->addTodo($this->generateFixtureTodo());
@@ -83,7 +95,7 @@ class JsonTodoRepositoryTest extends TestCase
 
     private function generateFixtureTodo(string $uuid = null): Todo
     {
-        $todoId = $uuid ?TodoId::fromString($uuid) : TodoId::generate();
+        $todoId = $uuid ? TodoId::fromString($uuid) : TodoId::generate();
         $title = Title::fromString('a todo title');
         $description = Description::fromString('a todo description');
 

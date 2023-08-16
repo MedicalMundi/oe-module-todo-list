@@ -6,9 +6,12 @@ namespace MedicalMundi\TodoList\Domain\Todo;
 final class Description
 {
     public const MIN_LENGHT = 5;
+
     public const MAX_LENGHT = 1500;
 
-    /** @var string  */
+    /**
+     * @var string
+     */
     private $value;
 
     public function __construct(string $value)

@@ -15,12 +15,14 @@ use MedicalMundi\TodoList\Domain\Todo\TodoId;
 
 class InMemoryTodoRepository implements AddTodoPort, LoadTodoPort, FindTodosPort
 {
-    /** @var ArrayCollection<string, Todo> $todos */
+    /**
+     * @var ArrayCollection<string, Todo>
+     */
     private $todos;
 
     public function __construct()
     {
-        $this->todos= new arrayCollection();
+        $this->todos = new arrayCollection();
     }
 
     private function containsKey(TodoId $todoId): bool
@@ -29,7 +31,6 @@ class InMemoryTodoRepository implements AddTodoPort, LoadTodoPort, FindTodosPort
     }
 
     /**
-     * @param Todo $todo
      * @throws CouldNotSaveTodo
      */
     public function addTodo(Todo $todo): void
@@ -46,13 +47,11 @@ class InMemoryTodoRepository implements AddTodoPort, LoadTodoPort, FindTodosPort
     }
 
     /**
-     * @param TodoId $todoId
-     * @return Todo
      * @throws CouldNotRetrieveTodo
      */
     public function withTodoId(TodoId $todoId): Todo
     {
-        if (!$todo = $this->todos->get($todoId->toString())) {
+        if (! $todo = $this->todos->get($todoId->toString())) {
             throw CouldNotRetrieveTodo::becauseTodoNotExist($todoId->toString());
         }
 

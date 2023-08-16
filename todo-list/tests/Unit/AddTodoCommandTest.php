@@ -11,7 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 class AddTodoCommandTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     */
     public function can_be_created(): void
     {
         $command = new AddTodoCommand(TodoId::generate(), Title::fromString('irrelevant'));
@@ -20,7 +22,9 @@ class AddTodoCommandTest extends TestCase
         self::assertInstanceOf(Title::class, $command->title());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function can_be_created_with_description(): void
     {
         $command = new AddTodoCommand(TodoId::generate(), Title::fromString('irrelevant'), Description::fromString('irrelevant'));

@@ -2,9 +2,9 @@
 
 $moduleDir = \dirname(__DIR__, 2);
 
-$loader = new \Twig\Loader\FilesystemLoader($moduleDir."/src/Adapter/Http/Web/Template");
+$loader = new \Twig\Loader\FilesystemLoader($moduleDir . "/src/Adapter/Http/Web/Template");
 
-$twigOptions =[];
+$twigOptions = [];
 
 // configure cache and add to $twigOptions
 
@@ -24,6 +24,6 @@ $TwigEnvironment->addExtension(new \Twig\Extension\DebugExtension());
 
 
 $container->set('Twig\Environment', $TwigEnvironment);
-    //->register('Twig\Environment', $TwigEnvironment)
-    //->setPublic(true)
+//->register('Twig\Environment', $TwigEnvironment)
+//->setPublic(true)
 ;

@@ -12,13 +12,12 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class AddTodoController
 {
-    /** @var AddTodoUseCase */
+    /**
+     * @var AddTodoUseCase
+     */
     private $useCaseService;
 
-    /**
-     * AddTodoController constructor.
-     * @param AddTodoUseCase $useCaseService
-     */
+    
     public function __construct(AddTodoUseCase $useCaseService)
     {
         $this->useCaseService = $useCaseService;
@@ -26,8 +25,7 @@ class AddTodoController
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
     {
-        $page = '<div><h1>AddTodo controller !!<h1> standAlone: '. (int) (new isModuleStandAlone)().'</div>';
-
+        $page = '<div><h1>AddTodo controller !!<h1> standAlone: ' . (int) (new isModuleStandAlone())() . '</div>';
 
         $command = new AddTodoCommand(
             TodoId::fromString((string) $args['id']),

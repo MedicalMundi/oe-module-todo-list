@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 class DescriptionTest extends TestCase
 {
     private const VALID_DESCRIPTION = 'A valid description';
+
     private const INVALID_DESCRIPTION = '';
 
     /**
@@ -20,7 +21,9 @@ class DescriptionTest extends TestCase
         Description::fromString(self::VALID_DESCRIPTION);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_return_value(): void
     {
         $description = Description::fromString(self::VALID_DESCRIPTION);
@@ -28,7 +31,9 @@ class DescriptionTest extends TestCase
         self::assertEquals(self::VALID_DESCRIPTION, $description->value());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function should_return_value_as_string(): void
     {
         $description = Description::fromString(self::VALID_DESCRIPTION);
@@ -37,7 +42,9 @@ class DescriptionTest extends TestCase
         self::assertEquals(self::VALID_DESCRIPTION, $description->__toString());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function can_be_compared(): void
     {
         $first = Description::fromString(self::VALID_DESCRIPTION);
@@ -49,7 +56,9 @@ class DescriptionTest extends TestCase
         self::assertFalse($second->equals($copyOfFirst));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function short_values_should_throw_exception(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -58,7 +67,9 @@ class DescriptionTest extends TestCase
         Description::fromString(self::INVALID_DESCRIPTION);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function long_values_should_throw_exception(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -69,7 +80,9 @@ class DescriptionTest extends TestCase
         Description::fromString($longDescription);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function invalid_values_should_throw_exception(): void
     {
         self::markTestIncomplete('Add dataprovider, check invalid char, sql injection, ecc..');

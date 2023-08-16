@@ -5,20 +5,22 @@ namespace MedicalMundi\TodoList\Domain\Todo;
 
 class Todo implements TodoInterface
 {
-    /** @var TodoId */
+    /**
+     * @var TodoId
+     */
     private $todoId;
 
-    /** @var Title */
+    /**
+     * @var Title
+     */
     private $title;
 
-    /** @var Description|null */
+    /**
+     * @var Description|null
+     */
     private $description;
 
-    /**
-     * Todo constructor.
-     * @param TodoId $todoId
-     * @param Title $title
-     */
+    
     public function __construct(TodoId $todoId, Title $title)
     {
         $this->todoId = $todoId;

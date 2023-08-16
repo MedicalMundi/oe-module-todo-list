@@ -21,7 +21,9 @@ class Module implements ContainerInterface, RequestHandlerInterface
      */
     protected $container;
 
-    /** @var Router|null */
+    /**
+     * @var Router|null
+     */
     private $router;
 
     public function __construct(?Router $router = null)
@@ -33,9 +35,9 @@ class Module implements ContainerInterface, RequestHandlerInterface
     {
         $containerBuilder = new ContainerBuilder();
 
-        $loader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__.'/Config'));
+        $loader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__ . '/Config'));
 
-        $router = (new RouterFactory)($containerBuilder);
+        $router = (new RouterFactory())($containerBuilder);
         $containerBuilder->set('router', $router);
 
         $module = new self();
@@ -44,14 +46,12 @@ class Module implements ContainerInterface, RequestHandlerInterface
         //TODO refactoring the container initialization
         //$containerBuilder->set('module', $this); write private function buildContainer(): ContainerInterface
 
-
         $loader->load('container-config.php');
         $loader->load('monolog.php');
         $loader->load('twig.php');
         //$loader->load('service.php');
         //dump($containerBuilder);
         $containerBuilder->compile(); //dump($containerBuilder);
-
 
         $module->container = $containerBuilder;
         $module->router = $router;
@@ -76,8 +76,6 @@ class Module implements ContainerInterface, RequestHandlerInterface
      * Returns false otherwise.
      *
      * @param string $id Identifier of the entry to look for.
-     *
-     * @return bool
      */
     public function has($id): bool
     {
@@ -88,9 +86,6 @@ class Module implements ContainerInterface, RequestHandlerInterface
      * Handles a request and produces a response.
      *
      * May call other collaborating code to generate the response.
-     *
-     * @param ServerRequestInterface $request
-     * @return ResponseInterface
      *
      * @psalm-suppress MixedInferredReturnType
      */
@@ -104,7 +99,9 @@ class Module implements ContainerInterface, RequestHandlerInterface
             //} catch (InvalidDataException $e) {
             //return new JsonResponse([ 'error' => exception_to_array($e) ], 400);
         } catch (HttpException $e) {
-            $responseBody = $psr17Factory->createStream(json_encode([ 'error' => $e->getMessage() ]));
+            $responseBody = $psr17Factory->createStream(json_encode([
+                'error' => $e->getMessage(),
+            ]));
             return $response = $psr17Factory->createResponse($e->getStatusCode())->withBody($responseBody);
         }
 

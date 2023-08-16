@@ -13,13 +13,19 @@ use PHPUnit\Framework\TestCase;
 
 class AddTodoControllerTest extends TestCase
 {
-    /** @var AddTodoController */
+    /**
+     * @var AddTodoController
+     */
     private $controller;
 
-    /** @var AddTodoPort|MockObject */
+    /**
+     * @var AddTodoPort|MockObject
+     */
     private $repository;
 
-    /** @var AddTodoUseCase|MockObject */
+    /**
+     * @var AddTodoUseCase|MockObject
+     */
     private $useCaseService;
 
     protected function setUp(): void
@@ -54,8 +60,9 @@ class AddTodoControllerTest extends TestCase
         self::assertSame($data['doneAt'], $item->getDoneAtAsString());
     }
 
-
-    /** @test */
+    /**
+     * @test
+     */
     public function canHandleInvalidRequestBody(): void
     {
         self::markTestIncomplete();
