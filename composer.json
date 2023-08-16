@@ -63,10 +63,12 @@
     "prefer-stable": true,
     "scripts": {
         "cs": "./vendor/bin/ecs",
-        "cs:fix": "./vendor/bin/ecs --fix"
+        "cs:fix": "./vendor/bin/ecs --fix",
+        "sa": "./vendor/bin/psalm"
     },
     "scripts-descriptions": {
         "cs": "Check php coding style",
-        "cs:fix": "Fix php coding style"
+        "cs:fix": "Fix php coding style",
+        "sa": "Check static analysis (psalm)"
     }
 }
