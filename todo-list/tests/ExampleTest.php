@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 
-namespace OpenEMR\Modules\MedicalMundiTodoList\Tests;
+namespace MedicalMundi\TodoList\Tests;
 
 use PHPUnit\Framework\TestCase;
 
