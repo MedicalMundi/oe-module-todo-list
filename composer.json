@@ -72,11 +72,17 @@
     "scripts": {
         "cs": "./vendor/bin/ecs",
         "cs:fix": "./vendor/bin/ecs --fix",
-        "sa": "./vendor/bin/psalm"
+        "sa": "./vendor/bin/psalm",
+        "tf": "./vendor/bin/phpunit --testsuite=functional --testdox",
+        "ti": "./vendor/bin/phpunit --testsuite=integration --testdox",
+        "tu": "./vendor/bin/phpunit --testsuite=unit --testdox"
     },
     "scripts-descriptions": {
         "cs": "Check php coding style",
         "cs:fix": "Fix php coding style",
-        "sa": "Check static analysis (psalm)"
+        "sa": "Check static analysis (psalm)",
+        "tf": "Run functional testsuite",
+        "ti": "Run integration testsuite",
+        "tu": "Run unit testsuite"
     }
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         colors="true"
+         verbose="true"
+         failOnRisky="true"
+         beStrictAboutTestsThatDoNotTestAnything="true"
+>
+    <testsuites>
+        <testsuite name="all">
+            <directory>./tests</directory>
+            <directory>./todo-list/tests</directory>
+        </testsuite>
+        <testsuite name="unit">
+            <directory>./tests/Unit</directory>
+            <directory>./todo-list/tests/Unit</directory>
+        </testsuite>
+        <testsuite name="integration">
+            <directory>./tests/Integration</directory>
+            <directory>./todo-list/tests/Integration</directory>
+        </testsuite>
+        <testsuite name="functional">
+            <directory>./tests/Functional</directory>
+            <directory>./todo-list/tests/Functional</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./src</directory>
+            <directory>./todo-list/src</directory>
+        </whitelist>
+    </filter>
+
+    <php>
+        <ini name="error_reporting" value="-1" />
+    </php>
+</phpunit>
