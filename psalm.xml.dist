@@ -47,17 +47,6 @@
             <errorLevel type="info">
             </errorLevel>
         </MixedMethodCall>
-        <!-- false positives UseCase Interface are defined without return type. -->
-        <MissingReturnType>
-            <errorLevel type="info">
-                <directory name="src/Application/Port/In" />
-            </errorLevel>
-        </MissingReturnType>
-        <UndefinedGlobalVariable>
-            <errorLevel type="error">
-                <file name="src/Config/container-config.php" />
-            </errorLevel>
-        </UndefinedGlobalVariable>
     </issueHandlers>
 
     <mockClasses>
