@@ -28,8 +28,8 @@ help:
 
 ########################################################################################################################
 
-# stable available openemr release: v5_0_2|v5_0_2_1|v5_0_2_2|v5_0_2_3
-# develop available openemr branch: rel-502|master
+# stable available openemr release: v7_0_11|v7_0_1|v7_0_0_2|v5_0_2|v5_0_2_1|v5_0_2_2|v5_0_2_3
+# develop available openemr branch: master
 
 ifndef OE_RELEASE_ENV
 OE_RELEASE_ENV=master

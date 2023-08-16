@@ -3,6 +3,16 @@
 use OpenEMR\Menu\MenuEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
+
+
+/**
+ * @var EventDispatcherInterface $eventDispatcher
+ * @var array                    $module
+ * @global                       $eventDispatcher @see ModulesApplication::loadCustomModule
+ * @global                       $module          @see ModulesApplication::loadCustomModule
+ */
+$eventDispatcher->addListener(MenuEvent::MENU_UPDATE, 'oe_module_TodoList_add_menu_item');
+
 function oe_module_TodoList_add_menu_item(MenuEvent $event)
 {
     $menu = $event->getMenu();
@@ -11,11 +21,12 @@ function oe_module_TodoList_add_menu_item(MenuEvent $event)
     $menuItem->requirement = 0;
     $menuItem->target = 'mod';
     $menuItem->menu_id = 'mod0';
-    $menuItem->label = xlt("TodoList");
+
+    $menuItem->label = xlt("Todo List");
     //$menuItem->url = "/interface/modules/custom_modules/oe-module-todo-list";
     $menuItem->url = "/interface/modules/custom_modules/oe-module-todo-list/todos";
     $menuItem->children = [];
-    $menuItem->acl_req = [];
+    $menuItem->acl_req = ['patients', 'docs'];
     $menuItem->global_req = [];
 
     foreach ($menu as $item) {
@@ -29,10 +40,3 @@ function oe_module_TodoList_add_menu_item(MenuEvent $event)
 
     return $event;
 }
-/**
- * @var EventDispatcherInterface $eventDispatcher
- * @var array                    $module
- * @global                       $eventDispatcher @see ModulesApplication::loadCustomModule
- * @global                       $module          @see ModulesApplication::loadCustomModule
- */
-$eventDispatcher->addListener(MenuEvent::MENU_UPDATE, 'oe_module_TodoList_add_menu_item');
