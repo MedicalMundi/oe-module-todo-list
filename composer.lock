@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dde7de9a4a54ca196b6295e09a0ab72e",
+    "content-hash": "6213c130a331b4c65521b44659071bfc",
     "packages": [
         {
             "name": "openemr/oe-module-installer-plugin",
