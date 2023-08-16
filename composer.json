@@ -20,8 +20,16 @@
     ],
     "require": {
         "php": ">=7.4",
+        "doctrine/collections": "^1.8",
+        "league/route": "^5.1",
+        "nyholm/psr7": "^1.8",
+        "nyholm/psr7-server": "^1.0",
         "openemr/oe-module-installer-plugin": "^0.1",
-        "symfony/event-dispatcher": "^4.4 || ^5.4"
+        "psr/log": "^1.1",
+        "ramsey/uuid": "^4.2",
+        "symfony/config": "^5.4",
+        "symfony/event-dispatcher": "^4.4 || ^5.4",
+        "twig/twig": "^3.7"
     },
     "require-dev": {
         "bamarni/composer-bin-plugin": "^1.8",
