@@ -29,7 +29,6 @@ class JsonTodoRepository implements AddTodoPort, LoadTodoPort, FindTodosPort
      */
     private $transformer;
 
-    
     public function __construct(string $filename = 'todos.json')
     {
         $dataDir = \dirname(__DIR__);

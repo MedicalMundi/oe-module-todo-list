@@ -17,7 +17,6 @@ class AddTodoController
      */
     private $useCaseService;
 
-    
     public function __construct(AddTodoUseCase $useCaseService)
     {
         $this->useCaseService = $useCaseService;

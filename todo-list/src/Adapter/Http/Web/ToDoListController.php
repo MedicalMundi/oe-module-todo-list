@@ -27,7 +27,6 @@ class ToDoListController
      */
     private $templateEngine;
 
-    
     public function __construct(FindTodosPort $repository, UrlService $urlService, Environment $templateEngine)
     {
         $this->repository = $repository;

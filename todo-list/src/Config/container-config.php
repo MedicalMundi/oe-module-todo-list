@@ -7,9 +7,6 @@ use MedicalMundi\TodoList\Adapter\Persistence\FileSystem\JsonTodoRepository;
 use MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository;
 use MedicalMundi\TodoList\Application\AddTodoService;
 use MedicalMundi\TodoList\Application\Port\Out\Persistence\LoadTodoPort;
-use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use Symfony\Component\DependencyInjection\Reference;
 
 $privateDefinition = new Definition();
 $privateDefinition

@@ -35,18 +35,15 @@ class AddTodoCommand
         $this->description = $description ?: $description;
     }
 
-
     public function todoId(): TodoId
     {
         return $this->todoId;
     }
 
-
     public function title(): Title
     {
         return $this->title;
     }
-
 
     public function description(): ?Description
     {

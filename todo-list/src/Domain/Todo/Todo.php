@@ -20,7 +20,6 @@ class Todo implements TodoInterface
      */
     private $description;
 
-    
     public function __construct(TodoId $todoId, Title $title)
     {
         $this->todoId = $todoId;

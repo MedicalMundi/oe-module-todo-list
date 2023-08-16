@@ -27,7 +27,6 @@ class ToDoReadController
      */
     private $templateEngine;
 
-    
     public function __construct(LoadTodoPort $repository, UrlService $urlService, Environment $templateEngine)
     {
         $this->repository = $repository;

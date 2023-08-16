@@ -21,13 +21,11 @@ class AddTodoService implements AddTodoUseCase
      */
     private $logger;
 
-    
     public function __construct(AddTodoPort $todoStorageService, LoggerInterface $logger)
     {
         $this->todoStorageService = $todoStorageService;
         $this->logger = $logger;
     }
-
 
     public function addTodo(AddTodoCommand $command): void
     {

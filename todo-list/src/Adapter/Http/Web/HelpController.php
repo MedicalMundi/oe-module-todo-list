@@ -17,7 +17,6 @@ class HelpController
      */
     private $urlService;
 
-    
     public function __construct(UrlService $urlService)
     {
         $this->urlService = $urlService;
