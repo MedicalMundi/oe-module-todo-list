@@ -61,5 +61,14 @@
             "MedicalMundi\\TodoList\\Tests\\": "todo-list/tests/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "scripts": {
+        "cs": "./vendor/bin/ecs",
+        "cs:fix": "./vendor/bin/ecs --fix"
+    },
+    "scripts-descriptions": {
+        "cs": "Check php coding style",
+        "cs:fix": "Fix php coding style"
+    }
 }

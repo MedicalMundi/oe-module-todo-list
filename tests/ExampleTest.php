@@ -9,6 +9,6 @@ class ExampleTest extends TestCase
 {
     public function test_it_works(): void
     {
-        self::assertEquals(2, 1+1);
+        self::assertEquals(2, 1 + 1);
     }
 }
