@@ -29,13 +29,13 @@
         "phpunit/phpunit": "~8.4"
     },
     "config": {
+        "allow-plugins": {
+            "openemr/oe-module-installer-plugin": true
+        },
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true,
-        "allow-plugins": {
-            "openemr/oe-module-installer-plugin": true
-        }
+        "sort-packages": true
     },
     "extra": {
         "branch-alias": {
