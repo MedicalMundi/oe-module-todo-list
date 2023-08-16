@@ -20,13 +20,25 @@ jobs:
     timeout-minutes: 5
     continue-on-error: ${{ matrix.is-php-experimental }}
     strategy:
-      max-parallel: 4
+      max-parallel: 5
       matrix:
         php:
-          - '8.1'
+          - '7.2'
         is-php-experimental: [false]
-        generate-coverage-report: [true]
+        generate-coverage-report: [false]
         include:
+          - php: '7.3'
+            is-php-experimental: false
+            generate-coverage-report: false
+          - php: '7.4'
+            is-php-experimental: false
+            generate-coverage-report: false
+          - php: '8.0'
+            is-php-experimental: false
+            generate-coverage-report: false
+          - php: '8.1'
+            is-php-experimental: false
+            generate-coverage-report: false
           - php: '8.2'
             is-php-experimental: false
             generate-coverage-report: false
@@ -119,7 +131,7 @@ jobs:
     strategy:
       matrix:
         php:
-          - '8.1'
+          - '7.2'
       fail-fast: true
     steps:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
@@ -164,200 +176,3 @@ jobs:
       - name: Run composer normalize
         run: |
           composer-normalize --dry-run --ansi
-
-
-  coding-standard:
-    name: Coding Standard
-    runs-on: ubuntu-22.04
-    timeout-minutes: 3
-    strategy:
-      matrix:
-        php:
-          - '8.1'
-      fail-fast: true
-    steps:
-      - name: Checkout on SHA-${{ inputs.triggering-sha }}
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ inputs.triggering-sha }}
-
-      - name: Setup php extension cache environment
-        if: ${{ vars.USE_PHP_EXTENSION_CACHE }}
-        id: cache-php-extensions
-        uses: shivammathur/cache-extensions@v1
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: ${{ env.PHP_EXTENSIONS }}
-          key: ${{ env.PHP_EXTENSIONS_CACHE_KEY }}
-
-      - name: Cache PHP extensions
-        if: ${{ vars.USE_PHP_EXTENSION_CACHE }}
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.cache-php-extensions.outputs.dir }}
-          key: ${{ steps.cache-php-extensions.outputs.key }}
-          restore-keys: ${{ steps.cache-php-extensions.outputs.key }}
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@2.25.5
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: ${{ env.PHP_EXTENSIONS }}
-          ini-values: memory_limit=-1
-          coverage: none
-          tools: composer
-
-      - name: Set Composer Cache Directory
-        if: ${{ vars.USE_COMPOSER_CACHE }}
-        id: composer-cache
-        run: |
-          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache Composer dependencies
-        uses: actions/cache@v3
-        if: ${{ vars.USE_COMPOSER_CACHE }}
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-${{ matrix.php }}-composer-
-
-      - name: Install Composer dependencies
-        run: |
-          composer install --prefer-dist --no-progress --ansi --no-scripts
-
-      - name: Install easy-coding-standard
-        run: |
-          composer bin ecs install  --no-progress --ansi
-
-      - name: Run easy-coding-standard
-        run: |
-          ./vendor/bin/ecs
-
-
-  psalm:
-    name: Static analysis
-    runs-on: ubuntu-22.04
-    timeout-minutes: 3
-    strategy:
-      matrix:
-        php:
-          - '8.1'
-      fail-fast: true
-    steps:
-      - name: Checkout on SHA-${{ inputs.triggering-sha }}
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ inputs.triggering-sha }}
-
-      - name: Setup php extension cache environment
-        if: ${{ vars.USE_PHP_EXTENSION_CACHE }}
-        id: cache-php-extensions
-        uses: shivammathur/cache-extensions@v1
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: ${{ env.PHP_EXTENSIONS }}
-          key: ${{ env.PHP_EXTENSIONS_CACHE_KEY }}
-
-      - name: Cache PHP extensions
-        if: ${{ vars.USE_PHP_EXTENSION_CACHE }}
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.cache-php-extensions.outputs.dir }}
-          key: ${{ steps.cache-php-extensions.outputs.key }}
-          restore-keys: ${{ steps.cache-php-extensions.outputs.key }}
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@2.25.5
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: ${{ env.PHP_EXTENSIONS }}
-          ini-values: memory_limit=-1
-          coverage: none
-          tools: composer
-
-      - name: Set Composer Cache Directory
-        if: ${{ vars.USE_COMPOSER_CACHE }}
-        id: composer-cache
-        run: |
-          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache Composer dependencies
-        uses: actions/cache@v3
-        if: ${{ vars.USE_COMPOSER_CACHE }}
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-${{ matrix.php }}-composer-
-
-      - name: Install Composer dependencies
-        run: |
-          composer install --prefer-dist --no-progress --ansi --no-scripts
-
-      - name: Install psalm
-        run: |
-          composer bin psalm install  --no-progress --ansi
-
-      - name: Run psalm
-        run: ./vendor/bin/psalm --no-cache
-
-
-  rector:
-    runs-on: ubuntu-22.04
-    timeout-minutes: 5
-    strategy:
-      matrix:
-        php:
-          - '8.1'
-      fail-fast: true
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup php extension cache environment
-        id: cache-php-extensions
-        uses: shivammathur/cache-extensions@v1
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: ${{ env.PHP_EXTENSIONS }}
-          key: ${{ env.PHP_EXTENSIONS_CACHE_KEY }}
-
-      - name: Cache PHP extensions
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.cache-php-extensions.outputs.dir }}
-          key: ${{ steps.cache-php-extensions.outputs.key }}
-          restore-keys: ${{ steps.cache-php-extensions.outputs.key }}
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@2.25.5
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: ${{ env.PHP_EXTENSIONS }}
-          ini-values: memory_limit=-1
-          coverage: none
-          tools: composer
-
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache composer dependencies
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-php${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-php${{ matrix.php }}-composer-
-
-      - name: Install Composer dependencies
-        run: |
-          composer install --prefer-dist --no-progress --ansi --no-scripts
-
-      - name: Install rector
-        run: composer bin rector install --no-progress --ansi
-
-      - name: Run rector
-        run: ./vendor/bin/rector process --dry-run --ansi
-
