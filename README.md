@@ -1,6 +1,6 @@
 # [WIP] OpenEmr module - Todo list
 
-[![Build Status](https://travis-ci.org/MedicalMundi/oe-module-todo-list.svg?branch=master)](https://travis-ci.org/MedicalMundi/oe-module-todo-list)
+[![CD/CI](https://github.com/MedicalMundi/oe-module-todo-list/actions/workflows/cd-ci.yaml/badge.svg)](https://github.com/MedicalMundi/oe-module-todo-list/actions/workflows/cd-ci.yaml)
 
 ## Getting started
 
