@@ -1,12 +1,9 @@
 /.idea
-/vendor
 /extra
 /var
+/tools/**/vendor
+/vendor
 
-composer.lock
-commitsar
 .php_cs.cache
 .phpunit.result.cache
 phpunit.xml
-
-CHECKLIST-README.md

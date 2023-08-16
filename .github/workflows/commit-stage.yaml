@@ -163,12 +163,9 @@ jobs:
         run: |
           composer install --prefer-dist --no-progress --no-scripts --ansi
 
-      # todo: add strict option before packagist publication
       - name: Run composer validate
         run: |
-          composer validate --ansi
-#        run: |
-#          composer validate --strict --ansi
+          composer validate --strict --ansi
 
       - name: Run composer normalize
         run: |
