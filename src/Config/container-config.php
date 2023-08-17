@@ -39,9 +39,9 @@ $container->registerForAutoconfiguration(WebController::class)
 /** @var PhpFileLoader $loader */
 $loader->registerClasses(
     $privateDefinition,
-    'MedicalMundi\\TodoList\\',
+    'OpenEMR\\Modules\\MedicalMundiTodoList\\',
     '../../src/*',
-    '../../src/{Config,Module.php,*Controller.php}'
+    '../../src/{Config,public,Module.php,*Controller.php}'
 );
 
 // classes in the namespace MedicalMundi\TodoList\Adapter\Http\Web\ and the directory src/ will be register in the container

@@ -5,6 +5,11 @@
       <code><![CDATA[! ($todo = $this->repository->withTodoId($todoId))]]></code>
     </TypeDoesNotContainType>
   </file>
+  <file src="src/Module.php">
+    <PropertyNotSetInConstructor>
+      <code>$container</code>
+    </PropertyNotSetInConstructor>
+  </file>
   <file src="src/public/index.php">
     <TypeDoesNotContainNull>
       <code>$request === null</code>

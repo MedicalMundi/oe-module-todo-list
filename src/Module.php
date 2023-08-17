@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MedicalMundi\TodoList;
+namespace OpenEMR\Modules\MedicalMundiTodoList;
 
 use League\Route\Http\Exception as HttpException;
 use League\Route\Router;

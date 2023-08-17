@@ -8,8 +8,8 @@
  */
 
 use Laminas\HttpHandlerRunner\Emitter\SapiStreamEmitter;
-use MedicalMundi\TodoList\Module;
 use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
+use OpenEMR\Modules\MedicalMundiTodoList\Module;
 
 (
     static function (): void {

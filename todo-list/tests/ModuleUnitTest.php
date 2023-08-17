@@ -5,10 +5,10 @@ namespace MedicalMundi\TodoList\Tests;
 use League\Route\Http\Exception as HttpException;
 use League\Route\Router;
 use MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository;
-use MedicalMundi\TodoList\Module;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\UrlService;
+use OpenEMR\Modules\MedicalMundiTodoList\Module;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
