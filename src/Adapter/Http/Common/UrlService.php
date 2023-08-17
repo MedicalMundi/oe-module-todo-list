@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MedicalMundi\TodoList\Adapter\Http\Common;
+namespace OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common;
 
 use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 
@@ -26,7 +26,7 @@ class UrlService
 
     public function __construct(?bool $isStandAloneMode = null)
     {
-        $this->isStandAloneMode = $isStandAloneMode ?? (bool) (new isModuleStandAlone())();
+        $this->isStandAloneMode = $isStandAloneMode ?? (new isModuleStandAlone())();
 
         $this->baseUrl = (true === $this->isStandAloneMode) ? '/' : self::MODULE_MAIN_URL;
     }

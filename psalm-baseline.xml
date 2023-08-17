@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="5.14.1@b9d355e0829c397b9b3b47d0c0ed042a8a70284d">
+  <file src="src/Adapter/Http/Web/ToDoReadController.php">
+    <TypeDoesNotContainType>
+      <code><![CDATA[! ($todo = $this->repository->withTodoId($todoId))]]></code>
+    </TypeDoesNotContainType>
+  </file>
   <file src="src/public/index.php">
     <TypeDoesNotContainNull>
       <code>$request === null</code>

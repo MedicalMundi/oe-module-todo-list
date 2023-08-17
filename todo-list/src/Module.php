@@ -4,7 +4,7 @@ namespace MedicalMundi\TodoList;
 
 use League\Route\Http\Exception as HttpException;
 use League\Route\Router;
-use MedicalMundi\TodoList\Adapter\Http\Common\RouterFactory;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\RouterFactory;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
