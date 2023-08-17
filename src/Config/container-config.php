@@ -3,6 +3,7 @@
 use MedicalMundi\TodoList\Adapter\Persistence\FileSystem\JsonTodoRepository;
 use MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository;
 use MedicalMundi\TodoList\Application\AddTodoService;
+use MedicalMundi\TodoList\Application\Port\In\AddTodoUseCase;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\UrlService;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\ToDoListController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\ToDoReadController;
@@ -61,6 +62,19 @@ $loader->registerClasses(
     //'../../src/Adapter/Http/Common/{WebController.php}'
 );
 
+
+// classes in the namespace MedicalMundi\TodoList\Adapter\Http\Common\
+// will be register in the container
+$loader->registerClasses(
+    $publicDefinition,
+    'MedicalMundi\\TodoList\\',
+    '../../todo-list/src/*',
+    [
+        '../../todo-list/src/Domain/',
+        '../../todo-list/src/Application/Port/In/',
+    ]
+);
+
 //bind:
 //Medicalmundi\Publishing\Application\Port\In\DraftArticleUseCase $draftArticleService: '@Medicalmundi\Publishing\Application\DraftArticleService'
 //            Medicalmundi\Publishing\Application\Port\In\ListArticlesUseCase $listArticleService: '@Medicalmundi\Publishing\Application\ListArticlesService'
@@ -110,3 +124,5 @@ $container
     ->addArgument(new Reference(InMemoryTodoRepository::class))
     ->addArgument(new Reference(LoggerInterface::class))
     ->setPublic(true);
+
+$container->setAlias(AddTodoUseCase::class, AddTodoService::class);
