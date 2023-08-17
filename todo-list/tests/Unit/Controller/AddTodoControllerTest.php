@@ -12,20 +12,17 @@ use PHPUnit\Framework\TestCase;
 
 class AddTodoControllerTest extends TestCase
 {
-    /**
-     * @var AddTodoController
-     */
-    private $controller;
+    private AddTodoController $controller;
 
     /**
      * @var AddTodoPort|MockObject
      */
-    private $repository;
+    private MockObject $repository;
 
     /**
      * @var AddTodoUseCase|MockObject
      */
-    private $useCaseService;
+    private MockObject $useCaseService;
 
     protected function setUp(): void
     {

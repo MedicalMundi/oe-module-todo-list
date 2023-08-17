@@ -13,10 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class InMemoryTodoRepositoryTest extends TestCase
 {
-    /**
-     * @var InMemoryTodoRepository
-     */
-    private $repository;
+    private ?InMemoryTodoRepository $repository = null;
 
     protected function setUp(): void
     {

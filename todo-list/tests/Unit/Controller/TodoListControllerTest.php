@@ -17,25 +17,22 @@ class TodoListControllerTest extends TestCase
 
     private const INVALID_UUID = '945a0258-7751-478a-9d01-';
 
-    /**
-     * @var ToDoListController
-     */
-    private $controller;
+    private ToDoListController $controller;
 
     /**
      * @var FindTodosPort|MockObject
      */
-    private $repository;
+    private MockObject $repository;
 
     /**
      * @var UrlService|MockObject
      */
-    private $urlService;
+    private MockObject $urlService;
 
     /**
      * @var Environment|MockObject
      */
-    private $templateEngine;
+    private MockObject $templateEngine;
 
     protected function setUp(): void
     {

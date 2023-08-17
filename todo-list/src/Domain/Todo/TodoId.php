@@ -2,21 +2,24 @@
 
 namespace MedicalMundi\TodoList\Domain\Todo;
 
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
+
 final class TodoId
 {
-    private $uuid;
+    private UuidInterface $uuid;
 
     public static function generate(): TodoId
     {
-        return new self(\Ramsey\Uuid\Uuid::uuid4());
+        return new self(Uuid::uuid4());
     }
 
     public static function fromString(string $todoId): TodoId
     {
-        return new self(\Ramsey\Uuid\Uuid::fromString(trim($todoId)));
+        return new self(Uuid::fromString(trim($todoId)));
     }
 
-    private function __construct(\Ramsey\Uuid\UuidInterface $todoId)
+    private function __construct(UuidInterface $todoId)
     {
         $this->uuid = $todoId;
     }

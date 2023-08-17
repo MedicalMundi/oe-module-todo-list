@@ -13,20 +13,14 @@ use MedicalMundi\TodoList\Domain\Todo\TodoId;
 
 class JsonTodoRepository implements AddTodoPort, LoadTodoPort, FindTodosPort
 {
-    /**
-     * @var string
-     */
-    private $filename;
+    private string $filename;
 
     /**
      * @var ArrayCollection<string, Todo>
      */
-    private $todos;
+    private ArrayCollection $todos;
 
-    /**
-     * @var TodoDataTransformer
-     */
-    private $transformer;
+    private TodoDataTransformer $transformer;
 
     public function __construct(string $filename = 'todos.json')
     {
@@ -44,7 +38,7 @@ class JsonTodoRepository implements AddTodoPort, LoadTodoPort, FindTodosPort
         foreach ($todosList as $todo) {
             $data[] = $this->todoToArray($todo);
         }
-        $jsonData = json_encode($data);
+        $jsonData = json_encode($data, JSON_THROW_ON_ERROR);
         file_put_contents($this->filename, $jsonData);
     }
 
@@ -64,7 +58,7 @@ class JsonTodoRepository implements AddTodoPort, LoadTodoPort, FindTodosPort
     private function readData(): void
     {
         $jsonData = file_get_contents($this->filename);
-        $data = array_values(json_decode($jsonData, true));
+        $data = array_values(json_decode($jsonData, true, 512, JSON_THROW_ON_ERROR));
         $newCollection = new arrayCollection();
         foreach ($data as $key => $value) {
             $id = (string) array_values(array_values($value)[0])[0];

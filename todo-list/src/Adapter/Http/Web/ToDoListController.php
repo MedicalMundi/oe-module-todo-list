@@ -5,26 +5,18 @@ namespace MedicalMundi\TodoList\Adapter\Http\Web;
 use MedicalMundi\TodoList\Adapter\Http\Common\UrlService;
 
 use MedicalMundi\TodoList\Application\Port\Out\Persistence\FindTodosPort;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Twig\Environment;
 
 class ToDoListController
 {
-    /**
-     * @var FindTodosPort
-     */
-    private $repository;
+    private FindTodosPort $repository;
 
-    /**
-     * @var UrlService
-     */
-    private $urlService;
+    private UrlService $urlService;
 
-    /**
-     * @var Environment
-     */
-    private $templateEngine;
+    private Environment $templateEngine;
 
     public function __construct(FindTodosPort $repository, UrlService $urlService, Environment $templateEngine)
     {
@@ -41,7 +33,7 @@ class ToDoListController
             'todos' => $todos,
         ]);
 
-        $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();
+        $psr17Factory = new Psr17Factory();
 
         $responseBody = $psr17Factory->createStream($content);
 

@@ -18,7 +18,7 @@ class InMemoryTodoRepository implements AddTodoPort, LoadTodoPort, FindTodosPort
     /**
      * @var ArrayCollection<string, Todo>
      */
-    private $todos;
+    private ArrayCollection $todos;
 
     public function __construct()
     {

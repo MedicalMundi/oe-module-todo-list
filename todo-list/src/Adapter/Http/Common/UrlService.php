@@ -8,20 +8,14 @@ class UrlService
 {
     private const MODULE_MAIN_URL = '/interface/modules/custom_modules/oe-module-todo-list/';
 
-    /**
-     * @var bool
-     */
-    private $isStandAloneMode;
+    private bool $isStandAloneMode;
 
-    /**
-     * @var string
-     */
-    private $baseUrl;
+    private string $baseUrl;
 
     /**
      * @var array <string>
      */
-    private $routes = [
+    private array $routes = [
         'main',
         'about',
         'settings',
@@ -30,13 +24,9 @@ class UrlService
         'help',
     ];
 
-    /**
-     * UrlService constructor.
-     * @param bool $isStandAloneMode
-     */
     public function __construct(?bool $isStandAloneMode = null)
     {
-        $this->isStandAloneMode = (null === $isStandAloneMode) ? (bool) (new isModuleStandAlone())() : $isStandAloneMode;
+        $this->isStandAloneMode = $isStandAloneMode ?? (bool) (new isModuleStandAlone())();
 
         $this->baseUrl = (true === $this->isStandAloneMode) ? '/' : self::MODULE_MAIN_URL;
     }

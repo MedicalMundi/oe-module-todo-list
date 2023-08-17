@@ -10,15 +10,9 @@ use Psr\Log\LoggerInterface;
 
 class AddTodoService implements AddTodoUseCase
 {
-    /**
-     * @var AddTodoPort
-     */
-    private $todoStorageService;
+    private AddTodoPort $todoStorageService;
 
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(AddTodoPort $todoStorageService, LoggerInterface $logger)
     {

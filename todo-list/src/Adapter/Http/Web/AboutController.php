@@ -10,10 +10,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class AboutController
 {
-    /**
-     * @var UrlService
-     */
-    private $urlService;
+    private UrlService $urlService;
 
     public function __construct(UrlService $urlService)
     {

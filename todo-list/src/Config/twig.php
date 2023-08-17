@@ -1,8 +1,12 @@
 <?php declare(strict_types=1);
 
+use Twig\Environment;
+use Twig\Extension\DebugExtension;
+use Twig\Loader\FilesystemLoader;
+
 $moduleDir = \dirname(__DIR__, 2);
 
-$loader = new \Twig\Loader\FilesystemLoader($moduleDir . "/src/Adapter/Http/Web/Template");
+$loader = new FilesystemLoader($moduleDir . "/src/Adapter/Http/Web/Template");
 
 $twigOptions = [];
 
@@ -10,7 +14,7 @@ $twigOptions = [];
 
 // configure debug mode and add to $twigOptions
 
-$TwigEnvironment = new \Twig\Environment($loader, $twigOptions);
+$TwigEnvironment = new Environment($loader, $twigOptions);
 
 
 // add twig extension if needed
@@ -19,11 +23,11 @@ $TwigEnvironment = new \Twig\Environment($loader, $twigOptions);
 //$TwigEnvironment->addExtension(new \Twig_Extensions_Extension_I18n());
 
 // should be optional
-$TwigEnvironment->addExtension(new \Twig\Extension\DebugExtension());
+$TwigEnvironment->addExtension(new DebugExtension());
 
 
 
-$container->set('Twig\Environment', $TwigEnvironment);
+$container->set(Environment::class, $TwigEnvironment);
 //->register('Twig\Environment', $TwigEnvironment)
 //->setPublic(true)
 ;

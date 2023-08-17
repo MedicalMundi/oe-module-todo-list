@@ -8,10 +8,7 @@ final class Description
 
     public const MAX_LENGHT = 1500;
 
-    /**
-     * @var string
-     */
-    private $value;
+    private string $value;
 
     public function __construct(string $value)
     {

@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use MedicalMundi\TodoList\Adapter\Http\Common\UrlService;
 use MedicalMundi\TodoList\Adapter\Http\Web\ToDoListController;
 use MedicalMundi\TodoList\Adapter\Http\Web\ToDoReadController;
 use MedicalMundi\TodoList\Adapter\Http\Web\WebController;
@@ -7,9 +8,11 @@ use MedicalMundi\TodoList\Adapter\Persistence\FileSystem\JsonTodoRepository;
 use MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository;
 use MedicalMundi\TodoList\Application\AddTodoService;
 use MedicalMundi\TodoList\Application\Port\Out\Persistence\LoadTodoPort;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
+use Twig\Environment;
 
 $privateDefinition = new Definition();
 $privateDefinition
@@ -73,37 +76,37 @@ $loader->registerClasses(
 
 
 $container
-    ->register('MedicalMundi\TodoList\Adapter\Http\Web\ToDoReadController', ToDoReadController::class)
-    ->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\FileSystem\JsonTodoRepository'))
+    ->register(ToDoReadController::class, ToDoReadController::class)
+    ->addArgument(new Reference(JsonTodoRepository::class))
     //->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository'))
-    ->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Http\Common\UrlService'))
-    ->addArgument(new Reference('Twig\Environment'))
+    ->addArgument(new Reference(UrlService::class))
+    ->addArgument(new Reference(Environment::class))
     ->setPublic(true)
 ;
 
 $container
-    ->register('MedicalMundi\TodoList\Adapter\Http\Web\ToDoListController', ToDoListController::class)
-    ->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\FileSystem\JsonTodoRepository'))
+    ->register(ToDoListController::class, ToDoListController::class)
+    ->addArgument(new Reference(JsonTodoRepository::class))
     //->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository'))
-    ->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Http\Common\UrlService'))
-    ->addArgument(new Reference('Twig\Environment'))
+    ->addArgument(new Reference(UrlService::class))
+    ->addArgument(new Reference(Environment::class))
     ->setPublic(true)
 ;
 
 
 
 $container
-    ->register('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository', InMemoryTodoRepository::class)
+    ->register(InMemoryTodoRepository::class, InMemoryTodoRepository::class)
     ->setPublic(true)
 ;
 
 $container
-    ->register('MedicalMundi\TodoList\Adapter\Persistence\FileSystem\JsonTodoRepository', JsonTodoRepository::class)
+    ->register(JsonTodoRepository::class, JsonTodoRepository::class)
     ->setPublic(true)
 ;
 
 $container
-    ->register('MedicalMundi\TodoList\Application\AddTodoService', AddTodoService::class)
-    ->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository'))
-    ->addArgument(new Reference('Psr\Log\LoggerInterface'))
+    ->register(AddTodoService::class, AddTodoService::class)
+    ->addArgument(new Reference(InMemoryTodoRepository::class))
+    ->addArgument(new Reference(LoggerInterface::class))
     ->setPublic(true);

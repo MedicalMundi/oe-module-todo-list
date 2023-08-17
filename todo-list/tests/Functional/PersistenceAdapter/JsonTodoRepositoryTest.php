@@ -13,10 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class JsonTodoRepositoryTest extends TestCase
 {
-    /**
-     * @var JsonTodoRepository
-     */
-    private $repository;
+    private ?JsonTodoRepository $repository = null;
 
     protected function setUp(): void
     {

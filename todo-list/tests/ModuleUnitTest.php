@@ -14,15 +14,12 @@ use PHPUnit\Framework\TestCase;
 
 class ModuleUnitTest extends TestCase
 {
-    /**
-     * @var Module
-     */
-    private $module;
+    private Module $module;
 
     /**
      * @var Router & MockObject
      */
-    private $router;
+    private MockObject $router;
 
     protected function setUp(): void
     {
@@ -43,7 +40,7 @@ class ModuleUnitTest extends TestCase
     /**
      * @test
      */
-    public function ItHandlesHttpAndDomainExceptions(): void //(Exception $exception)
+    public function ItHandlesHttpAndDomainExceptions(): void
     {
         self::markTestIncomplete();
         $exception = new HttpException(401, 'foo');
@@ -79,7 +76,7 @@ class ModuleUnitTest extends TestCase
     {
         $module = Module::bootstrap();
 
-        self::assertInstanceOf(UrlService::class, $module->get('MedicalMundi\TodoList\Adapter\Http\Common\UrlService'));
+        self::assertInstanceOf(UrlService::class, $module->get(UrlService::class));
     }
 
     /**
@@ -89,6 +86,6 @@ class ModuleUnitTest extends TestCase
     {
         $module = Module::bootstrap();
 
-        self::assertInstanceOf(InMemoryTodoRepository::class, $module->get('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository'));
+        self::assertInstanceOf(InMemoryTodoRepository::class, $module->get(InMemoryTodoRepository::class));
     }
 }

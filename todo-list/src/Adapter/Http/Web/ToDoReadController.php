@@ -5,26 +5,18 @@ namespace MedicalMundi\TodoList\Adapter\Http\Web;
 use MedicalMundi\TodoList\Adapter\Http\Common\UrlService;
 use MedicalMundi\TodoList\Application\Port\Out\Persistence\LoadTodoPort;
 use MedicalMundi\TodoList\Domain\Todo\TodoId;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Twig\Environment;
 
 class ToDoReadController
 {
-    /**
-     * @var LoadTodoPort
-     */
-    private $repository;
+    private LoadTodoPort $repository;
 
-    /**
-     * @var UrlService
-     */
-    private $urlService;
+    private UrlService $urlService;
 
-    /**
-     * @var Environment
-     */
-    private $templateEngine;
+    private Environment $templateEngine;
 
     public function __construct(LoadTodoPort $repository, UrlService $urlService, Environment $templateEngine)
     {
@@ -43,7 +35,7 @@ class ToDoReadController
         $content = $this->templateEngine->render('todo/show.html.twig', [
             'todo' => $todo,
         ]);
-        $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();
+        $psr17Factory = new Psr17Factory();
         $responseBody = $psr17Factory->createStream($content);
 
         return $psr17Factory->createResponse(200)->withBody($responseBody);

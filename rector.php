@@ -8,8 +8,8 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
         __DIR__ . '/src',
         __DIR__ . '/tests',
-        __DIR__ . '/todo-list',
-        __DIR__ . '/tools',
+        __DIR__ . '/todo-list/src',
+        __DIR__ . '/todo-list/tests',
     ]);
 
     $rectorConfig->skip([

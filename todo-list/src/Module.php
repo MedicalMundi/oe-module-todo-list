@@ -20,11 +20,9 @@ class Module implements ContainerInterface, RequestHandlerInterface
      */
     protected $container;
 
-    /**
-     * @var Router|null
-     */
-    private $router;
+    private ?Router $router = null;
 
+    //TODO: make private
     public function __construct(?Router $router = null)
     {
         $this->router = $router ?: $router;
@@ -100,7 +98,7 @@ class Module implements ContainerInterface, RequestHandlerInterface
         } catch (HttpException $e) {
             $responseBody = $psr17Factory->createStream(json_encode([
                 'error' => $e->getMessage(),
-            ]));
+            ], JSON_THROW_ON_ERROR));
             return $response = $psr17Factory->createResponse($e->getStatusCode())->withBody($responseBody);
         }
 

@@ -8,10 +8,7 @@ final class Title
 
     public const MAX_LENGHT = 80;
 
-    /**
-     * @var string
-     */
-    private $value;
+    private string $value;
 
     public function __construct(string $value)
     {

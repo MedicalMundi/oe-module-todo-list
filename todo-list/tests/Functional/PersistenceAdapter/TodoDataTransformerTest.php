@@ -14,10 +14,7 @@ class TodoDataTransformerTest extends TestCase
 
     private const TITLE = 'irrelevant title';
 
-    /**
-     * @var TodoDataTransformer
-     */
-    private $transformer;
+    private ?TodoDataTransformer $transformer = null;
 
     protected function setUp(): void
     {

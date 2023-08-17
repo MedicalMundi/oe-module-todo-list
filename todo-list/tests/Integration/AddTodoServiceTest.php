@@ -17,17 +17,14 @@ class AddTodoServiceTest extends TestCase
     /**
      * @var AddTodoPort|MockObject
      */
-    private $repository;
+    private ?MockObject $repository = null;
 
     /**
      * @var LoggerInterface|MockObject
      */
-    private $logger;
+    private MockObject $logger;
 
-    /**
-     * @var AddTodoService
-     */
-    private $useCase;
+    private ?AddTodoService $useCase = null;
 
     protected function setUp(): void
     {

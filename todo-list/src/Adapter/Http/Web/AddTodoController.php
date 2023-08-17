@@ -6,16 +6,14 @@ use MedicalMundi\TodoList\Application\Port\In\AddTodoCommand;
 use MedicalMundi\TodoList\Application\Port\In\AddTodoUseCase;
 use MedicalMundi\TodoList\Domain\Todo\Title;
 use MedicalMundi\TodoList\Domain\Todo\TodoId;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class AddTodoController
 {
-    /**
-     * @var AddTodoUseCase
-     */
-    private $useCaseService;
+    private AddTodoUseCase $useCaseService;
 
     public function __construct(AddTodoUseCase $useCaseService)
     {
@@ -33,7 +31,7 @@ class AddTodoController
 
         $this->useCaseService->addTodo($command);
 
-        $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();
+        $psr17Factory = new Psr17Factory();
         $responseBody = $psr17Factory->createStream($page);
 
         return $psr17Factory->createResponse(200)->withBody($responseBody);

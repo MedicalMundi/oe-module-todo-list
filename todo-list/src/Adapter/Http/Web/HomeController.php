@@ -3,16 +3,14 @@
 namespace MedicalMundi\TodoList\Adapter\Http\Web;
 
 use MedicalMundi\TodoList\Adapter\Http\Common\UrlService;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class HomeController
 {
-    /**
-     * @var UrlService
-     */
-    private $urlService;
+    private UrlService $urlService;
 
     public function __construct(UrlService $urlService)
     {
@@ -35,7 +33,7 @@ class HomeController
         $page .= '<div>Link test - <a href="' . $this->urlService->renderUrl('todo-list') . '">show todo list</a></div>';
         $page .= '<div>Link test - <a href="' . $request->getUri() . 'todos/23' . '">show todo by id 23</a></div>';
 
-        $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();
+        $psr17Factory = new Psr17Factory();
         $responseBody = $psr17Factory->createStream($page);
 
         return $psr17Factory->createResponse(200)->withBody($responseBody);

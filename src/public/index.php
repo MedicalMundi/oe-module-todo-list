@@ -46,7 +46,7 @@ use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
             //logger()->error($e, ['exception' => $e, 'request' => $request ?? null]);
             $responseBody = $psr17Factory->createStream(json_encode([
                 'error' => $e->getMessage(),
-            ]));
+            ], JSON_THROW_ON_ERROR));
             $response = $psr17Factory->createResponse(500)->withBody($responseBody);
         }
 
