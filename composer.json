@@ -75,6 +75,8 @@
     "scripts": {
         "cs": "./vendor/bin/ecs",
         "cs:fix": "./vendor/bin/ecs --fix",
+        "rc": "./vendor/bin/rector --dry-run",
+        "rc:fix": "./vendor/bin/rector",
         "sa": "./vendor/bin/psalm",
         "tf": "./vendor/bin/phpunit --testsuite=functional --testdox",
         "ti": "./vendor/bin/phpunit --testsuite=integration --testdox",
@@ -83,6 +85,8 @@
     "scripts-descriptions": {
         "cs": "Check php coding style",
         "cs:fix": "Fix php coding style",
+        "rc": "Check rector rules",
+        "rc:fix": "Fix rector issues",
         "sa": "Check static analysis (psalm)",
         "tf": "Run functional testsuite",
         "ti": "Run integration testsuite",

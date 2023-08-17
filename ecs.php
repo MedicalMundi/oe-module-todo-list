@@ -18,6 +18,7 @@ return static function (ECSConfig $ecsConfig): void {
         __DIR__ . '/tests',
         __DIR__ . '/todo-list/src',
         __DIR__ . '/todo-list/tests',
+        __DIR__ . '/rector.php',
     ]);
 
     $ecsConfig->skip([
