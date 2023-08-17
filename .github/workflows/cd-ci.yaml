@@ -5,6 +5,6 @@ on:
 jobs:
   commit-stage-workflow:
     name: Commit Stage
-    uses: medicalmundi/oe-module-todo-list/.github/workflows/commit-stage.yaml@master
+    uses: medicalmundi/oe-module-todo-list/.github/workflows/commit-stage.yaml@main
     with:
       triggering-sha: "${{ github.sha }}"

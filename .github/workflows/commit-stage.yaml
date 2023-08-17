@@ -34,7 +34,7 @@ jobs:
             is-php-experimental: false
             generate-coverage-report: false
           - php: '8.2'
-            is-php-experimental: false
+            is-php-experimental: true
             generate-coverage-report: false
       fail-fast: false
     steps:
@@ -86,6 +86,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer install --prefer-dist --no-progress --ansi
+        continue-on-error: ${{ matrix.is-php-experimental }}
 
       - name: Run unit tests
         run: |
@@ -117,6 +118,8 @@ jobs:
           name: ${{ steps.test-doc-artifact-name.outputs.name }}
           path: ${{ vars.UNIT_TEST_DOC_FILENAME }}
 
+      - name: Show continue-on-error
+        run: echo xxxxxx ---> ${{ matrix.is-php-experimental }} xxxx ${{ matrix.continue-on-error }}
 
   checks-composer:
     name: Validate Composer
