@@ -23,7 +23,7 @@
         "doctrine/collections": "^1.8",
         "laminas/laminas-httphandlerrunner": "^2.2",
         "league/route": "^5.1",
-        "nyholm/psr7": "^1.8",
+        "nyholm/psr7": "^1.5 || ^1.8",
         "nyholm/psr7-server": "^1.0",
         "openemr/oe-module-installer-plugin": "^0.1",
         "psr/log": "^1.1",
