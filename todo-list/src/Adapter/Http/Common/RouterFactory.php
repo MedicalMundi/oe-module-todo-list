@@ -12,7 +12,7 @@ use MedicalMundi\TodoList\Adapter\Http\Web\HelpController;
 use MedicalMundi\TodoList\Adapter\Http\Web\HomeController;
 use MedicalMundi\TodoList\Adapter\Http\Web\ToDoListController;
 use MedicalMundi\TodoList\Adapter\Http\Web\ToDoReadController;
-use MedicalMundi\TodoList\isModuleStandAlone;
+use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use Psr\Container\ContainerInterface;
 
 class RouterFactory

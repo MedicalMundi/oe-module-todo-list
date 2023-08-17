@@ -4,8 +4,7 @@
 namespace MedicalMundi\TodoList\Adapter\Http\Web;
 
 use MedicalMundi\TodoList\Adapter\Http\Common\UrlService;
-use MedicalMundi\TodoList\isModuleStandAlone;
-
+use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 

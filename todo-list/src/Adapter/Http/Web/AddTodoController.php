@@ -6,7 +6,7 @@ use MedicalMundi\TodoList\Application\Port\In\AddTodoCommand;
 use MedicalMundi\TodoList\Application\Port\In\AddTodoUseCase;
 use MedicalMundi\TodoList\Domain\Todo\Title;
 use MedicalMundi\TodoList\Domain\Todo\TodoId;
-use MedicalMundi\TodoList\isModuleStandAlone;
+use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 

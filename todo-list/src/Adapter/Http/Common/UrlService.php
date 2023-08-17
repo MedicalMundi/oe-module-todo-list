@@ -3,7 +3,7 @@
 
 namespace MedicalMundi\TodoList\Adapter\Http\Common;
 
-use MedicalMundi\TodoList\isModuleStandAlone;
+use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 
 class UrlService
 {
