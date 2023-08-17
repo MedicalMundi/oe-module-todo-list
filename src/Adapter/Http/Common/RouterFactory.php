@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace MedicalMundi\TodoList\Adapter\Http\Common;
+namespace OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common;
 
 use League\Route\RouteGroup;
 use League\Route\Router;
 use League\Route\Strategy\ApplicationStrategy;
-use MedicalMundi\TodoList\Adapter\Http\Web\AboutController;
-use MedicalMundi\TodoList\Adapter\Http\Web\AddTodoController;
-use MedicalMundi\TodoList\Adapter\Http\Web\HelpController;
-use MedicalMundi\TodoList\Adapter\Http\Web\HomeController;
-use MedicalMundi\TodoList\Adapter\Http\Web\ToDoListController;
-use MedicalMundi\TodoList\Adapter\Http\Web\ToDoReadController;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\AboutController;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\AddTodoController;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\HelpController;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\HomeController;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\ToDoListController;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\ToDoReadController;
 use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use Psr\Container\ContainerInterface;
 

@@ -1,11 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace MedicalMundi\TodoList\Adapter\Http\Web;
-
-use MedicalMundi\TodoList\Adapter\Http\Common\UrlService;
+namespace OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web;
 
 use MedicalMundi\TodoList\Application\Port\Out\Persistence\FindTodosPort;
 use Nyholm\Psr7\Factory\Psr17Factory;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\UrlService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Twig\Environment;
@@ -29,11 +28,16 @@ class ToDoListController
     {
         $todos = $this->repository->findTodos();
 
-        $content = $this->templateEngine->render('todo/list.html.twig', [
+        return $this->render('todo/list.html.twig', [
             'todos' => $todos,
         ]);
+    }
 
+    private function render(string $template, array $parameters): ResponseInterface
+    {
         $psr17Factory = new Psr17Factory();
+
+        $content = $this->templateEngine->render($template, $parameters);
 
         $responseBody = $psr17Factory->createStream($content);
 

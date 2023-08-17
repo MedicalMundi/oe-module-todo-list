@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MedicalMundi\TodoList\Adapter\Http\Web;
+namespace OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web;
 
 use MedicalMundi\TodoList\Application\Port\In\AddTodoCommand;
 use MedicalMundi\TodoList\Application\Port\In\AddTodoUseCase;
@@ -31,8 +31,13 @@ class AddTodoController
 
         $this->useCaseService->addTodo($command);
 
+        return $this->renderRaw($page);
+    }
+
+    private function renderRaw(string $content): ResponseInterface
+    {
         $psr17Factory = new Psr17Factory();
-        $responseBody = $psr17Factory->createStream($page);
+        $responseBody = $psr17Factory->createStream($content);
 
         return $psr17Factory->createResponse(200)->withBody($responseBody);
     }

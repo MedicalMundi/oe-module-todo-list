@@ -1,26 +1,27 @@
 <?php declare(strict_types=1);
 
-namespace MedicalMundi\TodoList\Tests\Unit\Controller;
+namespace OpenEMR\Modules\MedicalMundiTodoList\Tests\Unit\Controller;
 
-use MedicalMundi\TodoList\Adapter\Http\Common\UrlService;
-use MedicalMundi\TodoList\Adapter\Http\Web\ToDoListController;
-use MedicalMundi\TodoList\Application\Port\Out\Persistence\FindTodosPort;
+use MedicalMundi\TodoList\Application\Port\Out\Persistence\LoadTodoPort;
+use MedicalMundi\TodoList\Domain\Todo\TodoId;
 use Nyholm\Psr7\ServerRequest;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\UrlService;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\ToDoReadController;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Twig\Environment;
 
-class TodoListControllerTest extends TestCase
+class TodoReadControllerTest extends TestCase
 {
     private const UUID = '945a0258-7751-478a-9d01-7d925963c740';
 
     private const INVALID_UUID = '945a0258-7751-478a-9d01-';
 
-    private ToDoListController $controller;
+    private ToDoReadController $controller;
 
     /**
-     * @var FindTodosPort|MockObject
+     * @var LoadTodoPort|MockObject
      */
     private MockObject $repository;
 
@@ -36,10 +37,10 @@ class TodoListControllerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->repository = $this->getMockForAbstractClass(FindTodosPort::class);
+        $this->repository = $this->getMockForAbstractClass(LoadTodoPort::class);
         $this->urlService = $this->createMock(UrlService::class);
         $this->templateEngine = $this->createMock(Environment::class);
-        $this->controller = new ToDoListController(
+        $this->controller = new TodoReadController(
             $this->repository,
             $this->urlService,
             $this->templateEngine
@@ -48,12 +49,15 @@ class TodoListControllerTest extends TestCase
 
     public function testSuccess(): void
     {
-        $params = [];
-        $request = new ServerRequest('GET', '/todos', [], null, '1.1', $params);
+        $params = [
+            'id' => self::UUID,
+        ];
+        $request = new ServerRequest('GET', '/todos/', [], null, '1.1', $params);
 
         $this->repository
             ->expects($this->once())
-            ->method('findTodos')
+            ->method('withTodoId')
+            ->with(TodoId::fromString(self::UUID))
         ;
 
         $this->templateEngine
@@ -71,7 +75,6 @@ class TodoListControllerTest extends TestCase
      */
     public function canHandleInvalidUuidRequestParam(): void
     {
-        self::markTestSkipped();
         $params = [
             'id' => self::INVALID_UUID,
         ];
