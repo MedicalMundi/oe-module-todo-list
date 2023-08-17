@@ -41,21 +41,22 @@ $loader->registerClasses(
     $privateDefinition,
     'MedicalMundi\\TodoList\\',
     '../../src/*',
-    '../../src/{Config,Entity,DependencyInjection,Adapter,Module.php,RouterFactory.php,*Controller.php}'
+    '../../src/{Config,Module.php,*Controller.php}'
 );
 
 // classes in the namespace MedicalMundi\TodoList\Adapter\Http\Web\ and the directory src/ will be register in the container
 $loader->registerClasses(
     $publicDefinition,
-    'MedicalMundi\\TodoList\\Adapter\\Http\\Web\\',
+    'OpenEMR\\Modules\\MedicalMundiTodoList\\Adapter\\Http\\Web\\',
     '../../src/Adapter/Http/Web/*',
     '../../src/Adapter/Http/Web/{WebController.php}'
 );
 
-// classes in the namespace MedicalMundi\TodoList\Adapter\Http\Web\ and the directory src/ will be register in the container
+// classes in the namespace MedicalMundi\TodoList\Adapter\Http\Common\
+// will be register in the container
 $loader->registerClasses(
     $publicDefinition,
-    'MedicalMundi\\TodoList\\Adapter\\Http\\Common\\',
+    'OpenEMR\\Modules\\MedicalMundiTodoList\\Adapter\\Http\\Common\\',
     '../../src/Adapter/Http/Common/*'
     //'../../src/Adapter/Http/Common/{WebController.php}'
 );
