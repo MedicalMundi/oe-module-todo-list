@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 namespace MedicalMundi\TodoList\Domain\Todo\Repository;
 
 use MedicalMundi\TodoList\Domain\Todo\Todo;

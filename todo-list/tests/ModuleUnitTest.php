@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 namespace MedicalMundi\TodoList\Tests;
 
 use League\Route\Http\Exception as HttpException;

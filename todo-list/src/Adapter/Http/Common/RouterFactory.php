@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 namespace MedicalMundi\TodoList\Adapter\Http\Common;
 
 use League\Route\RouteGroup;

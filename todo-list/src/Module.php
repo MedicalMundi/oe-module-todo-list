@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 namespace MedicalMundi\TodoList;
 
 use League\Route\Http\Exception as HttpException;
@@ -50,8 +49,8 @@ class Module implements ContainerInterface, RequestHandlerInterface
         $loader->load('monolog.php');
         $loader->load('twig.php');
         //$loader->load('service.php');
-        //dump($containerBuilder);
-        $containerBuilder->compile(); //dump($containerBuilder);
+
+        $containerBuilder->compile();
 
         $module->container = $containerBuilder;
         $module->router = $router;

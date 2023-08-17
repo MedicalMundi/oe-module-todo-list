@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 namespace MedicalMundi\TodoList\Tests\Unit\Controller;
 
 use League\Route\Http\Exception\BadRequestException;

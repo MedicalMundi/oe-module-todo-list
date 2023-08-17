@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 namespace MedicalMundi\TodoList\Tests\Functional\PersistenceAdapter;
 
 use MedicalMundi\TodoList\Adapter\Persistence\FileSystem\JsonTodoRepository;

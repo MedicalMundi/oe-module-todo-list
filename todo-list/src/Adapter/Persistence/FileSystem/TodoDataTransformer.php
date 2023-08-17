@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 namespace MedicalMundi\TodoList\Adapter\Persistence\FileSystem;
 
 use MedicalMundi\TodoList\Domain\Todo\Title;

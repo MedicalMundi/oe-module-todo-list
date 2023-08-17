@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /**
  * This file is required, see official guidelines.
@@ -41,7 +39,7 @@ use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
                 $responseBody = $psr17Factory->createStream(json_encode([ 'error' => 'malformed request' ]));
                 $response = $psr17Factory->createResponse(400)->withBody($responseBody);
             } else {
-                $response =  $module->handle($request); //var_dump($response);
+                $response =  $module->handle($request);
             }
         } catch (Throwable $e) {
             //logger()->error($e, ['exception' => $e, 'request' => $request ?? null]);
