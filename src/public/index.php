@@ -15,14 +15,13 @@ use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 
 (
     static function (): void {
-        require __DIR__ . '/src/isModuleStandAlone.php';
+        require __DIR__ . '/../../src/isModuleStandAlone.php';
 
-        if ((new isModuleStandAlone)()) {
-            require __DIR__ . '/vendor/autoload.php';
+        if ((new isModuleStandAlone())()) {
+            require __DIR__ . '../../../vendor/autoload.php';
         } else {
-            require __DIR__ . '/../../../../vendor/autoload.php';
+            require __DIR__ . '../../../vendor/autoload.php';
         }
-
 
         $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();
         $serverRequestFactory = new \Nyholm\Psr7Server\ServerRequestCreator(
@@ -38,14 +37,18 @@ use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
             // TODO CREATE REQUEST FROM GLOBALS
             $request = $serverRequestFactory->fromGlobals();
             if ($request === null) {
-                $responseBody = $psr17Factory->createStream(json_encode([ 'error' => 'malformed request' ]));
+                $responseBody = $psr17Factory->createStream(json_encode([
+                    'error' => 'malformed request',
+                ]));
                 $response = $psr17Factory->createResponse(400)->withBody($responseBody);
             } else {
-                $response =  $module->handle($request); //var_dump($response);
+                $response = $module->handle($request); //var_dump($response);
             }
         } catch (Throwable $e) {
             //logger()->error($e, ['exception' => $e, 'request' => $request ?? null]);
-            $responseBody = $psr17Factory->createStream(json_encode([ 'error' => $e->getMessage() ]));
+            $responseBody = $psr17Factory->createStream(json_encode([
+                'error' => $e->getMessage(),
+            ]));
             $response = $psr17Factory->createResponse(500)->withBody($responseBody);
         }
 

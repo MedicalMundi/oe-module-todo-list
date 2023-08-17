@@ -8,7 +8,6 @@ use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-
 class HelpController
 {
     /**
