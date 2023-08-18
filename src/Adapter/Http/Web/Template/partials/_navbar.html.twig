@@ -1,6 +1,12 @@
 <nav class="navbar navbar-expand navbar-light bg-white static-top">
 
-    <a class="navbar-brand mr-1" href="{#{{ path('module_dashboard') }}#}">{{ 'menu.module_name' }}</a>
+
+    {% if module.isStandAlone %}
+        <a class="navbar-brand mr-1" href="/">{{ module.name }}</a>
+    {% else %}
+        <a class="navbar-brand mr-1" href="/interface/modules/custom_modules/oe-module-todo-list">{{ module.name }}</a>
+    {% endif %}
+
 
     <button class="btn btn-link btn-sm order-1 order-sm-0 text-dark" id="sidebarToggle">
         <i class="fas fa-bars"></i>
@@ -41,9 +47,13 @@
                 <span class="hidden-sm">{{ 'menu.add_new' }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="addDropdown">
-
-                <a class="dropdown-item" href="{#{{ path('todo_new') }}#}">{{ 'menu.add_new.todo' }}</a>
-                {#<a class="dropdown-item" href="#}{#{{ path('label_new') }}#}{#">{{ 'menu.add_new.label' }}</a>#}
+                {% if module.isStandAlone %}
+                    <a class="dropdown-item" href="/todos/new">{{ 'menu.add_new.todo' }}</a>
+                    <a class="dropdown-item" href="/help">{{ 'help' }}</a>
+                {% else %}
+                    <a class="dropdown-item" href="/interface/modules/custom_modules/oe-module-todo-list/todos/new">{{ 'menu.add_new.todo' }}</a>
+                    <a class="dropdown-item" href="/interface/modules/custom_modules/oe-module-todo-list/help">{{ 'help' }}</a>
+                {% endif %}
             </div>
         </li>
 
@@ -61,11 +71,16 @@
                     {{ 'menu.settings.global_preference' }}
                 </a>
                 <div class="dropdown-divider"></div>
-                {#<a class="dropdown-item" href="{{ path('app_logout') }}">#}
+                <a class="dropdown-item" href="{# {{ path('app_logout') }} #}">
                 {{ 'menu.settings.user_preference' }}
                 </a>
+                {% if module.isStandAlone %}
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/dashboard">
+                        {{ 'menu.dashboard' }}
+                    </a>
+                {% endif %}
             </div>
         </li>
     </ul>
-
 </nav>

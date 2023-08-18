@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
@@ -24,6 +25,12 @@ $TwigEnvironment = new Environment($loader, $twigOptions);
 
 // should be optional
 $TwigEnvironment->addExtension(new DebugExtension());
+
+$TwigEnvironment->addGlobal('module', [
+    'name' => 'Todo List',
+    'version' => 'v0.1.0',
+    'isStandAlone' => (new isModuleStandAlone())(),
+]);
 
 
 

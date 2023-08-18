@@ -8,6 +8,7 @@
 
     <!-- Navbar -->
     {{ include('partials/_navbar.html.twig') }}
+
     <div class="container pt-3 border">
         <div class="row">
             <div class="container">
@@ -29,7 +30,14 @@
                         {% for todo in todos %}
                             <tr>
                                 <td>{{ todo.id }}</td>
-                                <td>{{ todo.title }}</td>
+                                <td>
+                                    {% if module.isStandAlone %}
+                                        <a href="/todos/{{ todo.id }}">{{ todo.title }}</a>
+                                    {% else %}
+                                        <a href="/interface/modules/custom_modules/oe-module-todo-list/todos/{{ todo.id }}">{{ todo.title }}</a>
+                                    {% endif %}
+
+                                    </td>
                                 <td>{{ todo.description }}</td>
                             </tr>
                         {% else %}

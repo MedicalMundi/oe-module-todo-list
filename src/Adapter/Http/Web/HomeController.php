@@ -7,14 +7,18 @@ use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\UrlService;
 use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Twig\Environment;
 
 class HomeController
 {
     private UrlService $urlService;
 
-    public function __construct(UrlService $urlService)
+    private Environment $templateEngine;
+
+    public function __construct(UrlService $urlService, Environment $templateEngine)
     {
         $this->urlService = $urlService;
+        $this->templateEngine = $templateEngine;
     }
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
@@ -33,12 +37,15 @@ class HomeController
         $page .= '<div>Link test - <a href="' . $this->urlService->renderUrl('todo-list') . '">show todo list</a></div>';
         $page .= '<div>Link test - <a href="' . $request->getUri() . 'todos/23' . '">show todo by id 23</a></div>';
 
-        return $this->renderRaw($page);
+        return $this->render('home.html.twig', []);
     }
 
-    private function renderRaw(string $content): ResponseInterface
+    private function render(string $template, array $parameters): ResponseInterface
     {
         $psr17Factory = new Psr17Factory();
+
+        $content = $this->templateEngine->render($template, $parameters);
+
         $responseBody = $psr17Factory->createStream($content);
 
         return $psr17Factory->createResponse(200)->withBody($responseBody);

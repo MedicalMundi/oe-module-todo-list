@@ -5,6 +5,9 @@ use MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository;
 use MedicalMundi\TodoList\Application\AddTodoService;
 use MedicalMundi\TodoList\Application\Port\In\AddTodoUseCase;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\UrlService;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\AboutController;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\HelpController;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\HomeController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\ToDoListController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\ToDoReadController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\WebController;
@@ -107,7 +110,26 @@ $container
     ->setPublic(true)
 ;
 
+$container
+    ->register(AboutController::class, AboutController::class)
+    ->addArgument(new Reference(UrlService::class))
+    ->addArgument(new Reference(Environment::class))
+    ->setPublic(true)
+;
 
+$container
+    ->register(HomeController::class, HomeController::class)
+    ->addArgument(new Reference(UrlService::class))
+    ->addArgument(new Reference(Environment::class))
+    ->setPublic(true)
+;
+
+$container
+    ->register(HelpController::class, HelpController::class)
+    ->addArgument(new Reference(UrlService::class))
+    ->addArgument(new Reference(Environment::class))
+    ->setPublic(true)
+;
 
 $container
     ->register(InMemoryTodoRepository::class, InMemoryTodoRepository::class)
