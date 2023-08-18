@@ -29,7 +29,7 @@
                         <tbody>
                         {% for todo in todos %}
                             <tr>
-                                <td>{{ todo.id }}</td>
+                                <td>{{ todo.id|u.truncate(8) }}</td>
                                 <td>
                                     {% if module.isStandAlone %}
                                         <a href="/todos/{{ todo.id }}">{{ todo.title }}</a>
