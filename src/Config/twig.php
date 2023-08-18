@@ -3,6 +3,7 @@
 use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
+use Twig\Extra\String\StringExtension;
 use Twig\Loader\FilesystemLoader;
 
 $moduleDir = \dirname(__DIR__, 2);
@@ -25,6 +26,7 @@ $TwigEnvironment = new Environment($loader, $twigOptions);
 
 // should be optional
 $TwigEnvironment->addExtension(new DebugExtension());
+$TwigEnvironment->addExtension(new StringExtension());
 
 $TwigEnvironment->addGlobal('module', [
     'name' => 'Todo List',

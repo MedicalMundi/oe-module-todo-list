@@ -33,6 +33,7 @@
         "symfony/config": "^4.4 || ^5.4",
         "symfony/dependency-injection": "^4.4 || ^5.4",
         "symfony/event-dispatcher": "^4.4 || ^5.4",
+        "twig/string-extra": "^3.7",
         "twig/twig": "^3.5 || ^3.7"
     },
     "require-dev": {
