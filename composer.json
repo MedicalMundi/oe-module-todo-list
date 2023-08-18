@@ -76,10 +76,10 @@
     "prefer-stable": true,
     "scripts": {
         "post-install-cmd": [
-            "if [ -d \"interface/modules/custom_modules/oe-module-todo-list/var/\" ]; then\n chmod -R 775 interface/modules/custom_modules/oe-module-todo-list/var/  \nfi"
+            "if [ -d \"interface/modules/custom_modules/oe-module-todo-list/\" ]; then\n chown apache:root -R interface/modules/custom_modules/oe-module-todo-list/ \nfi"
         ],
         "post-update-cmd": [
-            "if [ -d \"interface/modules/custom_modules/oe-module-todo-list/var/\" ]; then\n chmod -R 775 interface/modules/custom_modules/oe-module-todo-list/var/  \nfi"
+            "if [ -d \"interface/modules/custom_modules/oe-module-todo-list/\" ]; then\n chown apache:root -R interface/modules/custom_modules/oe-module-todo-list/ \nfi"
         ],
         "cs": "./vendor/bin/ecs",
         "cs:fix": "./vendor/bin/ecs --fix",
