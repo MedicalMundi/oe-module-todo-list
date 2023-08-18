@@ -4,16 +4,12 @@ namespace MedicalMundi\TodoList\Domain\Todo;
 
 class Todo implements TodoInterface
 {
-    private TodoId $todoId;
-
-    private Title $title;
-
     private ?Description $description = null;
 
-    public function __construct(TodoId $todoId, Title $title)
-    {
-        $this->todoId = $todoId;
-        $this->title = $title;
+    public function __construct(
+        private TodoId $todoId,
+        private Title $title
+    ) {
     }
 
     public function id(): TodoId

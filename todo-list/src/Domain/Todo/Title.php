@@ -2,7 +2,7 @@
 
 namespace MedicalMundi\TodoList\Domain\Todo;
 
-final class Title
+final class Title implements \Stringable
 {
     public const MIN_LENGHT = 5;
 

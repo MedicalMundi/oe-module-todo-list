@@ -5,10 +5,8 @@ namespace MedicalMundi\TodoList\Domain\Todo;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final class TodoId
+final class TodoId implements \Stringable
 {
-    private UuidInterface $uuid;
-
     public static function generate(): TodoId
     {
         return new self(Uuid::uuid4());
@@ -19,9 +17,9 @@ final class TodoId
         return new self(Uuid::fromString(trim($todoId)));
     }
 
-    private function __construct(UuidInterface $todoId)
-    {
-        $this->uuid = $todoId;
+    private function __construct(
+        private UuidInterface $uuid
+    ) {
     }
 
     public function toString(): string

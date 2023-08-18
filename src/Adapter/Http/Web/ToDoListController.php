@@ -11,17 +11,11 @@ use Twig\Environment;
 
 class ToDoListController
 {
-    private FindTodosPort $repository;
-
-    private UrlService $urlService;
-
-    private Environment $templateEngine;
-
-    public function __construct(FindTodosPort $repository, UrlService $urlService, Environment $templateEngine)
-    {
-        $this->repository = $repository;
-        $this->urlService = $urlService;
-        $this->templateEngine = $templateEngine;
+    public function __construct(
+        private FindTodosPort $repository,
+        private UrlService $urlService,
+        private Environment $templateEngine
+    ) {
     }
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface

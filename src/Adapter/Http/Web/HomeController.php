@@ -11,14 +11,10 @@ use Twig\Environment;
 
 class HomeController
 {
-    private UrlService $urlService;
-
-    private Environment $templateEngine;
-
-    public function __construct(UrlService $urlService, Environment $templateEngine)
-    {
-        $this->urlService = $urlService;
-        $this->templateEngine = $templateEngine;
+    public function __construct(
+        private UrlService $urlService,
+        private Environment $templateEngine
+    ) {
     }
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
