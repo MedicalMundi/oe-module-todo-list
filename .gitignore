@@ -1,6 +1,5 @@
 /.idea
 /extra
-/var
 /src/Adapter/Persistence/todos.json
 /tools/**/vendor
 /vendor
