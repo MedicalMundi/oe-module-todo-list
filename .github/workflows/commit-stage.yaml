@@ -124,7 +124,7 @@ jobs:
     strategy:
       matrix:
         php:
-          - '7.4'
+          - '8.0'
       fail-fast: true
     steps:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
@@ -182,7 +182,7 @@ jobs:
     strategy:
       matrix:
         php:
-          - '7.4'
+          - '8.0'
       fail-fast: true
     steps:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
@@ -251,7 +251,7 @@ jobs:
     strategy:
       matrix:
         php:
-          - '7.4'
+          - '8.0'
       fail-fast: true
     steps:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
@@ -319,7 +319,7 @@ jobs:
     strategy:
       matrix:
         php:
-          - '7.4'
+          - '8.0'
       fail-fast: true
     steps:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
