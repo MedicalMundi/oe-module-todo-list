@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MedicalMundi\TodoList\Tests;
+namespace OpenEMR\Modules\MedicalMundiTodoList\Tests\Unit\Adapter\Http\Common;
 
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\UrlService;
 use PHPUnit\Framework\TestCase;
@@ -34,7 +34,7 @@ class UrlServiceTest extends TestCase
     /**
      * @test
      */
-    public function unknow_routeName_should_throw_exception(): void
+    public function unknown_routeName_should_throw_exception(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $isStandAloneMode = false;
@@ -77,6 +77,18 @@ class UrlServiceTest extends TestCase
 
         self::assertIsString($service->renderUrl('help'));
         self::assertEquals(self::MODULE_MAIN_URL . 'help', $service->renderUrl('help'));
+    }
+
+    /**
+     * @test
+     */
+    public function can_render_dashboard_url(): void
+    {
+        $isStandAloneMode = false;
+        $service = new UrlService($isStandAloneMode);
+
+        self::assertIsString($service->renderUrl('dashboard'));
+        self::assertEquals(self::MODULE_MAIN_URL . 'dashboard', $service->renderUrl('dashboard'));
     }
 
     /**

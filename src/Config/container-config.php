@@ -6,6 +6,7 @@ use MedicalMundi\TodoList\Application\AddTodoService;
 use MedicalMundi\TodoList\Application\Port\In\AddTodoUseCase;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\UrlService;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\AboutController;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\DashboardController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\HelpController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\HomeController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\ToDoListController;
@@ -126,6 +127,13 @@ $container
 
 $container
     ->register(HelpController::class, HelpController::class)
+    ->addArgument(new Reference(UrlService::class))
+    ->addArgument(new Reference(Environment::class))
+    ->setPublic(true)
+;
+
+$container
+    ->register(DashboardController::class, DashboardController::class)
     ->addArgument(new Reference(UrlService::class))
     ->addArgument(new Reference(Environment::class))
     ->setPublic(true)
