@@ -15,6 +15,16 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 class Module implements ContainerInterface, RequestHandlerInterface
 {
+    public const MODULE_NAME = 'ToDo List';
+
+    public const MODULE_VERSION = 'v.0.1.1-RC';
+
+    public const MODULE_SOURCE_CODE = 'https://github.com/MedicalMundi/oe-module-todo-list';
+
+    public const VENDOR_NAME = 'MedicalMundi';
+
+    public const VENDOR_URL = 'https://github.com/MedicalMundi';
+
     /**
      * @var ContainerInterface
      */

@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
+use OpenEMR\Modules\MedicalMundiTodoList\Module;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Extra\String\StringExtension;
@@ -29,8 +30,10 @@ $TwigEnvironment->addExtension(new DebugExtension());
 $TwigEnvironment->addExtension(new StringExtension());
 
 $TwigEnvironment->addGlobal('module', [
-    'name' => 'Todo List',
-    'version' => 'v0.1.0',
+    'name' => Module::MODULE_NAME,
+    'version' => Module::MODULE_VERSION,
+    'source_code' => Module::MODULE_SOURCE_CODE,
+    'vendor_name' => Module::VENDOR_NAME,
     'isStandAlone' => (new isModuleStandAlone())(),
 ]);
 
