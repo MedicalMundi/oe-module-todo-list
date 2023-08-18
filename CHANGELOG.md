@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased] - XXXX-XX-XX
 
+
+## [v0.1.1] -  2023-08-19
+
+### (Maintenance release)
+
+### Added
+- Support php-8.0
+
+### Removed
+- Drop php-7.4
+
 ## [v0.1.0] -  2020-05-21
 
 ### (Maintenance release)
