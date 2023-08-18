@@ -14,7 +14,7 @@ if ((new IsModuleStandAlone())()) {
     // Logging in openemr 'var' directory
     // TODO: change path, use openemr var dir
     $container->register(StreamHandler::class, StreamHandler::class)
-        ->addArgument(__DIR__ . '/../../../var/log/module.log');
+        ->addArgument(__DIR__ . '/../../module.log');
 }
 
 $container->register(LoggerInterface::class, Logger::class)
