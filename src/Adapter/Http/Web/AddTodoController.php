@@ -14,13 +14,12 @@ use Psr\Log\NullLogger;
 
 class AddTodoController
 {
-    private AddTodoUseCase $useCaseService;
-
     private LoggerInterface $logger;
 
-    public function __construct(AddTodoUseCase $useCaseService, LoggerInterface $logger = null)
-    {
-        $this->useCaseService = $useCaseService;
+    public function __construct(
+        private AddTodoUseCase $useCaseService,
+        LoggerInterface $logger = null
+    ) {
         $this->logger = $logger ?? new NullLogger();
     }
 

@@ -8,16 +8,13 @@ use MedicalMundi\TodoList\Domain\Todo\TodoId;
 
 class AddTodoCommand
 {
-    private TodoId $todoId;
-
-    private Title $title;
-
     private ?Description $description = null;
 
-    public function __construct(TodoId $todoId, Title $title, Description $description = null)
-    {
-        $this->todoId = $todoId;
-        $this->title = $title;
+    public function __construct(
+        private TodoId $todoId,
+        private Title $title,
+        Description $description = null
+    ) {
         //TODO: fix...
         $this->description = $description ?: $description;
     }

@@ -12,17 +12,11 @@ use Twig\Environment;
 
 class ToDoReadController
 {
-    private LoadTodoPort $repository;
-
-    private UrlService $urlService;
-
-    private Environment $templateEngine;
-
-    public function __construct(LoadTodoPort $repository, UrlService $urlService, Environment $templateEngine)
-    {
-        $this->repository = $repository;
-        $this->urlService = $urlService;
-        $this->templateEngine = $templateEngine;
+    public function __construct(
+        private LoadTodoPort $repository,
+        private UrlService $urlService,
+        private Environment $templateEngine
+    ) {
     }
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
