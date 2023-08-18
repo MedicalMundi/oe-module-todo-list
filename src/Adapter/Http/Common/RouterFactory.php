@@ -7,6 +7,7 @@ use League\Route\Router;
 use League\Route\Strategy\ApplicationStrategy;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\AboutController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\AddTodoController;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\DashboardController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\HelpController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\HomeController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\ToDoListController;
@@ -36,6 +37,7 @@ class RouterFactory
         }
 
         $router->map('GET', $prefix . '/', HomeController::class);
+        $router->map('GET', $prefix . '/dashboard', DashboardController::class);
         $router->map('GET', $prefix . '/about', AboutController::class);
         $router->map('GET', $prefix . '/help', HelpController::class);
 

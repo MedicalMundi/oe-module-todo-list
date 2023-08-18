@@ -22,6 +22,7 @@ class UrlService
         'todo-list',
         'todo',
         'help',
+        'dashboard',
     ];
 
     public function __construct(?bool $isStandAloneMode = null)
@@ -75,5 +76,10 @@ class UrlService
     private function settings(): string
     {
         return $this->baseUrl . 'settings';
+    }
+
+    private function dashboard(): string
+    {
+        return $this->baseUrl . 'dashboard';
     }
 }
