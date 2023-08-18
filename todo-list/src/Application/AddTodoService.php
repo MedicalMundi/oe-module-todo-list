@@ -26,6 +26,7 @@ class AddTodoService implements AddTodoUseCase
             $todo = new Todo($command->todoId(), $command->title());
             $this->todoStorageService->addTodo($todo);
         } catch (\Exception $exception) {
+            echo $exception->getMessage();
             $this->logger->error($exception->getMessage());
         }
     }
