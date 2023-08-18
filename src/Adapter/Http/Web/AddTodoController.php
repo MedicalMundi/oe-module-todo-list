@@ -7,22 +7,30 @@ use MedicalMundi\TodoList\Application\Port\In\AddTodoUseCase;
 use MedicalMundi\TodoList\Domain\Todo\Title;
 use MedicalMundi\TodoList\Domain\Todo\TodoId;
 use Nyholm\Psr7\Factory\Psr17Factory;
-use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Log\LoggerInterface;
 
 class AddTodoController
 {
     private AddTodoUseCase $useCaseService;
 
-    public function __construct(AddTodoUseCase $useCaseService)
+    private LoggerInterface $logger;
+
+    public function __construct(AddTodoUseCase $useCaseService, LoggerInterface $logger)
     {
         $this->useCaseService = $useCaseService;
+        $this->logger = $logger;
     }
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
     {
-        $page = '<div><h1>AddTodo controller !!<h1> standAlone: ' . (int) (new isModuleStandAlone())() . '</div>';
+        //TODO add data validation
+        if (! isset($args['id']) || ! isset($args['title'])) {
+            $page = 'Validation error: ';
+            $this->logger->log('info', 'Validation error: ');
+            return $this->renderRaw($page);
+        }
 
         $command = new AddTodoCommand(
             TodoId::fromString((string) $args['id']),
@@ -31,6 +39,7 @@ class AddTodoController
 
         $this->useCaseService->addTodo($command);
 
+        $page = 'Success ';
         return $this->renderRaw($page);
     }
 
