@@ -10,6 +10,7 @@ use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 class AddTodoController
 {
@@ -17,10 +18,10 @@ class AddTodoController
 
     private LoggerInterface $logger;
 
-    public function __construct(AddTodoUseCase $useCaseService, LoggerInterface $logger)
+    public function __construct(AddTodoUseCase $useCaseService, LoggerInterface $logger = null)
     {
         $this->useCaseService = $useCaseService;
-        $this->logger = $logger;
+        $this->logger = $logger ?? new NullLogger();
     }
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
