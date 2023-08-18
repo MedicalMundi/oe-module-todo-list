@@ -75,6 +75,12 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
+        "post-install-cmd": [
+            "if [ -d \"interface/modules/custom_modules/oe-module-todo-list/var/\" ]; then\n chmod -R 775 interface/modules/custom_modules/oe-module-todo-list/var/  \nfi"
+        ],
+        "post-update-cmd": [
+            "if [ -d \"interface/modules/custom_modules/oe-module-todo-list/var/\" ]; then\n chmod -R 775 interface/modules/custom_modules/oe-module-todo-list/var/  \nfi"
+        ],
         "cs": "./vendor/bin/ecs",
         "cs:fix": "./vendor/bin/ecs --fix",
         "rc": "./vendor/bin/rector --dry-run",
