@@ -34,6 +34,7 @@ $TwigEnvironment->addGlobal('module', [
     'version' => Module::MODULE_VERSION,
     'source_code' => Module::MODULE_SOURCE_CODE,
     'vendor_name' => Module::VENDOR_NAME,
+    'vendor_url' => Module::VENDOR_URL,
     'isStandAlone' => (new isModuleStandAlone())(),
 ]);
 
