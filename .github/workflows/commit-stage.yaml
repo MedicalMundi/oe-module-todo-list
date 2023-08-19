@@ -381,4 +381,86 @@ jobs:
           ./vendor/bin/rector --dry-run
 
 
+  check-composer-module-conflict:
+    name: Module conflict (php-${{ matrix.php }} openemr-${{ matrix.openemr }})
+    if: ${{ github.ref_name == 'main' }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    continue-on-error: ${{ matrix.is-php-experimental }}
+    strategy:
+      max-parallel: 6
+      matrix:
+        openemr: [v7_0_1_1, v7_0_1]
+        php: ['8.0', '8.1', '8.2']
+        is-php-experimental: [false]
+#        php:
+#          - '8.0'
+#        is-php-experimental: [false]
+#        include:
+#          - php: '8.1'
+#            openemr: [v7_0_1_1, v7_0_1]
+#            is-php-experimental: false
+#          - php: '8.2'
+#            openemr: [v7_0_1_1, v7_0_1]
+#            is-php-experimental: true
+      fail-fast: false
+    steps:
+      - name: Setup php extension cache environment
+        if: ${{ vars.USE_PHP_EXTENSION_CACHE }}
+        id: cache-php-extensions
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          key: ${{ env.PHP_EXTENSIONS_CACHE_KEY }}-${{ matrix.php }}
+
+      - name: Cache PHP extensions
+        if: ${{ vars.USE_PHP_EXTENSION_CACHE }}
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.cache-php-extensions.outputs.dir }}
+          key: ${{ steps.cache-php-extensions.outputs.key }}
+          restore-keys: ${{ steps.cache-php-extensions.outputs.key }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@2.25.5
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          ini-values: memory_limit=-1
+          coverage: none
+          tools: composer
+
+      - name: Dump context
+        uses: crazy-max/ghaction-dump-context@v2
+
+      - name: Clone Openemr tag ${{ matrix.openemr }}
+        uses: actions/checkout@v3
+        with:
+          repository: openemr/openemr
+          ref: ${{ matrix.openemr }}
+
+      - name: list directory
+        run: ls -al
+
+      - name: Set Composer Cache Directory
+        if: ${{ vars.USE_COMPOSER_CACHE == '1' }}
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        if: ${{ vars.USE_COMPOSER_CACHE == '1' }}
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-php-${{ matrix.php }}-openemr-${{ matrix.openemr }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php }}-openemr-${{ matrix.openemr }}-composer-
+
+      - name: Install openemr module ( last release )
+        run: composer require medicalmundi/oe-module-todo-list --ansi
+
+      - name: Install openemr module ( dev-main )
+        run: composer require medicalmundi/oe-module-todo-list:dev-main --ansi
 
