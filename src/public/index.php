@@ -13,12 +13,12 @@ use OpenEMR\Modules\MedicalMundiTodoList\Module;
 
 (
     static function (): void {
-        require __DIR__ . '/../src/isModuleStandAlone.php';
+        require __DIR__ . '/../../src/isModuleStandAlone.php';
 
         if ((new isModuleStandAlone())()) {
-            require __DIR__ . '../../vendor/autoload.php';
+            require __DIR__ . '../../../vendor/autoload.php';
         } else {
-            require __DIR__ . '../../vendor/autoload.php';
+            require __DIR__ . '../../../vendor/autoload.php';
         }
 
         $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();
