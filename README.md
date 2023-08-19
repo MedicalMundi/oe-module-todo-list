@@ -6,34 +6,43 @@
 
 ## Development
 
+
 ### Test
 
+Run all test
 ```bash
-> make phpunit
+> ./vendor/bin/phpunit
+```
+Run only unit test
+```bash
+> ./vendor/bin/phpunit --testsuite=unit
+// shortcut
+> composer tu
 ```
 
-### Static analysis tools
 
-```bash
-> make phpstan
-```
+### Static analysis tool
 
+Check static analysis
 ```bash
-> make psalm
+> ./vendor/bin/psalm
+// shortcut
+> composer sa
 ```
 
 ### Code style
 
+Check coding style
 ```bash
-> make cs-check
+> ./vendor/bin/ecs
+// shortcut
+> composer cs
 ```
 
+Fix coding style issues
 ```bash
-> make cs
+> ./vendor/bin/ecs --fix
+// shortcut
+> composer cs:fix
 ```
 
-### Composer validation
-
-```bash
-> make composer-validate
-```
