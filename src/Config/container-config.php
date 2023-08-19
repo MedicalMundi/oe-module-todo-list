@@ -38,7 +38,6 @@ $container->registerForAutoconfiguration(WebController::class)
 
 /**
  * Register all module classes as service in container
- *
  */
 /** @var PhpFileLoader $loader */
 $loader->registerClasses(
