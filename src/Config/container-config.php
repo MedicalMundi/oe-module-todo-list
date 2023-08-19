@@ -29,10 +29,6 @@ $publicDefinition
     ->setAutowired(true)
     ->setAutoconfigured(true)
     ->setPublic(true)
-//    ->setBindings([
-//        //LoadTodoPort::class.' $repository', new Reference(InMemoryTodoRepository::class),
-//        LoadTodoPort::class, new Reference(InMemoryTodoRepository::class)
-//    ])
 ;
 
 // all classes that implement the WebController interface will receive a tag 'module.web_controller'
@@ -40,16 +36,21 @@ $container->registerForAutoconfiguration(WebController::class)
     ->addTag('module.web_controller');
 
 
-// classes in the namespace MedicalMundi\TodoList\ and the directory todo-list/src/ will be register in the container
+/**
+ * Register all module classes as service in container
+ *
+ */
 /** @var PhpFileLoader $loader */
 $loader->registerClasses(
     $privateDefinition,
     'OpenEMR\\Modules\\MedicalMundiTodoList\\',
     '../../src/*',
-    '../../src/{Config,public,Module.php,*Controller.php}'
+    '../../src/{Config,Module.php}'
 );
 
-// classes in the namespace MedicalMundi\TodoList\Adapter\Http\Web\ and the directory src/ will be register in the container
+/**
+ * Register module http controller classes as service in container
+ */
 $loader->registerClasses(
     $publicDefinition,
     'OpenEMR\\Modules\\MedicalMundiTodoList\\Adapter\\Http\\Web\\',
@@ -57,18 +58,18 @@ $loader->registerClasses(
     '../../src/Adapter/Http/Web/{WebController.php}'
 );
 
-// classes in the namespace MedicalMundi\TodoList\Adapter\Http\Common\
-// will be register in the container
+/**
+ * Register module http common classes as service in container
+ */
 $loader->registerClasses(
     $publicDefinition,
     'OpenEMR\\Modules\\MedicalMundiTodoList\\Adapter\\Http\\Common\\',
     '../../src/Adapter/Http/Common/*'
-    //'../../src/Adapter/Http/Common/{WebController.php}'
 );
 
-
-// classes in the namespace MedicalMundi\TodoList\Adapter\Http\Common\
-// will be register in the container
+/**
+ * Register application domain classes in container
+ */
 $loader->registerClasses(
     $publicDefinition,
     'MedicalMundi\\TodoList\\',
@@ -79,24 +80,9 @@ $loader->registerClasses(
     ]
 );
 
-//bind:
-//Medicalmundi\Publishing\Application\Port\In\DraftArticleUseCase $draftArticleService: '@Medicalmundi\Publishing\Application\DraftArticleService'
-//            Medicalmundi\Publishing\Application\Port\In\ListArticlesUseCase $listArticleService: '@Medicalmundi\Publishing\Application\ListArticlesService'
-//            Medicalmundi\Publishing\Application\Port\In\ShowArticleUseCase $showArticleService: '@Medicalmundi\Publishing\Application\ShowArticleService'
-
-//$container->alias(LoadTodoPort::class.' $repository', InMemoryTodoRepository::class);
-
-// override the services to set the configurator
-//$services->set(NewsletterManager::class)
-//    ->configurator(ref(EmailConfigurator::class), 'configure');
-
-
-
-
 $container
     ->register(ToDoReadController::class, ToDoReadController::class)
     ->addArgument(new Reference(JsonTodoRepository::class))
-    //->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository'))
     ->addArgument(new Reference(UrlService::class))
     ->addArgument(new Reference(Environment::class))
     ->setPublic(true)
@@ -105,7 +91,6 @@ $container
 $container
     ->register(ToDoListController::class, ToDoListController::class)
     ->addArgument(new Reference(JsonTodoRepository::class))
-    //->addArgument(new Reference('MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository'))
     ->addArgument(new Reference(UrlService::class))
     ->addArgument(new Reference(Environment::class))
     ->setPublic(true)
