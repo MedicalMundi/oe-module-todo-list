@@ -28,52 +28,49 @@ class Module implements ContainerInterface, RequestHandlerInterface
 
     public const VENDOR_URL = 'https://github.com/MedicalMundi';
 
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
+    protected ?ContainerInterface $container = null;
 
     private ?Router $router = null;
 
-    private ConfiguredMessagingSystem $messagingSystem;
+    private ?ConfiguredMessagingSystem $messagingSystem = null;
 
     //TODO: make private
-//    public function __construct(?Router $router = null)
-//    {
-//        $this->router = $router ?: $router;
-//    }
+    //    public function __construct(?Router $router = null)
+    //    {
+    //        $this->router = $router ?: $router;
+    //    }
+
+    //    public static function bootstrap(): self
+    //    {
+    //        $containerBuilder = new ContainerBuilder();
+    //
+    //        $loader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__ . '/Config'));
+    //
+    //        $router = (new RouterFactory())($containerBuilder);
+    //        $containerBuilder->set('router', $router);
+    //
+    //        $module = new self();
+    //        $containerBuilder->set('module', $module);
+    //
+    //        //TODO refactoring the container initialization
+    //        //$containerBuilder->set('module', $this); write private function buildContainer(): ContainerInterface
+    //
+    //        $loader->load('container-config.php');
+    //        $loader->load('monolog.php');
+    //        $loader->load('twig.php');
+    //        //$loader->load('service.php');
+    //
+    //        $module->messagingSystem = $module->bootstrapEcotone($containerBuilder);
+    //
+    //        $containerBuilder->compile();
+    //
+    //        $module->container = $containerBuilder;
+    //        $module->router = $router;
+    //
+    //        return $module;
+    //    }
 
     public static function bootstrap(): self
-    {
-        $containerBuilder = new ContainerBuilder();
-
-        $loader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__ . '/Config'));
-
-        $router = (new RouterFactory())($containerBuilder);
-        $containerBuilder->set('router', $router);
-
-        $module = new self();
-        $containerBuilder->set('module', $module);
-
-        //TODO refactoring the container initialization
-        //$containerBuilder->set('module', $this); write private function buildContainer(): ContainerInterface
-
-        $loader->load('container-config.php');
-        $loader->load('monolog.php');
-        $loader->load('twig.php');
-        //$loader->load('service.php');
-
-        $module->messagingSystem = $module->bootstrapEcotone($containerBuilder);
-
-        $containerBuilder->compile();
-
-        $module->container = $containerBuilder;
-        $module->router = $router;
-
-        return $module;
-    }
-
-    public static function bootstrapWithDI(): self
     {
         $module = new self();
         $container = $module->buildContainer();

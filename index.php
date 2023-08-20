@@ -31,8 +31,8 @@ use OpenEMR\Modules\MedicalMundiTodoList\Module;
         );
 
         try {
-            //$module = Module::bootstrap();
-            $module = Module::bootstrapWithDI();
+            $module = Module::bootstrap();
+            //$module = Module::bootstrapWithDI();
 
             // TODO CREATE REQUEST FROM GLOBALS
             $request = $serverRequestFactory->fromGlobals();
