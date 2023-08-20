@@ -11,7 +11,6 @@ return [
     JsonTodoRepository::class => DI\create(JsonTodoRepository::class),
     FindTodosPort::class => DI\autowire(JsonTodoRepository::class),
     AddTodoPort::class => DI\autowire(JsonTodoRepository::class),
-    //new JsonTodoRepository(),
     LoadTodoPort::class => DI\autowire(JsonTodoRepository::class),
     AddTodoService::class => DI\create(AddTodoService::class),
     AddTodoUseCase::class => DI\autowire(AddTodoService::class),
