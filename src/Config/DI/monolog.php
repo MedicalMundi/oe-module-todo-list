@@ -4,8 +4,6 @@ use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\DependencyInjection\Reference;
 
 if ((new IsModuleStandAlone())()) {
     /**
@@ -23,7 +21,6 @@ if ((new IsModuleStandAlone())()) {
             return $logger;
         }),
     ];
-
 } else {
     /**
      * Logging in epenemr 'Documents' directory when the module

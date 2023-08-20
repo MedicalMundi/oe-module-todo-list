@@ -3,14 +3,8 @@
 namespace OpenEMR\Modules\MedicalMundiTodoList;
 
 use Ecotone\Lite\EcotoneLite;
-use Ecotone\Lite\EcotoneLiteApplication;
 use Ecotone\Messaging\Config\ConfiguredMessagingSystem;
 use Ecotone\Messaging\Config\ServiceConfiguration;
-use Ecotone\Modelling\CommandBus;
-use Ecotone\Modelling\Config\CommandBusRouter;
-use Ecotone\Modelling\EventBus;
-use Ecotone\Modelling\QueryBus;
-use Ecotone\Modelling\StorageCommandBus;
 use League\Route\Http\Exception as HttpException;
 use League\Route\Router;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\RouterFactory;
@@ -70,23 +64,14 @@ class Module implements ContainerInterface, RequestHandlerInterface
         //$loader->load('service.php');
 
         $module->messagingSystem = $module->bootstrapEcotone($containerBuilder);
-        //var_dump($containerBuilder);
-        //$containerBuilder->autowire(StorageCommandBus::class);
-        //$containerBuilder->setAlias(CommandBus::class, StorageCommandBus::class);
-
-//        $containerBuilder->setAlias(QueryBus::class, $module->messagingSystem->getQueryBus());
-//        $containerBuilder->setAlias(EventBus::class, $module->messagingSystem->getEventBus());
 
         $containerBuilder->compile();
 
         $module->container = $containerBuilder;
         $module->router = $router;
 
-
-
         return $module;
     }
-
 
     public static function bootstrapWithDI(): self
     {
@@ -103,9 +88,7 @@ class Module implements ContainerInterface, RequestHandlerInterface
         //TODO
         //$containerBuilder->set('module', $module);
 
-
         $module->messagingSystem = $module->bootstrapEcotone($container);
-
 
         $router = (new RouterFactory())($container);
 
@@ -114,8 +97,6 @@ class Module implements ContainerInterface, RequestHandlerInterface
 
         $module->container = $container;
         $module->router = $router;
-
-
 
         return $module;
     }
@@ -176,18 +157,6 @@ class Module implements ContainerInterface, RequestHandlerInterface
         $serviceConfiguration = ServiceConfiguration::createWithDefaults()
             ->withLoadCatalog($rootCatalog . '/src')
             ->withNamespaces(['MedicalMundi']);
-
-//        $messagingSystem = EcotoneLiteApplication::bootstrap(
-//            [
-//                //dbal connection
-//            ],
-//            [
-//                //array configured variables
-//            ],
-//            $serviceConfiguration,
-//            $cacheConfiguration = false,
-//            $pathToRootCatalog = $rootCatalog . '/src'
-//        );
 
         $messagingSystem = EcotoneLite::bootstrap(
             [

@@ -8,11 +8,7 @@
   <file src="src/Module.php">
     <PropertyNotSetInConstructor>
       <code>$container</code>
+      <code>$messagingSystem</code>
     </PropertyNotSetInConstructor>
-  </file>
-  <file src="src/public/index.php">
-    <TypeDoesNotContainNull>
-      <code>$request === null</code>
-    </TypeDoesNotContainNull>
   </file>
 </files>
