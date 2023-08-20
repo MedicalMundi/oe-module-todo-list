@@ -405,6 +405,16 @@ jobs:
 #            is-php-experimental: true
       fail-fast: false
     steps:
+      - name: Clone Openemr tag ${{ matrix.openemr }}
+        uses: actions/checkout@v3
+        with:
+          repository: openemr/openemr
+          ref: ${{ matrix.openemr }}
+          token: ${{ github.token }}
+
+      - name: list directory
+        run: ls -al
+
       - name: Setup php extension cache environment
         if: ${{ vars.USE_PHP_EXTENSION_CACHE }}
         id: cache-php-extensions
@@ -433,15 +443,6 @@ jobs:
 
       - name: Dump context
         uses: crazy-max/ghaction-dump-context@v2
-
-      - name: Clone Openemr tag ${{ matrix.openemr }}
-        uses: actions/checkout@v3
-        with:
-          repository: openemr/openemr
-          ref: ${{ matrix.openemr }}
-
-      - name: list directory
-        run: ls -al
 
       - name: Set Composer Cache Directory
         if: ${{ vars.USE_COMPOSER_CACHE == '1' }}
