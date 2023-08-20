@@ -38,10 +38,10 @@ class Module implements ContainerInterface, RequestHandlerInterface
     private ConfiguredMessagingSystem $messagingSystem;
 
     //TODO: make private
-    public function __construct(?Router $router = null)
-    {
-        $this->router = $router ?: $router;
-    }
+//    public function __construct(?Router $router = null)
+//    {
+//        $this->router = $router ?: $router;
+//    }
 
     public static function bootstrap(): self
     {
@@ -75,26 +75,10 @@ class Module implements ContainerInterface, RequestHandlerInterface
 
     public static function bootstrapWithDI(): self
     {
-        $containerBuilder = new \DI\ContainerBuilder();
-        $containerBuilder->useAutowiring(true);
-        $containerBuilder->useAttributes(true);
-        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/monolog.php');
-        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/twig.php');
-        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/controller.php');
-        $container = $containerBuilder->build();
-
         $module = new self();
-
-        //TODO
-        //$containerBuilder->set('module', $module);
-
+        $container = $module->buildContainer();
         $module->messagingSystem = $module->bootstrapEcotone($container);
-
         $router = (new RouterFactory())($container);
-
-        //TODO
-        //$containerBuilder->set('router', $router);
-
         $module->container = $container;
         $module->router = $router;
 
@@ -150,7 +134,19 @@ class Module implements ContainerInterface, RequestHandlerInterface
         return $response;
     }
 
-    private function bootstrapEcotone(ContainerInterface $container): ConfiguredMessagingSystem
+    private function buildContainer(): ContainerInterface
+    {
+        $containerBuilder = new \DI\ContainerBuilder();
+        $containerBuilder->useAutowiring(true);
+        $containerBuilder->useAttributes(true);
+        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/monolog.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/twig.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/controller.php');
+
+        return $containerBuilder->build();
+    }
+
+    private static function bootstrapEcotone(ContainerInterface $container): ConfiguredMessagingSystem
     {
         $rootCatalog = realpath(__DIR__ . '/..');
 
@@ -162,8 +158,7 @@ class Module implements ContainerInterface, RequestHandlerInterface
             [
                 //array classesToResolve
             ],
-            //containerOrAvailableServices
-            $container,
+            $container, //containerOrAvailableServices
             $serviceConfiguration,
             [
                 //array $configurationVariables
