@@ -12,6 +12,7 @@
             <directory name="vendor/"/>
             <directory name="var/"/>
             <directory name="src/Config/"/>
+            <file name="src/Adapter/Http/Web/MessagesController.php" />
         </ignoreFiles>
     </projectFiles>
 
