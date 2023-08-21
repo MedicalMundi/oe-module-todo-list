@@ -13,8 +13,8 @@ if ((new IsModuleStandAlone())()) {
     return [
         Psr\Log\LoggerInterface::class => DI\factory(function () {
             $logger = new Logger('module-todo-list');
-
-            $fileHandler = new StreamHandler(__DIR__ . '/../../var/log/module.log', Logger::DEBUG);
+            $moduleProjectDir = \dirname(__DIR__, 3);
+            $fileHandler = new StreamHandler($moduleProjectDir . '/var/log/module.log', Logger::DEBUG);
             $fileHandler->setFormatter(new LineFormatter());
             $logger->pushHandler($fileHandler);
 
@@ -32,8 +32,8 @@ if ((new IsModuleStandAlone())()) {
     return [
         Psr\Log\LoggerInterface::class => DI\factory(function () {
             $logger = new Logger('module-todo-list');
-
-            $fileHandler = new StreamHandler(__DIR__ . '/../../var/log/module.log', Logger::DEBUG);
+            $moduleProjectDir = \dirname(__DIR__, 3);
+            $fileHandler = new StreamHandler($moduleProjectDir . '/var/log/module.log', Logger::DEBUG);
             $fileHandler->setFormatter(new LineFormatter());
             $logger->pushHandler($fileHandler);
 
