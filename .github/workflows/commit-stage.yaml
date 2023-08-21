@@ -464,9 +464,6 @@ jobs:
       - name: Composer info
         run: composer info
 
-      - name: Install openemr module ( last release )
-        run: composer require medicalmundi/oe-module-todo-list --ansi
-
       - name: Install openemr module ( dev-main )
         if: always()
         run: composer require medicalmundi/oe-module-todo-list:dev-main --ansi
@@ -476,4 +473,5 @@ jobs:
         #if: failure()
         run: composer require medicalmundi/oe-module-todo-list:dev-main --with-all-dependencies --ansi
 
-
+      - name: Install openemr module ( last release )
+        run: composer require medicalmundi/oe-module-todo-list --ansi
