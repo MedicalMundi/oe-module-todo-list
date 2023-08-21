@@ -13,3 +13,4 @@ phpunit.xml
 /todo-list/src/Application/ProductService.php
 todo-list/src/MessagesQuickstart.php
 /todo-list/src/Application/Domain
+/todo-list/src/Adapter/Ecotone
