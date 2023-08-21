@@ -6,6 +6,7 @@ use Ecotone\Modelling\CommandBus;
 use Ecotone\Modelling\QueryBus;
 use MedicalMundi\TodoList\Application\Domain\Product\GetProductPriceQuery;
 use MedicalMundi\TodoList\Application\Domain\Product\RegisterProductCommand;
+use MedicalMundi\TodoList\Domain\Setting\InitializeModuleSetting;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -22,15 +23,19 @@ class MessagesController
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
     {
-        $this->commandBus->send(new RegisterProductCommand(1, 100), [
+        $this->commandBus->send(new RegisterProductCommand(40, 5000), [
             'userId' => 1,
         ]);
 
         $price = (int) $this->queryBus->send(new GetProductPriceQuery(1));
 
+        $this->commandBus->send(
+            new InitializeModuleSetting(2)
+        );
+
         return $this->render('messages.html.twig', [
-            'productId' => 1,
-            'price' => $price,
+            //'productId' => 1,
+            //'price' => $price,
         ]);
     }
 
