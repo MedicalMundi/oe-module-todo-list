@@ -19,7 +19,7 @@ class Module implements ContainerInterface, RequestHandlerInterface
 {
     public const MODULE_NAME = 'ToDo List';
 
-    public const MODULE_VERSION = 'v0.1.4';
+    public const MODULE_VERSION = '@dev';
 
     public const MODULE_SOURCE_CODE = 'https://github.com/MedicalMundi/oe-module-todo-list';
 
