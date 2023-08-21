@@ -390,8 +390,8 @@ jobs:
     strategy:
       max-parallel: 6
       matrix:
-        openemr: [v7_0_1_1, v7_0_1]
-        php: ['8.0', '8.1']
+        openemr: [master, v7_0_1_1, v7_0_1]
+        php: ['8.0']
         is-php-experimental: [false]
 #        php:
 #          - '8.0'
