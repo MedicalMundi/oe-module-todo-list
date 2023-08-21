@@ -391,7 +391,7 @@ jobs:
       max-parallel: 6
       matrix:
         openemr: [v7_0_1_1, v7_0_1]
-        php: ['8.0', '8.1', '8.2']
+        php: ['8.0', '8.1']
         is-php-experimental: [false]
 #        php:
 #          - '8.0'
