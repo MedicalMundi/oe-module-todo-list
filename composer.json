@@ -36,7 +36,6 @@
         "psr/log": "^1.1 || ^2.0",
         "ramsey/uuid": "^4.2",
         "symfony/config": "^5.4",
-        "symfony/dependency-injection": "^5.4",
         "symfony/event-dispatcher": "^5.4",
         "twig/string-extra": "^3.7",
         "twig/twig": "^3.5 || ^3.7"
