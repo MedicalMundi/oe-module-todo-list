@@ -2,6 +2,7 @@
 
 namespace OpenEMR\Modules\MedicalMundiTodoList;
 
+use DI\ContainerBuilder;
 use Ecotone\Lite\EcotoneLite;
 use Ecotone\Messaging\Config\ConfiguredMessagingSystem;
 use Ecotone\Messaging\Config\ServiceConfiguration;
@@ -68,9 +69,17 @@ class Module implements ContainerInterface, RequestHandlerInterface
         return $module;
     }
 
+    public static function bootstrapMessagingSystem(): ConfiguredMessagingSystem
+    {
+        $module = new self();
+        $container = $module->buildContainer();
+
+        return $module->bootstrapEcotone($container);
+    }
+
     private function buildContainer(): ContainerInterface
     {
-        $containerBuilder = new \DI\ContainerBuilder();
+        $containerBuilder = new ContainerBuilder();
         $containerBuilder->useAutowiring(true);
         $containerBuilder->useAttributes(true);
         $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/monolog.php');
