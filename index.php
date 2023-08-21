@@ -8,8 +8,13 @@
  */
 
 use Laminas\HttpHandlerRunner\Emitter\SapiStreamEmitter;
+use Nyholm\Psr7\Factory\Psr17Factory;
+use Nyholm\Psr7Server\ServerRequestCreator;
 use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use OpenEMR\Modules\MedicalMundiTodoList\Module;
+use Psr\Http\Message\ServerRequestFactoryInterface;
+use Psr\Http\Message\UploadedFileFactoryInterface;
+use Psr\Http\Message\UriFactoryInterface;
 
 (
     static function (): void {
@@ -22,17 +27,16 @@ use OpenEMR\Modules\MedicalMundiTodoList\Module;
         }
 
 
-        $psr17Factory = new \Nyholm\Psr7\Factory\Psr17Factory();
-        $serverRequestFactory = new \Nyholm\Psr7Server\ServerRequestCreator(
-            $psr17Factory, // ServerRequestFactory
-            $psr17Factory, // UriFactory
-            $psr17Factory, // UploadedFileFactory
-            $psr17Factory  // StreamFactory
+        $psr17Factory = new Psr17Factory();
+        $serverRequestFactory = new ServerRequestCreator(
+            serverRequestFactory: $psr17Factory,
+            uriFactory: $psr17Factory,
+            uploadedFileFactory: $psr17Factory,
+            streamFactory: $psr17Factory
         );
 
         try {
             $module = Module::bootstrap();
-            //$module = Module::bootstrapWithDI();
 
             // TODO CREATE REQUEST FROM GLOBALS
             $request = $serverRequestFactory->fromGlobals();
