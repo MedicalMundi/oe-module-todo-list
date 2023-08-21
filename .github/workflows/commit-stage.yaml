@@ -462,7 +462,10 @@ jobs:
         run: composer require psr/log:"^1.1.4|^2.0" --ansi
 
       - name: Composer info
-        run: composer info
+        run: |
+          composer info
+          composer outdated
+          cat composer.json
 
       - name: Install openemr module ( dev-main )
         if: always()
