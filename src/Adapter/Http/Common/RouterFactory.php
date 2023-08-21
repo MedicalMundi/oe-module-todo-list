@@ -10,6 +10,7 @@ use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\AddTodoController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\DashboardController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\HelpController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\HomeController;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\MessagesController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\ToDoListController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\ToDoReadController;
 use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
@@ -40,6 +41,7 @@ class RouterFactory
         $router->map('GET', $prefix . '/dashboard', DashboardController::class);
         $router->map('GET', $prefix . '/about', AboutController::class);
         $router->map('GET', $prefix . '/help', HelpController::class);
+        $router->map('GET', $prefix . '/messages', MessagesController::class);
 
         $router->group($routerGroupTodoUrl, function (RouteGroup $route): void {
             $route->map('GET', '/new', AddToDoController::class);

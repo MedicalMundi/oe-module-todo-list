@@ -1,0 +1,36 @@
+{% extends 'bootstrap-layout.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Messages
+{% endblock %}
+
+{% block body %}
+
+    <!-- Navbar -->
+    {{ include('partials/_navbar.html.twig') }}
+
+    <div class="container pt-3 border">
+        <div class="row">
+            <div class="container">
+                <h1>Messages</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="info">
+                    Messages page
+                </div>
+
+                <div class="info">
+                    <p>ProductId: {{ productId }}</p>
+                    <p>Price: {{ price }}</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="d-flex flex-column">
+                    side menu (add some widget...)
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
