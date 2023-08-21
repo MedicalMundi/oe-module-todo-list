@@ -22,7 +22,9 @@ class MessagesController
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
     {
-        $this->commandBus->send(new RegisterProductCommand(1, 100));
+        $this->commandBus->send(new RegisterProductCommand(1, 100), [
+            'userId' => 1,
+        ]);
 
         $price = (int) $this->queryBus->send(new GetProductPriceQuery(1));
 
