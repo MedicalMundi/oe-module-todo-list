@@ -40,7 +40,9 @@
         "twig/twig": "^3.5 || ^3.7"
     },
     "conflict": {
-        "openemr/openemr": "<6.0.0"
+        "openemr/openemr": "<6.0.0",
+        "symfony/cache": "^6",
+        "symfony/event-dispatcher": "^6"
     },
     "require-dev": {
         "bamarni/composer-bin-plugin": "^1.8",
