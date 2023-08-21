@@ -8,3 +8,8 @@
 
 .phpunit.result.cache
 phpunit.xml
+
+/todo-list/src/Application/ProductNotifier.php
+/todo-list/src/Application/ProductService.php
+todo-list/src/MessagesQuickstart.php
+/todo-list/src/Application/Domain

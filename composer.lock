@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "80bc4a15694e1ca191b0266009ccc1c4",
+    "content-hash": "b4a55a52b2ff9979ec2267a339f093fd",
     "packages": [
         {
             "name": "brick/math",
@@ -1097,6 +1097,78 @@
                 }
             ],
             "time": "2023-08-19T08:15:39+00:00"
+        },
+        {
+            "name": "ecotone/lite-application",
+            "version": "1.100.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ecotoneframework/lite-application.git",
+                "reference": "6c2a4f1b5afe54427c17df6681b8196cca55f5de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ecotoneframework/lite-application/zipball/6c2a4f1b5afe54427c17df6681b8196cca55f5de",
+                "reference": "6c2a4f1b5afe54427c17df6681b8196cca55f5de",
+                "shasum": ""
+            },
+            "require": {
+                "ecotone/ecotone": "~1.100.0",
+                "ecotone/jms-converter": "~1.100.0",
+                "php-di/php-di": "^7.0.1"
+            },
+            "require-dev": {
+                "behat/behat": "^3.10",
+                "guzzlehttp/psr7": "^2.0",
+                "orchestra/testbench": "^7.6",
+                "phpstan/phpstan": "^1.8",
+                "phpunit/phpunit": "^9.5",
+                "wikimedia/composer-merge-plugin": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.100.0-dev"
+                },
+                "ecotone": {
+                    "repository": "lite-application"
+                },
+                "merge-plugin": {
+                    "include": [
+                        "../local_packages.json"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ecotone\\Lite\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dariusz Gafka",
+                    "email": "dgafka.mail@gmail.com"
+                }
+            ],
+            "description": "Quickstart Ecotone Lite Application",
+            "homepage": "https://docs.ecotone.tech/",
+            "keywords": [
+                "cqrs",
+                "ddd",
+                "ddd and cqrs on top of eip",
+                "distributed architecture",
+                "ecotone",
+                "eip",
+                "messaging"
+            ],
+            "support": {
+                "source": "https://github.com/ecotoneframework/lite-application/tree/1.100.0"
+            },
+            "time": "2023-08-19T08:15:36+00:00"
         },
         {
             "name": "enqueue/dbal",
