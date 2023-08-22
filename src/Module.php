@@ -4,10 +4,15 @@ namespace OpenEMR\Modules\MedicalMundiTodoList;
 
 use DI\ContainerBuilder;
 use Ecotone\Lite\EcotoneLite;
+use Ecotone\Lite\EcotoneLiteApplication;
 use Ecotone\Messaging\Config\ConfiguredMessagingSystem;
 use Ecotone\Messaging\Config\ServiceConfiguration;
+use Ecotone\Modelling\CommandBus;
+use Ecotone\Modelling\QueryBus;
+use Enqueue\Dbal\DbalConnectionFactory;
 use League\Route\Http\Exception as HttpException;
 use League\Route\Router;
+use MedicalMundi\TodoList\TodoListContext;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\RouterFactory;
 use Psr\Container\ContainerInterface;
@@ -57,26 +62,6 @@ class Module implements ContainerInterface, RequestHandlerInterface
         return $response;
     }
 
-    public static function bootstrap(): self
-    {
-        $module = new self();
-        $container = $module->buildContainer();
-        $module->bootstrapEcotone($container);
-        $router = (new RouterFactory())($container);
-        $module->container = $container;
-        $module->router = $router;
-
-        return $module;
-    }
-
-    public static function bootstrapMessagingSystem(): ConfiguredMessagingSystem
-    {
-        $module = new self();
-        $container = $module->buildContainer();
-
-        return $module->bootstrapEcotone($container);
-    }
-
     private function buildContainer(): ContainerInterface
     {
         $containerBuilder = new ContainerBuilder();
@@ -89,8 +74,52 @@ class Module implements ContainerInterface, RequestHandlerInterface
         return $containerBuilder->build();
     }
 
-    private static function bootstrapEcotone(ContainerInterface $container): ConfiguredMessagingSystem
+    public static function bootstrap(): self
     {
+        $module = new self();
+        $container = $module->buildContainer();
+        $module->bootstrapMessagingSystemLite($container);
+        $router = (new RouterFactory())($container);
+        $module->container = $container;
+        $module->router = $router;
+
+        return $module;
+    }
+
+    public static function bootstrapForConsole(): ConfiguredMessagingSystem
+    {
+        return (new self())->bootstrapMessagingSystemApplication();
+    }
+
+    public static function bootstrapWithEcotoneLiteApplication(): self
+    {
+        $module = new self();
+
+        $configuredMessagingSystem = $module->bootstrapMessagingSystemApplication();
+
+        $containerBuilder = new ContainerBuilder();
+        $containerBuilder->useAutowiring(true);
+        $containerBuilder->useAttributes(true);
+        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/monolog.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/twig.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/controller.php');
+        $containerBuilder->addDefinitions([
+            CommandBus::class => $configuredMessagingSystem->getCommandBus(),
+            QueryBus::class => $configuredMessagingSystem->getQueryBus(),
+        ]);
+
+        $container = $containerBuilder->build();
+
+        $router = (new RouterFactory())($container);
+        $module->container = $container;
+        $module->router = $router;
+
+        return $module;
+    }
+
+    private static function bootstrapMessagingSystemLite(ContainerInterface $container = null): ConfiguredMessagingSystem
+    {
+        $container ??= (new self())->buildContainer();
         $rootCatalog = realpath(__DIR__ . '/..');
 
         $serviceConfiguration = ServiceConfiguration::createWithDefaults()
@@ -98,13 +127,33 @@ class Module implements ContainerInterface, RequestHandlerInterface
             ->withNamespaces(['MedicalMundi']);
 
         return EcotoneLite::bootstrap(
-            [],  //array $classesToResolve
-            $container, //containerOrAvailableServices
-            $serviceConfiguration,
-            [],  //array $configurationVariables
-            $cacheConfiguration = false,
-            $pathToRootCatalog = $rootCatalog . '/src',
-            $allowGatewaysToBeRegisteredInContainer = true
+            classesToResolve: [],
+            containerOrAvailableServices: $container,
+            configuration: $serviceConfiguration,
+            configurationVariables: [],
+            useCachedVersion: false,
+            pathToRootCatalog: $rootCatalog . '/src',
+            allowGatewaysToBeRegisteredInContainer: true
+        );
+    }
+
+    private static function bootstrapMessagingSystemApplication(): ConfiguredMessagingSystem
+    {
+        $rootCatalog = realpath(__DIR__ . '/..');
+
+        $serviceConfiguration = ServiceConfiguration::createWithDefaults()
+            ->withLoadCatalog($rootCatalog . '/src')
+            ->withNamespaces(['MedicalMundi']);
+
+        return EcotoneLiteApplication::bootstrap(
+            objectsToRegister: [
+                DbalConnectionFactory::class => new DbalConnectionFactory(sprintf("sqlite:////%s%s%s", TodoListContext::getModuleDir(), '/var/module_data/', TodoListContext::getSqLiteDatabaseName())),
+            ],
+            configurationVariables: [],
+            serviceConfiguration: $serviceConfiguration,
+            cacheConfiguration: false,
+            pathToRootCatalog: $rootCatalog . '/src',
+            classesToRegister: []
         );
     }
 

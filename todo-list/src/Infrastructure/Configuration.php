@@ -13,6 +13,6 @@ class Configuration
         return DbalConfiguration::createWithDefaults()
             ->withTransactionOnCommandBus(false)
             ->withTransactionOnAsynchronousEndpoints(false)
-            ->withDocumentStore(inMemoryDocumentStore: true);
+            ->withDocumentStore(initializeDatabaseTable: true, enableDocumentStoreAggregateRepository: true);
     }
 }
