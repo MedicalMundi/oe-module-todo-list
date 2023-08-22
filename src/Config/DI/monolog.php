@@ -4,6 +4,7 @@ use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
+use Psr\Log\LoggerInterface;
 
 if ((new IsModuleStandAlone())()) {
     /**
@@ -11,7 +12,7 @@ if ((new IsModuleStandAlone())()) {
      * is executed as stand-alone mode
      */
     return [
-        Psr\Log\LoggerInterface::class => DI\factory(function () {
+        LoggerInterface::class => DI\factory(function () {
             $logger = new Logger('module-todo-list');
             $moduleProjectDir = \dirname(__DIR__, 3);
             $fileHandler = new StreamHandler($moduleProjectDir . '/var/log/module.log', Logger::DEBUG);
@@ -20,6 +21,7 @@ if ((new IsModuleStandAlone())()) {
 
             return $logger;
         }),
+        'logger' => DI\get(LoggerInterface::class),
     ];
 } else {
     /**
