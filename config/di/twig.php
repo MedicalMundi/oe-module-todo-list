@@ -6,9 +6,7 @@ use Twig\Extension\DebugExtension;
 use Twig\Extra\String\StringExtension;
 use Twig\Loader\FilesystemLoader;
 
-$moduleProjectDir = \dirname(__DIR__, 3);
-
-$loader = new FilesystemLoader($moduleProjectDir . "/src/Adapter/Http/Web/Template");
+$loader = new FilesystemLoader(Module::mainDir() . "/src/Adapter/Http/Web/Template");
 
 $twigOptions = [];
 

@@ -66,10 +66,10 @@ class Module
         $containerBuilder = new ContainerBuilder();
         $containerBuilder->useAutowiring(true);
         $containerBuilder->useAttributes(true);
-        $containerBuilder->addDefinitions(__DIR__ . '/config/di/monolog.php');
-        $containerBuilder->addDefinitions(__DIR__ . '/config/di/twig.php');
-        $containerBuilder->addDefinitions(__DIR__ . '/config/di/controller.php');
-        $containerBuilder->addDefinitions(__DIR__ . '/config/di/ecotone.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/../config/di/monolog.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/../config/di/twig.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/../config/di/controller.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/../config/di/ecotone.php');
 
         return $containerBuilder->build();
     }
@@ -100,9 +100,9 @@ class Module
         $containerBuilder = new ContainerBuilder();
         $containerBuilder->useAutowiring(true);
         $containerBuilder->useAttributes(true);
-        $containerBuilder->addDefinitions(__DIR__ . '/config/di/monolog.php');
-        $containerBuilder->addDefinitions(__DIR__ . '/config/di/twig.php');
-        $containerBuilder->addDefinitions(__DIR__ . '/config/di/controller.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/../config/di/monolog.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/../config/di/twig.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/../config/di/controller.php');
         $containerBuilder->addDefinitions([
             CommandBus::class => $configuredMessagingSystem->getCommandBus(),
             QueryBus::class => $configuredMessagingSystem->getQueryBus(),
