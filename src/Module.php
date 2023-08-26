@@ -69,6 +69,7 @@ class Module
         $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/monolog.php');
         $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/twig.php');
         $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/controller.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/ecotone.php');
 
         return $containerBuilder->build();
     }
