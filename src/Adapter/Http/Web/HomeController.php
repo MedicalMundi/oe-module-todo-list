@@ -4,7 +4,6 @@ namespace OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web;
 
 use Nyholm\Psr7\Factory\Psr17Factory;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\UrlService;
-use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Twig\Environment;
@@ -19,7 +18,7 @@ class HomeController
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
     {
-        $page = '<div><h1>Home controller !!<h1> standAlone: ' . (int) (new isModuleStandAlone())() . '</div>';
+        $page = '<div><h1>Home controller !!<h1> standAlone: ' . '</div>';
         $page .= '<div>request_uri: ' . $request->getUri() . '</div>';
         $page .= '<hr>';
         $page .= '<hr>';

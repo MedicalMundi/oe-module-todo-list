@@ -13,7 +13,7 @@ use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\HomeController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\MessagesController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\ToDoListController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\ToDoReadController;
-use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
+use OpenEMR\Modules\MedicalMundiTodoList\Module;
 use Psr\Container\ContainerInterface;
 
 class RouterFactory
@@ -27,7 +27,7 @@ class RouterFactory
         $router = new Router();
         $router->setStrategy($strategy);
 
-        if ((new isModuleStandAlone())()) {
+        if (Module::isStandAlone()) {
             $prefix = '';
             $routerGroupTodoUrl = '/todos';
             $routerGroupModuleSettingUrl = '/module-setting';

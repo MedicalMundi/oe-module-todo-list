@@ -3,10 +3,10 @@
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
+use OpenEMR\Modules\MedicalMundiTodoList\Module;
 use Psr\Log\LoggerInterface;
 
-if ((new IsModuleStandAlone())()) {
+if (Module::isStandAlone()) {
     /**
      * Logging in module 'var' directory when the module
      * is executed as stand-alone mode

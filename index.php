@@ -10,14 +10,14 @@
 use Laminas\HttpHandlerRunner\Emitter\SapiStreamEmitter;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
-use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use OpenEMR\Modules\MedicalMundiTodoList\Module;
 
 (
-    static function (): void {
-        require __DIR__ . '/src/isModuleStandAlone.php';
+    static function () : void {
 
-        if ((new isModuleStandAlone)()) {
+        require __DIR__ . '/src/Module.php';
+
+        if (Module::isStandAlone()) {
             require __DIR__ . '/vendor/autoload.php';
         } else {
             require __DIR__ . '/../../../../vendor/autoload.php';

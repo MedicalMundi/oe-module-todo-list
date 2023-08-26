@@ -60,7 +60,6 @@ class ModuleTest extends TestCase
 
     public function testModuleHasADependencyInjectionContainer(): void
     {
-        self::assertInstanceOf(ContainerInterface::class, Module::bootstrap());
         self::assertInstanceOf(ContainerInterface::class, Module::bootstrap()->getContainer());
     }
 
