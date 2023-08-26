@@ -20,14 +20,7 @@ if (Module::isStandAlone()) {
 
             return $logger;
         }),
-        LoggerInterface::class => DI\factory(function () {
-            $logger = new Logger('module-todo-list');
-            $fileHandler = new StreamHandler(Module::mainDir() . '/var/log/module.log', Logger::DEBUG);
-            $fileHandler->setFormatter(new LineFormatter());
-            $logger->pushHandler($fileHandler);
-
-            return $logger;
-        }),
+        LoggerInterface::class => DI\get(Logger::class),
         'logger' => DI\get(LoggerInterface::class),
     ];
 } else {
@@ -47,14 +40,7 @@ if (Module::isStandAlone()) {
 
             return $logger;
         }),
-        
-        Psr\Log\LoggerInterface::class => DI\factory(function () {
-            $logger = new Logger('module-todo-list');
-            $fileHandler = new StreamHandler(Module::mainDir() . '/var/log/module.log', Logger::DEBUG);
-            $fileHandler->setFormatter(new LineFormatter());
-            $logger->pushHandler($fileHandler);
 
-            return $logger;
-        }),
+        LoggerInterface::class => DI\get(Logger::class),
     ];
 }
