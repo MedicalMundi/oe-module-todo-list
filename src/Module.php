@@ -7,6 +7,7 @@ use Ecotone\Lite\EcotoneLite;
 use Ecotone\Lite\EcotoneLiteApplication;
 use Ecotone\Messaging\Config\ConfiguredMessagingSystem;
 use Ecotone\Messaging\Config\ServiceConfiguration;
+use Ecotone\Messaging\Store\Document\DocumentStore;
 use Ecotone\Modelling\CommandBus;
 use Ecotone\Modelling\QueryBus;
 use Enqueue\Dbal\DbalConnectionFactory;
@@ -133,6 +134,7 @@ class Module implements ContainerInterface, RequestHandlerInterface
         $containerBuilder->addDefinitions([
             CommandBus::class => $configuredMessagingSystem->getCommandBus(),
             QueryBus::class => $configuredMessagingSystem->getQueryBus(),
+            DocumentStore::class => $configuredMessagingSystem->getServiceFromContainer(DocumentStore::class),
         ]);
 
         $container = $containerBuilder->build();
