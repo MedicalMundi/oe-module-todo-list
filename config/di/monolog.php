@@ -12,6 +12,14 @@ if (Module::isStandAlone()) {
      * is executed as stand-alone mode
      */
     return [
+        Logger::class => DI\factory(function () {
+            $logger = new Logger('module-todo-list');
+            $fileHandler = new StreamHandler(Module::mainDir() . '/var/log/module.log', Logger::DEBUG);
+            $fileHandler->setFormatter(new LineFormatter());
+            $logger->pushHandler($fileHandler);
+
+            return $logger;
+        }),
         LoggerInterface::class => DI\factory(function () {
             $logger = new Logger('module-todo-list');
             $fileHandler = new StreamHandler(Module::mainDir() . '/var/log/module.log', Logger::DEBUG);
@@ -31,6 +39,15 @@ if (Module::isStandAlone()) {
      *      chown apache:root -R interface/modules/custom_modules/oe-module-todo-list/
      */
     return [
+        Logger::class => DI\factory(function () {
+            $logger = new Logger('module-todo-list');
+            $fileHandler = new StreamHandler(Module::mainDir() . '/var/log/module.log', Logger::DEBUG);
+            $fileHandler->setFormatter(new LineFormatter());
+            $logger->pushHandler($fileHandler);
+
+            return $logger;
+        }),
+        
         Psr\Log\LoggerInterface::class => DI\factory(function () {
             $logger = new Logger('module-todo-list');
             $fileHandler = new StreamHandler(Module::mainDir() . '/var/log/module.log', Logger::DEBUG);
