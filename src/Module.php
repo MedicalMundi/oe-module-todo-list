@@ -189,4 +189,9 @@ class Module implements ContainerInterface, RequestHandlerInterface
     {
         return \dirname(__DIR__, 5);
     }
+
+    public function getContainer(): ?ContainerInterface
+    {
+        return $this->container;
+    }
 }
