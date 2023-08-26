@@ -14,5 +14,5 @@ phpunit.xml.dist export-ignore
 psalm.xml.dist export-ignore
 psalm-baseline.xml export-ignore
 README.md export-ignore
-rector export-ignore
+rector.php export-ignore
 sonar-project.properties export-ignore
