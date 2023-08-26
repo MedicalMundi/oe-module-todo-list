@@ -5,12 +5,12 @@ namespace OpenEMR\Modules\MedicalMundiTodoList\Tests\Unit\Controller;
 use League\Route\Http\Exception\BadRequestException;
 use MedicalMundi\TodoList\Application\Port\In\AddTodoUseCase;
 use MedicalMundi\TodoList\Application\Port\Out\Persistence\AddTodoPort;
-use MedicalMundi\TodoList\Tests\Unit\Controller\JsonResponse;
-use MedicalMundi\TodoList\Tests\Unit\Controller\ToDo;
+use MedicalMundi\TodoList\Domain\Todo\Todo;
 use Nyholm\Psr7\ServerRequest;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\AddTodoController;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 
 class AddTodoControllerTest extends TestCase
 {
@@ -31,7 +31,7 @@ class AddTodoControllerTest extends TestCase
         $this->repository = $this->createMock(AddTodoPort::class);
 
         $this->useCaseService = $this->createMock(AddTodoUseCase::class);
-        $this->controller = new AddTodoController($this->useCaseService);
+        $this->controller = new AddTodoController($this->useCaseService, new NullLogger());
     }
 
     public function testSuccess(): void
