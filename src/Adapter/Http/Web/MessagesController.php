@@ -2,6 +2,7 @@
 
 namespace OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web;
 
+use Ecotone\Messaging\Store\Document\DocumentStore;
 use Ecotone\Modelling\CommandBus;
 use Ecotone\Modelling\QueryBus;
 use MedicalMundi\TodoList\Domain\Setting\InitializeModuleSetting;
@@ -16,6 +17,7 @@ class MessagesController
         private Environment $templateEngine,
         private CommandBus $commandBus,
         private QueryBus $queryBus,
+        private DocumentStore $documentStore,
     ) {
     }
 
@@ -25,7 +27,10 @@ class MessagesController
             new InitializeModuleSetting(1)
         );
 
+        $moduleSettings = $this->documentStore->getDocument('aggregates_MedicalMundi\TodoList\Domain\Setting\ModuleSetting', '1');
+
         return $this->render('messages.html.twig', [
+            'module_settings' => $moduleSettings,
         ]);
     }
 

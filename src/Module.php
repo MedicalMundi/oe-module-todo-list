@@ -7,12 +7,12 @@ use Ecotone\Lite\EcotoneLite;
 use Ecotone\Lite\EcotoneLiteApplication;
 use Ecotone\Messaging\Config\ConfiguredMessagingSystem;
 use Ecotone\Messaging\Config\ServiceConfiguration;
+use Ecotone\Messaging\Store\Document\DocumentStore;
 use Ecotone\Modelling\CommandBus;
 use Ecotone\Modelling\QueryBus;
 use Enqueue\Dbal\DbalConnectionFactory;
 use League\Route\Http\Exception as HttpException;
 use League\Route\Router;
-use MedicalMundi\TodoList\TodoListContext;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\RouterFactory;
 use Psr\Container\ContainerInterface;
@@ -106,6 +106,7 @@ class Module implements ContainerInterface, RequestHandlerInterface
         $containerBuilder->addDefinitions([
             CommandBus::class => $configuredMessagingSystem->getCommandBus(),
             QueryBus::class => $configuredMessagingSystem->getQueryBus(),
+            DocumentStore::class => $configuredMessagingSystem->getServiceFromContainer(DocumentStore::class),
         ]);
 
         $container = $containerBuilder->build();
@@ -127,7 +128,7 @@ class Module implements ContainerInterface, RequestHandlerInterface
             ->withNamespaces(['MedicalMundi']);
 
         return EcotoneLite::bootstrap(
-            classesToResolve: [],
+            classesToResolve: [DbalConnectionFactory::class],
             containerOrAvailableServices: $container,
             configuration: $serviceConfiguration,
             configurationVariables: [],
@@ -147,7 +148,6 @@ class Module implements ContainerInterface, RequestHandlerInterface
 
         return EcotoneLiteApplication::bootstrap(
             objectsToRegister: [
-                DbalConnectionFactory::class => new DbalConnectionFactory(sprintf("sqlite:////%s%s%s", TodoListContext::getModuleDir(), '/var/module_data/', TodoListContext::getSqLiteDatabaseName())),
             ],
             configurationVariables: [],
             serviceConfiguration: $serviceConfiguration,
