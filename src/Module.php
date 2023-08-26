@@ -70,6 +70,33 @@ class Module implements ContainerInterface, RequestHandlerInterface
         $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/monolog.php');
         $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/twig.php');
         $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/controller.php');
+        //var_dump(Module::openemrDir(). DIRECTORY_SEPARATOR . 'sites/default/sqlconf.php');
+        if (! ((new isModuleStandAlone())())) {
+            //var_dump(Module::openemrDir());
+            // 1 READ CONFIG VALUES FROM DEFAULT FILE
+            if (file_exists($file = Module::openemrDir() . DIRECTORY_SEPARATOR . 'sites/default/sqlconf.php')) {
+                require_once $file;
+                //var_dump($sqlconf);
+                // 2 PREPARE CUSTOM ARRAY FOR ECOTONE DBAL CONN.
+                $ecotoneDbalSettinges = [
+                    'connection' => [
+                        'dbname' => $sqlconf['dbase'],
+                        'user' => $sqlconf['login'],
+                        'password' => $sqlconf['pass'],
+                        'host' => $sqlconf['host'],
+                        'driver' => 'pdo_mysql',//$sqlconf['pdo_mysql'],
+                    ],
+                    'table_name' => 'oe_module_todo_list_enqueue',
+                ];
+                // 3 CREATE ECOTONE DBAL CONN.
+
+                $dbalConnection = new DbalConnectionFactory($ecotoneDbalSettinges);
+
+                $containerBuilder->addDefinitions([
+                    DbalConnectionFactory::class => $dbalConnection,
+                ]);
+            }
+        }
 
         return $containerBuilder->build();
     }
@@ -119,6 +146,26 @@ class Module implements ContainerInterface, RequestHandlerInterface
 
     private static function bootstrapMessagingSystemLite(ContainerInterface $container = null): ConfiguredMessagingSystem
     {
+        //        // 1 READ CONFIG VALUES FROM DEFAULT FILE
+        //        if (! file_exists($file = Module::openemrDir() . DIRECTORY_SEPARATOR . 'sites/default/sqlconfig.php')) {
+        //            $sqlconfig = require_once $file;
+        //        }
+        //
+        //        // 2 PREPARE CUSTOM ARRAY FOR ECOTONE DBAL CONN.
+        //        $ecotoneDbalSettinges = [
+        //            'connection' => [
+        //                'dbname' => $sqlconfig['dbase'],
+        //                'user' => $sqlconfig['login'],
+        //                'password' => $sqlconfig['pass'],
+        //                'host' => $sqlconfig['host'],
+        //                'driver' => $sqlconfig['mysql2'],
+        //            ],
+        //            'table_name' => 'oe_module_todo_list_enqueue',
+        //        ];
+        //        // 3 CREATE ECOTONE DBAL CONN.
+        //
+        //        $dbalConnection = new DbalConnectionFactory($ecotoneDbalSettinges);
+
         $container ??= (new self())->buildContainer();
         $rootCatalog = realpath(__DIR__ . '/..');
 
@@ -127,7 +174,7 @@ class Module implements ContainerInterface, RequestHandlerInterface
             ->withNamespaces(['MedicalMundi']);
 
         return EcotoneLite::bootstrap(
-            classesToResolve: [],
+            classesToResolve: [DbalConnectionFactory::class],
             containerOrAvailableServices: $container,
             configuration: $serviceConfiguration,
             configurationVariables: [],
@@ -147,7 +194,7 @@ class Module implements ContainerInterface, RequestHandlerInterface
 
         return EcotoneLiteApplication::bootstrap(
             objectsToRegister: [
-                DbalConnectionFactory::class => new DbalConnectionFactory(sprintf("sqlite:////%s%s%s", TodoListContext::getModuleDir(), '/var/module_data/', TodoListContext::getSqLiteDatabaseName())),
+                //DbalConnectionFactory::class => new DbalConnectionFactory(sprintf("sqlite:////%s%s%s", TodoListContext::getModuleDir(), '/var/module_data/', TodoListContext::getSqLiteDatabaseName())),
             ],
             configurationVariables: [],
             serviceConfiguration: $serviceConfiguration,
