@@ -23,7 +23,7 @@ class Module
 {
     public const MODULE_NAME = 'ToDo List';
 
-    public const MODULE_VERSION = 'v0.1.7';
+    public const MODULE_VERSION = 'v0.1.8';
 
     public const MODULE_SOURCE_CODE = 'https://github.com/MedicalMundi/oe-module-todo-list';
 
@@ -66,10 +66,10 @@ class Module
         $containerBuilder = new ContainerBuilder();
         $containerBuilder->useAutowiring(true);
         $containerBuilder->useAttributes(true);
-        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/monolog.php');
-        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/twig.php');
-        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/controller.php');
-        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/ecotone.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/config/di/monolog.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/config/di/twig.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/config/di/controller.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/config/di/ecotone.php');
 
         return $containerBuilder->build();
     }
@@ -100,9 +100,9 @@ class Module
         $containerBuilder = new ContainerBuilder();
         $containerBuilder->useAutowiring(true);
         $containerBuilder->useAttributes(true);
-        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/monolog.php');
-        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/twig.php');
-        $containerBuilder->addDefinitions(__DIR__ . '/Config/DI/controller.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/config/di/monolog.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/config/di/twig.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/config/di/controller.php');
         $containerBuilder->addDefinitions([
             CommandBus::class => $configuredMessagingSystem->getCommandBus(),
             QueryBus::class => $configuredMessagingSystem->getQueryBus(),
