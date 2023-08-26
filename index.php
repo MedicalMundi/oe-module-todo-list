@@ -12,9 +12,6 @@ use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7Server\ServerRequestCreator;
 use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use OpenEMR\Modules\MedicalMundiTodoList\Module;
-use Psr\Http\Message\ServerRequestFactoryInterface;
-use Psr\Http\Message\UploadedFileFactoryInterface;
-use Psr\Http\Message\UriFactoryInterface;
 
 (
     static function (): void {
