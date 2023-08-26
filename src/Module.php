@@ -18,9 +18,8 @@ use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\RouterFactory;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 
-class Module implements ContainerInterface, RequestHandlerInterface
+class Module
 {
     public const MODULE_NAME = 'ToDo List';
 
@@ -157,27 +156,11 @@ class Module implements ContainerInterface, RequestHandlerInterface
         );
     }
 
-    /**
-     * Finds an entry of the container by its identifier and returns it.
-     *
-     * @param string $id Identifier of the entry to look for.
-     *
-     * @return mixed Entry.
-     */
-    public function get($id)
+    public static function isStandAlone(): bool
     {
-        return $this->container->get($id);
-    }
-
-    /**
-     * Returns true if the container can return an entry for the given identifier.
-     * Returns false otherwise.
-     *
-     * @param string $id Identifier of the entry to look for.
-     */
-    public function has($id): bool
-    {
-        return $this->container->has($id);
+        $interfaceRootDirectory = \dirname(__DIR__, 4);
+        $openemrGlobalFile = $interfaceRootDirectory . DIRECTORY_SEPARATOR . "globals.php";
+        return ! file_exists($openemrGlobalFile);
     }
 
     public static function mainDir(): string

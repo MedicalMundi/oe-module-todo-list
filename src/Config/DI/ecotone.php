@@ -2,10 +2,9 @@
 
 use Enqueue\Dbal\DbalConnectionFactory;
 use MedicalMundi\TodoList\TodoListContext;
-use OpenEMR\Modules\MedicalMundiTodoList\isModuleStandAlone;
 use OpenEMR\Modules\MedicalMundiTodoList\Module;
 
-if (! ((new isModuleStandAlone())())) {
+if (! Module::isStandAlone()) {
     if (file_exists($openemrSqlconfFile = Module::openemrDir() . DIRECTORY_SEPARATOR . 'sites/default/sqlconf.php')) {
         /**
          * TODO: find a better way to get db params from openemr
