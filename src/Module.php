@@ -179,4 +179,14 @@ class Module implements ContainerInterface, RequestHandlerInterface
     {
         return $this->container->has($id);
     }
+
+    public static function mainDir(): string
+    {
+        return \dirname(__DIR__, 1);
+    }
+
+    public static function openemrDir(): string
+    {
+        return \dirname(__DIR__, 5);
+    }
 }
