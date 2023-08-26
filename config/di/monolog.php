@@ -20,7 +20,9 @@ if (Module::isStandAlone()) {
 
             return $logger;
         }),
+
         LoggerInterface::class => DI\get(Logger::class),
+
         'logger' => DI\get(LoggerInterface::class),
     ];
 } else {
@@ -42,5 +44,7 @@ if (Module::isStandAlone()) {
         }),
 
         LoggerInterface::class => DI\get(Logger::class),
+
+        'logger' => DI\get(LoggerInterface::class),
     ];
 }
