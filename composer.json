@@ -47,7 +47,7 @@
     "require-dev": {
         "bamarni/composer-bin-plugin": "^1.8",
         "phpunit/phpunit": "^9.5",
-        "symfony/var-dumper": "^4.4||^5.4"
+        "symfony/var-dumper": "^4.4 || ^5.4"
     },
     "config": {
         "allow-plugins": {
@@ -67,6 +67,12 @@
         },
         "branch-alias": {
             "dev-main": "1.0-dev"
+        },
+        "oe-module-todo-list": {
+            "openemr-supported-version": [
+                "v7_0_1_1",
+                "v7_0_1"
+            ]
         }
     },
     "autoload": {
