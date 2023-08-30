@@ -15,7 +15,6 @@ use Twig\Environment;
 class ToDoReadController
 {
     public function __construct(
-        //private LoadTodoPort $repository,
         private UrlService $urlService,
         private Environment $templateEngine,
         private DocumentStore $documentStore,
@@ -24,16 +23,8 @@ class ToDoReadController
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
     {
-        $todoId = TodoId::fromString((string) $args['id']);
-
-        //TODO: return exception or 404 not found
-        //        if (! ($todo = $this->repository->withTodoId($todoId))) {
-        //            die('fix this in ToDoReadController ');
-        //        };
-
         $todo = $this->documentStore->getDocument('aggregates_' . Todo::class, (string) $args['id']);
 
-        //dd($todo);
         return $this->render('todo/show.html.twig', [
             'todo' => $todo,
         ]);
