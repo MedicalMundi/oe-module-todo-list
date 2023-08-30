@@ -2,46 +2,54 @@
 
 namespace OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web;
 
-use MedicalMundi\TodoList\Application\Port\In\AddTodoCommand;
-use MedicalMundi\TodoList\Application\Port\In\AddTodoUseCase;
-use MedicalMundi\TodoList\Domain\Todo\Title;
-use MedicalMundi\TodoList\Domain\Todo\TodoId;
+use Ecotone\Modelling\CommandBus;
+use MedicalMundi\TodoList\Application\Domain\Todo\Command\PostTodo;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
+use Ramsey\Uuid\Uuid;
+use Twig\Environment;
 
 class AddTodoController
 {
     public function __construct(
-        private AddTodoUseCase $useCaseService,
+        private CommandBus $commandBus,
+        private Environment $templateEngine,
         private LoggerInterface $logger,
     ) {
     }
 
-    public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
+    public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        //TODO add data validation
-        if (! isset($args['id']) || ! isset($args['title'])) {
-            $page = 'Validation error: ';
-            $this->logger->log('info', 'Validation error: ');
-            return $this->renderRaw($page);
+        if ('POST' === $request->getMethod()) {
+            //TODO add data validation
+
+            /** @var PostTodo $command */
+            $command = $this->createCommandFromRequest((array) $request->getParsedBody());
+
+            $todoId = $this->commandBus->send($command);
+
+            $page = 'Success ' . $todoId;
+
+            return $this->render('todo/new.html.twig', []);
+        } elseif ('GET' === $request->getMethod()) {
+            return $this->render('todo/new.html.twig', []);
         }
-
-        $command = new AddTodoCommand(
-            TodoId::fromString((string) $args['id']),
-            Title::fromString((string) $args['title'])
-        );
-
-        $this->useCaseService->addTodo($command);
-
-        $page = 'Success ';
-        return $this->renderRaw($page);
     }
 
-    private function renderRaw(string $content): ResponseInterface
+    private function createCommandFromRequest(array $requestParams): PostTodo
+    {
+        // Uuid::uuid4()->toString(),
+        return new PostTodo((string) $requestParams['todoId'], (string) $requestParams['title']);
+    }
+
+    private function render(string $template, array $parameters): ResponseInterface
     {
         $psr17Factory = new Psr17Factory();
+
+        $content = $this->templateEngine->render($template, $parameters);
+
         $responseBody = $psr17Factory->createStream($content);
 
         return $psr17Factory->createResponse(200)->withBody($responseBody);

@@ -31,6 +31,10 @@
                         <th>Description</th>
                         <td>{{ todo.description ? todo.description : '' }}</td>
                     </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>{{ todo.status ? todo.status.value : '' }}</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

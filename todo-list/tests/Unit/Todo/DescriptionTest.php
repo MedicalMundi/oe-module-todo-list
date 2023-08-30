@@ -2,7 +2,7 @@
 
 namespace MedicalMundi\TodoList\Tests\Unit\Todo;
 
-use MedicalMundi\TodoList\Domain\Todo\Description;
+use MedicalMundi\TodoList\Application\Domain\Todo\Description;
 use PHPUnit\Framework\TestCase;
 
 class DescriptionTest extends TestCase

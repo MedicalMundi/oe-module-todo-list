@@ -2,7 +2,9 @@
 
 namespace OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web;
 
-use MedicalMundi\TodoList\Application\Port\Out\Persistence\FindTodosPort;
+use Ecotone\Messaging\Store\Document\DocumentStore;
+use MedicalMundi\TodoList\Application\Domain\Todo\Todo;
+use MedicalMundi\TodoList\Application\Domain\Todo\TodoBusinessRepositoryInterface;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\UrlService;
 use Psr\Http\Message\ResponseInterface;
@@ -12,16 +14,21 @@ use Twig\Environment;
 class ToDoListController
 {
     public function __construct(
-        private FindTodosPort $repository,
         private UrlService $urlService,
-        private Environment $templateEngine
+        private Environment $templateEngine,
+        private DocumentStore $documentStore,
+        // TODO: remove
+        private TodoBusinessRepositoryInterface $todoBusinessRepository,
     ) {
     }
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
     {
-        $todos = $this->repository->findTodos();
+        $todos = $this->documentStore->getAllDocuments('aggregates_' . Todo::class);
+        //$x = $this->todoBusinessRepository->getTodo('78398741-531b-4e0b-aaac-ec71297d5659');
 
+        //$x = $this->todoBusinessRepository->getAllDocuments();
+        //dd($x);
         return $this->render('todo/list.html.twig', [
             'todos' => $todos,
         ]);

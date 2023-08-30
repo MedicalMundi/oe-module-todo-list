@@ -2,7 +2,7 @@
 
 namespace MedicalMundi\TodoList\Tests\Unit\Todo;
 
-use MedicalMundi\TodoList\Domain\Todo\Title;
+use MedicalMundi\TodoList\Application\Domain\Todo\Title;
 use PHPUnit\Framework\TestCase;
 
 class TitleTest extends TestCase

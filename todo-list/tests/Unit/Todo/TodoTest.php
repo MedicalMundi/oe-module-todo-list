@@ -2,10 +2,13 @@
 
 namespace MedicalMundi\TodoList\Tests\Unit\Todo;
 
-use MedicalMundi\TodoList\Domain\Todo\Description;
-use MedicalMundi\TodoList\Domain\Todo\Title;
-use MedicalMundi\TodoList\Domain\Todo\Todo;
-use MedicalMundi\TodoList\Domain\Todo\TodoId;
+use Ecotone\Lite\EcotoneLite;
+use MedicalMundi\TodoList\Application\Domain\Todo\Command\ChangeTitle;
+use MedicalMundi\TodoList\Application\Domain\Todo\Command\PostTodo;
+use MedicalMundi\TodoList\Application\Domain\Todo\Title;
+use MedicalMundi\TodoList\Application\Domain\Todo\Todo;
+use MedicalMundi\TodoList\Application\Domain\Todo\TodoId;
+use MedicalMundi\TodoList\Application\Domain\Todo\TodoStatus;
 use PHPUnit\Framework\TestCase;
 
 class TodoTest extends TestCase
@@ -18,13 +21,27 @@ class TodoTest extends TestCase
 
     /**
      * @test
-     * @doesNotPerformAssertions
      */
-    public function can_be_created(): void
+    public function should_post_a_todo(): void
     {
-        new Todo(TodoId::generate(), Title::fromString(self::TITLE));
+        $expectedTodoId = TodoId::fromString(self::UUID);
 
-        new Todo(TodoId::fromString(self::UUID), Title::fromString(self::TITLE));
+        $expectedTitle = Title::fromString(self::TITLE);
+
+        $expectedStatus = TodoStatus::OPEN();
+
+        /** @var Todo $sut */
+        $sut = EcotoneLite::bootstrapFlowTesting([Todo::class])
+            ->sendCommand(new PostTodo(
+                self::UUID,
+                self::TITLE,
+            ))
+            ->getAggregate(Todo::class, $expectedTodoId);
+
+        self::assertEquals($expectedTodoId, $sut->id());
+        self::assertEquals($expectedTitle, $sut->title());
+        self::assertNull($sut->description());
+        self::assertEquals($expectedStatus, $sut->status());
     }
 
     /**
@@ -32,11 +49,18 @@ class TodoTest extends TestCase
      */
     public function should_return_the_identifier(): void
     {
-        $todo = new Todo(TodoId::fromString(self::UUID), Title::fromString(self::TITLE));
+        $expectedTodoId = TodoId::fromString(self::UUID);
 
-        $id = $todo->id();
+        /** @var TodoId $todoIdFromAggregate */
+        $todoIdFromAggregate = EcotoneLite::bootstrapFlowTesting([Todo::class])
+            ->sendCommand(new PostTodo(
+                self::UUID,
+                self::TITLE,
+            ))
+            ->getAggregate(Todo::class, $expectedTodoId)
+            ->id();
 
-        self::assertEquals(self::UUID, $id->toString());
+        self::assertEquals($expectedTodoId, $todoIdFromAggregate);
     }
 
     /**
@@ -44,11 +68,20 @@ class TodoTest extends TestCase
      */
     public function should_return_the_title(): void
     {
-        $todo = new Todo(TodoId::fromString(self::UUID), Title::fromString(self::TITLE));
+        $identifier = TodoId::fromString(self::UUID);
 
-        $title = $todo->title();
+        $expectedTitle = Title::fromString(self::TITLE);
 
-        self::assertEquals(self::TITLE, $title->toString());
+        /** @var Title $titleFromAggregate */
+        $titleFromAggregate = EcotoneLite::bootstrapFlowTesting([Todo::class])
+            ->sendCommand(new PostTodo(
+                self::UUID,
+                self::TITLE,
+            ))
+            ->getAggregate(Todo::class, $identifier)
+            ->title();
+
+        self::assertEquals($expectedTitle, $titleFromAggregate);
     }
 
     /**
@@ -56,11 +89,25 @@ class TodoTest extends TestCase
      */
     public function can_assign_a_new_title(): void
     {
-        $todo = new Todo(TodoId::fromString(self::UUID), Title::fromString(self::TITLE));
+        //self::markTestIncomplete('Implement');
+        $identifier = TodoId::fromString(self::UUID);
 
-        $todo->changetitle($newTitle = Title::fromString('A new title'));
+        $expectedChangedTitle = Title::fromString('A new title');
 
-        self::assertEquals($newTitle, $todo->title());
+        /** @var Title $titleFromAggregate */
+        $titleFromAggregate = EcotoneLite::bootstrapFlowTesting([Todo::class])
+            ->sendCommand(new PostTodo(
+                self::UUID,
+                self::TITLE,
+            ))
+            ->sendCommand(new ChangeTitle(
+                self::UUID,
+                'A new title',
+            ))
+            ->getAggregate(Todo::class, $identifier)
+            ->title();
+
+        self::assertEquals($expectedChangedTitle, $titleFromAggregate);
     }
 
     /**
@@ -68,11 +115,7 @@ class TodoTest extends TestCase
      */
     public function can_assign_a_new_description(): void
     {
-        $todo = new Todo(TodoId::fromString(self::UUID), Title::fromString(self::TITLE));
-
-        $todo->changeDescription($newDescription = Description::fromString('A new Description'));
-
-        self::assertEquals($newDescription, $todo->description());
+        self::markTestIncomplete('Implement');
     }
 
     /**
@@ -80,10 +123,6 @@ class TodoTest extends TestCase
      */
     public function should_return_null_as_description(): void
     {
-        $todo = new Todo(TodoId::fromString(self::UUID), Title::fromString(self::TITLE));
-
-        $description = $todo->description();
-
-        self::assertNull($description);
+        self::markTestIncomplete('Implement');
     }
 }

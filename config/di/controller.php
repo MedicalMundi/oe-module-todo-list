@@ -11,14 +11,14 @@ use MedicalMundi\TodoList\TodoListContext;
 
 return [
     //persistence
-    JsonTodoRepository::class => DI\create(JsonTodoRepository::class),
-    FindTodosPort::class => DI\autowire(JsonTodoRepository::class),
-    AddTodoPort::class => DI\autowire(JsonTodoRepository::class),
-    LoadTodoPort::class => DI\autowire(JsonTodoRepository::class),
+//    JsonTodoRepository::class => DI\create(JsonTodoRepository::class),
+//    FindTodosPort::class => DI\autowire(JsonTodoRepository::class),
+//    AddTodoPort::class => DI\autowire(JsonTodoRepository::class),
+//    LoadTodoPort::class => DI\autowire(JsonTodoRepository::class),
 
     //service
-    AddTodoService::class => DI\create(AddTodoService::class),
-    AddTodoUseCase::class => DI\autowire(AddTodoService::class),
+//    AddTodoService::class => DI\create(AddTodoService::class),
+//    AddTodoUseCase::class => DI\autowire(AddTodoService::class),
 
     //db conf
     DbalConnectionFactory::class => new DbalConnectionFactory(sprintf("sqlite:////%s%s%s", TodoListContext::getModuleDir(), '/var/module_data/', TodoListContext::getSqLiteDatabaseName())),

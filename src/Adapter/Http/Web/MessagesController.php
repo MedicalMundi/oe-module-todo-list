@@ -5,7 +5,7 @@ namespace OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web;
 use Ecotone\Messaging\Store\Document\DocumentStore;
 use Ecotone\Modelling\CommandBus;
 use Ecotone\Modelling\QueryBus;
-use MedicalMundi\TodoList\Domain\Setting\InitializeModuleSetting;
+use MedicalMundi\TodoList\Application\Domain\Setting\InitializeModuleSetting;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

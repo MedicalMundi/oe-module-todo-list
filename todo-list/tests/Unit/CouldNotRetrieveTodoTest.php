@@ -2,7 +2,7 @@
 
 namespace MedicalMundi\TodoList\Tests\Unit;
 
-use MedicalMundi\TodoList\Domain\Todo\Exception\CouldNotRetrieveTodo;
+use MedicalMundi\TodoList\Application\Domain\Todo\Exception\CouldNotRetrieveTodo;
 use PHPUnit\Framework\TestCase;
 
 class CouldNotRetrieveTodoTest extends TestCase
