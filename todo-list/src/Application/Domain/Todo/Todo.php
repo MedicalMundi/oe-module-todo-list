@@ -6,12 +6,13 @@ use Ecotone\Modelling\Attribute\Aggregate;
 use Ecotone\Modelling\Attribute\CommandHandler;
 use Ecotone\Modelling\Attribute\Identifier;
 use Ecotone\Modelling\WithEvents;
+use JsonSerializable;
 use MedicalMundi\TodoList\Application\Domain\Todo\Command\ChangeTitle;
 use MedicalMundi\TodoList\Application\Domain\Todo\Command\PostTodo;
 use MedicalMundi\TodoList\Application\Domain\Todo\Event\TodoWasPosted;
 
 #[Aggregate]
-class Todo implements TodoInterface
+class Todo implements TodoInterface, JsonSerializable
 {
     use WithEvents;
 
@@ -65,5 +66,15 @@ class Todo implements TodoInterface
     public function status(): TodoStatus
     {
         return $this->status;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->todoId->toString(),
+            'title' => $this->title->toString(),
+            'description' => (null === $this->description) ? '' : $this->description->toString(),
+            'status' => $this->status->value(),
+        ];
     }
 }

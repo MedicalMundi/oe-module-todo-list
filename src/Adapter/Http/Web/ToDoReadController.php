@@ -4,8 +4,6 @@ namespace OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web;
 
 use Ecotone\Messaging\Store\Document\DocumentStore;
 use MedicalMundi\TodoList\Application\Domain\Todo\Todo;
-use MedicalMundi\TodoList\Application\Domain\Todo\TodoId;
-use MedicalMundi\TodoList\Application\Port\Out\Persistence\LoadTodoPort;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\UrlService;
 use Psr\Http\Message\ResponseInterface;
