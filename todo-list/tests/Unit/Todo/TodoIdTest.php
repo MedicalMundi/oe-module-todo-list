@@ -2,7 +2,7 @@
 
 namespace MedicalMundi\TodoList\Tests\Unit\Todo;
 
-use MedicalMundi\TodoList\Domain\Todo\TodoId;
+use MedicalMundi\TodoList\Application\Domain\Todo\TodoId;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 

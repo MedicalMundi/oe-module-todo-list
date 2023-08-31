@@ -13,6 +13,10 @@ use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\HomeController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\MessagesController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\ToDoListController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web\ToDoReadController;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\WebApi\Todo\WapiDeleteTodoController;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\WebApi\Todo\WapiPostTodoController;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\WebApi\Todo\WapiShowTodoController;
+use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\WebApi\Todo\WapiToDoListController;
 use OpenEMR\Modules\MedicalMundiTodoList\Module;
 use Psr\Container\ContainerInterface;
 
@@ -29,12 +33,14 @@ class RouterFactory
 
         if (Module::isStandAlone()) {
             $prefix = '';
-            $routerGroupTodoUrl = '/todos';
-            $routerGroupModuleSettingUrl = '/module-setting';
+            $webTodoRouterGroup = '/todos';
+            $webApiTodoRouterGroup = '/wapi/todos';
+            $webModuleSettingrouterGroup = '/module-setting';
         } else {
             $prefix = self::PREFIX_URL;
-            $routerGroupTodoUrl = self::PREFIX_URL . '/todos';
-            $routerGroupModuleSettingUrl = self::PREFIX_URL . '/module-setting';
+            $webTodoRouterGroup = self::PREFIX_URL . '/todos';
+            $webApiTodoRouterGroup = self::PREFIX_URL . '/wapi/todos';
+            $webModuleSettingrouterGroup = self::PREFIX_URL . '/module-setting';
         }
 
         $router->map('GET', $prefix . '/', HomeController::class);
@@ -43,13 +49,22 @@ class RouterFactory
         $router->map('GET', $prefix . '/help', HelpController::class);
         $router->map('GET', $prefix . '/messages', MessagesController::class);
 
-        $router->group($routerGroupTodoUrl, function (RouteGroup $route): void {
+        $router->group($webTodoRouterGroup, function (RouteGroup $route): void {
             $route->map('GET', '/new', AddToDoController::class);
+            $route->map('POST', '/new', AddToDoController::class);
             $route->map('GET', '/', ToDoListController::class);
             $route->map('GET', '/{id:uuid}', ToDoReadController::class);
         });
 
-        $router->group($routerGroupModuleSettingUrl, function (RouteGroup $route): void {
+        $router->group($webApiTodoRouterGroup, function (RouteGroup $route): void {
+            $route->map('GET', '/', WapiToDoListController::class);
+            $route->map('POST', '/', WapiPostTodoController::class);
+            $route->map('GET', '/{id:uuid}', WapiShowTodoController::class);
+            // TODO implement in domain
+            //$route->map('DELETE', '/{id:uuid}', WapiDeleteTodoController::class);
+        });
+
+        $router->group($webModuleSettingrouterGroup, function (RouteGroup $route): void {
             $route->map('GET', '/', HomeController::class);
         });
 

@@ -1,16 +1,12 @@
 /.idea
 /extra
-/src/Adapter/Persistence/todos.json
 /tools/**/vendor
 /vendor
 
+**.php.bk
 
 
 .phpunit.result.cache
 phpunit.xml
 
-/todo-list/src/Application/ProductNotifier.php
-/todo-list/src/Application/ProductService.php
-todo-list/src/MessagesQuickstart.php
-/todo-list/src/Application/Domain
 /todo-list/src/Adapter/Ecotone

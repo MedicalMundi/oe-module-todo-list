@@ -3,7 +3,7 @@
 namespace MedicalMundi\TodoList\Infrastructure\Converter;
 
 use Ecotone\Messaging\Attribute\Converter;
-use MedicalMundi\TodoList\Domain\Todo\Title;
+use MedicalMundi\TodoList\Application\Domain\Todo\Title;
 
 class TitleConverter
 {

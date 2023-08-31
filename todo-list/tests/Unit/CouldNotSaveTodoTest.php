@@ -2,8 +2,8 @@
 
 namespace MedicalMundi\TodoList\Tests\Unit;
 
-use MedicalMundi\TodoList\Domain\Todo\Exception\CouldNotSaveTodo;
-use MedicalMundi\TodoList\Domain\Todo\TodoId;
+use MedicalMundi\TodoList\Application\Domain\Todo\Exception\CouldNotSaveTodo;
+use MedicalMundi\TodoList\Application\Domain\Todo\TodoId;
 use PHPUnit\Framework\TestCase;
 
 class CouldNotSaveTodoTest extends TestCase
