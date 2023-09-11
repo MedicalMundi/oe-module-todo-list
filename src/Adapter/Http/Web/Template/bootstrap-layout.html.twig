@@ -13,11 +13,7 @@
 
 
 {% block footer %}
-    <footer class="footer">
-        <div class="container">
-            <span class="text-muted">{{ module.name }} {{ module.version }} by <a href="{{ module.vendor_url }}" target="_blank">{{ module.vendor_name }}</a> | <a href="{{ module.source_code }}" target="_blank">source</a></span>
-        </div>
-    </footer>
+    {% include 'partials/_footer.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}
