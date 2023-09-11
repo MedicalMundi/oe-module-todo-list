@@ -1,0 +1,78 @@
+{% extends 'bootstrap-layout.html.twig' %}
+
+{% block body %}
+    <div class="container mt-3">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h3 class="text-center m-3">About {{ module.name }} module</h3>
+
+                <div class="row my-3">
+                    <div class="col-3 text-start">Module Version:</div><div class="col text-end">{{ module.version }}</div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-3 text-start">License:</div>
+                    <div class="col text-end">
+                        <a href="{{ module.license_url }}" target="_blank">{{ module.license }}</a>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-3 text-start">Vendor:</div>
+                    <div class="col text-end">
+                        <a href="{{ module.vendor_url }}" target="_blank">{{ module.vendor_name }}</a>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-3 text-start">Online support:</div>
+                    <div class="col text-end">
+                        <a href="{{ module.source_code }}/issues" target="_blank">{{ module.source_code }}/issues</a>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    {#                    <a href="#" target="_blank" class="btn btn-outline-primary btn-md d-block m-1 text-start" role="button">#}
+                    {#                        <i class="bi bi-journal"></i> User Manual#}
+                    {#                    </a>#}
+{#                    <a href="https://medicalmundi.github.io/oe-module-todo-list/developer-guide/quick-start.html" target="_blank" class="btn btn-outline-primary btn-md d-block m-1 text-start" role="button">#}
+{#                        <i class="bi bi-journal-code"></i> Developer manual#}
+{#                    </a>#}
+{#                    <a href="https://github.com/MedicalMundi/oe-module-todo-list/discussions/categories/ideas" target="_blank" class="btn btn-outline-primary btn-md d-block m-1 text-start" role="button">#}
+{#                        <i class="bi bi-lightbulb-fill"></i> Suggest a new feature#}
+{#                    </a>#}
+                </div>
+                {# SUPPORT US BUTTON #}
+                <p class="d-block-flex">
+                    <a  target="_blank" class="btn btn-outline-success btn-lg d-block m-0 text-start" data-bs-toggle="collapse" href="#collapseSupportUsOptions" role="button" aria-expanded="false" aria-controls="collapseSupportUsOptions">
+                        <i class="bi bi-heart-fill"></i> Support Us
+                    </a>
+
+                </p>
+                <div class="collapse" id="collapseSupportUsOptions">
+                    <div class="card card-body">
+                        <p class="text-center">Thanks!! <i class="bi bi-hearts text-danger"></i></p>
+                        <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
+                            <button type="button" class="btn btn-outline-success">
+                                <a class="text-decoration-none" href="https://github.com/sponsors/pMononoke?frequency=one-time" target="_blank">One-time</a>
+                            </button>
+                            <button type="button" class="btn btn-outline-success">
+                                <a class="text-decoration-none" href="https://github.com/sponsors/pMononoke?frequency=recurring" target="_blank">Monthly</a>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row mt-5 justify-content-center">
+                    <div class="col-3">
+                        <a href="/" class="btn btn-outline-secondary btn-md d-block m-1 text-start" role="button">
+                            <i class="bi bi-arrow-left-circle-fill"></i> Back to module
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{# OVERRIDE DEFAULT FOOTER #}
+{% block footer %}
+{% endblock %}
