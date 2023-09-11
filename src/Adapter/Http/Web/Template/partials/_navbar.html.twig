@@ -1,102 +1,168 @@
-<nav class="navbar navbar-expand navbar-light bg-white static-top">
-
+<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+{#    <a href="/interface/modules/custom_modules/oe-module-npi-registry/public/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">#}
+{#        #}{#        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>#}
+{#        <span class="fs-4">{{ module.name }}</span>#}
+{#    </a>#}
 
     {% if module.isStandAlone %}
-        <a class="navbar-brand mr-1" href="/">{{ module.name }}</a>
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" href="/">
+            <span class="fs-4">{{ module.name }}</span>
+        </a>
     {% else %}
-        <a class="navbar-brand mr-1" href="/interface/modules/custom_modules/oe-module-todo-list">{{ module.name }}</a>
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" href="/interface/modules/custom_modules/oe-module-todo-list">
+            <span class="fs-4">{{ module.name }}</span>
+        </a>
     {% endif %}
 
 
-    <button class="btn btn-link btn-sm order-1 order-sm-0 text-dark" id="sidebarToggle">
-        <i class="fas fa-bars"></i>
-    </button>
 
-    <div class="hidden-sm" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                {% if module.isStandAlone %}
-                    <a class="nav-link" href="/dashboard">{{ 'menu.dashboard' }}</a>
-                {% else %}
-                    <a class="nav-link" href="/interface/modules/custom_modules/oe-module-todo-list/dashboard">{{ 'menu.dashboard' }}</a>
-                {% endif %}
-            </li>
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    {{ 'menu.filter' }}
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{#{{ path('todo_list_open') }}#}">{{ 'menu.filter.open' }}</a>
-                    <a class="dropdown-item" href="{#{{ path('todo_list_closed') }}#}">{{ 'menu.filter.closed' }}</a>
-                </div>
-            </li>
-        </ul>
-    </div>
+    <ul class="nav nav-pills">
+        {% if module.isStandAlone %}
+            <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+        {% else %}
+            <li class="nav-item"><a class="nav-link" href="/interface/modules/custom_modules/oe-module-todo-list/dashboard">Dashboard</a></li>
+        {% endif %}
 
-    <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></div>
 
-    <ul class="navbar-nav ml-auto ml-md-0">
-
-        <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle"
-               href="#"
-               id="addDropdown"
-               role="button"
-               data-toggle="dropdown"
-               aria-haspopup="true"
-               aria-expanded="false">
-                <i class="fas fa-plus-square text-danger"></i>
-                <span class="hidden-sm">{{ 'menu.add_new' }}</span>
+        {# TODO MENU #}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Todos
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="addDropdown">
-                {% if module.isStandAlone %}
-                    <a class="dropdown-item" href="/todos/new">{{ 'menu.add_new.todo' }}</a>
-                    <a class="dropdown-item" href="/help">{{ 'help' }}</a>
-                {% else %}
-                    <a class="dropdown-item" href="/interface/modules/custom_modules/oe-module-todo-list/todos/new">{{ 'menu.add_new.todo' }}</a>
-                    <a class="dropdown-item" href="/interface/modules/custom_modules/oe-module-todo-list/help">{{ 'help' }}</a>
-                {% endif %}
-            </div>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/todos/new">New</a></li>
+                <li><a class="dropdown-item" href="/todos">List</a></li>
+                <li><hr class="dropdown-divider"></li>
+{#                <li><a class="dropdown-item" href="#">Something else here</a></li>#}
+            </ul>
         </li>
 
-        <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle"
-               href="#" id="settingDropdown"
-               role="button"
-               data-toggle="dropdown"
-               aria-haspopup="true"
-               aria-expanded="false">
-                {{ 'menu.module' }}
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="settingDropdown">
-                <a class="dropdown-item" href="{#{{ path('app_account_me') }}#}">
-                    {{ 'menu.settings.global_preference_if_admin' }}
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{# {{ path('app_logout') }} #}">
-                {{ 'menu.settings.user_preference' }}
-                </a>
 
-                {% if module.isStandAlone %}
-                    <a class="dropdown-item" href="/messages">
-                        Async Messaging Test Page
-                    </a>
-                {% else %}
-                    <a class="dropdown-item" href="/interface/modules/custom_modules/oe-module-todo-list/messages">
-                        Async Messaging Test Page
-                    </a>
-                {% endif %}
+        {# MESSAGES MENU #}
+        {% if module.isStandAlone %}
+            <li class="nav-item"><a class="nav-link" href="/messages">Messaging Test Page
+                </a></li>
+        {% else %}
+            <li class="nav-item"><a class="nav-link" href="/interface/modules/custom_modules/oe-module-todo-list/messages">
+                Messaging Test Page
+            </a></li>
+        {% endif %}
 
 
 
-                {% if module.isStandAlone %}
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/dashboard">{{ 'menu.dashboard' }}</a>
-                    <a class="dropdown-item" href="/todos">todo list page</a>
-                {% endif %}
-            </div>
-        </li>
+        <li class="nav-item"><a href="/module-setting" class="nav-link">Setting</a></li>
+        {#        <li class="nav-item"><a href="/interface/modules/custom_modules/oe-module-npi-registry/public/faq" class="nav-link">FAQs</a></li>#}
+        <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
     </ul>
-</nav>
+</header>
+
+
+
+
+
+
+
+
+{#<nav class="navbar navbar-expand navbar-light bg-white static-top">#}
+
+
+{#    {% if module.isStandAlone %}#}
+{#        <a class="navbar-brand mr-1" href="/">{{ module.name }}</a>#}
+{#    {% else %}#}
+{#        <a class="navbar-brand mr-1" href="/interface/modules/custom_modules/oe-module-todo-list">{{ module.name }}</a>#}
+{#    {% endif %}#}
+
+
+{#    <button class="btn btn-link btn-sm order-1 order-sm-0 text-dark" id="sidebarToggle">#}
+{#        <i class="fas fa-bars"></i>#}
+{#    </button>#}
+
+{#    <div class="hidden-sm" id="navbarSupportedContent">#}
+{#        <ul class="navbar-nav mr-auto">#}
+{#            <li class="nav-item">#}
+{#                {% if module.isStandAlone %}#}
+{#                    <a class="nav-link" href="/dashboard">{{ 'menu.dashboard' }}</a>#}
+{#                {% else %}#}
+{#                    <a class="nav-link" href="/interface/modules/custom_modules/oe-module-todo-list/dashboard">{{ 'menu.dashboard' }}</a>#}
+{#                {% endif %}#}
+{#            </li>#}
+
+{#            <li class="nav-item dropdown">#}
+{#                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"#}
+{#                   aria-haspopup="true" aria-expanded="false">#}
+{#                    {{ 'menu.filter' }}#}
+{#                </a>#}
+{#                <div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
+{#                    <a class="dropdown-item" href="#}{#{{ path('todo_list_open') }}#}{#">{{ 'menu.filter.open' }}</a>#}
+{#                    <a class="dropdown-item" href="#}{#{{ path('todo_list_closed') }}#}{#">{{ 'menu.filter.closed' }}</a>#}
+{#                </div>#}
+{#            </li>#}
+{#        </ul>#}
+{#    </div>#}
+
+{#    <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></div>#}
+
+{#    <ul class="navbar-nav ml-auto ml-md-0">#}
+
+{#        <li class="nav-item dropdown no-arrow mx-1">#}
+{#            <a class="nav-link dropdown-toggle"#}
+{#               href="#"#}
+{#               id="addDropdown"#}
+{#               role="button"#}
+{#               data-toggle="dropdown"#}
+{#               aria-haspopup="true"#}
+{#               aria-expanded="false">#}
+{#                <i class="fas fa-plus-square text-danger"></i>#}
+{#                <span class="hidden-sm">{{ 'menu.add_new' }}</span>#}
+{#            </a>#}
+{#            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="addDropdown">#}
+{#                {% if module.isStandAlone %}#}
+{#                    <a class="dropdown-item" href="/todos/new">{{ 'menu.add_new.todo' }}</a>#}
+{#                    <a class="dropdown-item" href="/help">{{ 'help' }}</a>#}
+{#                {% else %}#}
+{#                    <a class="dropdown-item" href="/interface/modules/custom_modules/oe-module-todo-list/todos/new">{{ 'menu.add_new.todo' }}</a>#}
+{#                    <a class="dropdown-item" href="/interface/modules/custom_modules/oe-module-todo-list/help">{{ 'help' }}</a>#}
+{#                {% endif %}#}
+{#            </div>#}
+{#        </li>#}
+
+{#        <li class="nav-item dropdown no-arrow">#}
+{#            <a class="nav-link dropdown-toggle"#}
+{#               href="#" id="settingDropdown"#}
+{#               role="button"#}
+{#               data-toggle="dropdown"#}
+{#               aria-haspopup="true"#}
+{#               aria-expanded="false">#}
+{#                {{ 'menu.module' }}#}
+{#            </a>#}
+{#            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="settingDropdown">#}
+{#                <a class="dropdown-item" href="#}{#{{ path('app_account_me') }}#}{#">#}
+{#                    {{ 'menu.settings.global_preference_if_admin' }}#}
+{#                </a>#}
+{#                <div class="dropdown-divider"></div>#}
+{#                <a class="dropdown-item" href="#}{# {{ path('app_logout') }} #}{#">#}
+{#                {{ 'menu.settings.user_preference' }}#}
+{#                </a>#}
+
+{#                {% if module.isStandAlone %}#}
+{#                    <a class="dropdown-item" href="/messages">#}
+{#                        Async Messaging Test Page#}
+{#                    </a>#}
+{#                {% else %}#}
+{#                    <a class="dropdown-item" href="/interface/modules/custom_modules/oe-module-todo-list/messages">#}
+{#                        Async Messaging Test Page#}
+{#                    </a>#}
+{#                {% endif %}#}
+
+
+
+{#                {% if module.isStandAlone %}#}
+{#                    <div class="dropdown-divider"></div>#}
+{#                    <a class="dropdown-item" href="/dashboard">{{ 'menu.dashboard' }}</a>#}
+{#                    <a class="dropdown-item" href="/todos">todo list page</a>#}
+{#                {% endif %}#}
+{#            </div>#}
+{#        </li>#}
+{#    </ul>#}
+{#</nav>#}

@@ -18,7 +18,7 @@ class DashboardController
 
     public function __invoke(ServerRequestInterface $request, array $args): ResponseInterface
     {
-        return $this->render('dashboard.html.twig', []);
+        return $this->render('dashboard/index.html.twig', []);
     }
 
     private function render(string $template, array $parameters): ResponseInterface
