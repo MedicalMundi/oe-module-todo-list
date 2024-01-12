@@ -23,15 +23,15 @@ SHELL='/bin/bash'
 help:
 	@echo
 	@echo "Available custom commands:"
-	@grep '^[^#[:space:]].*:' Makefile.openemr | grep -v '^help' | grep -v '^default' | grep -v '^\.' | grep -v '=' | grep -v '^_' | sed 's/://' | xargs -n 1 echo ' -'
+	@grep '^[^#[:space:]].*:' Makefile | grep -v '^help' | grep -v '^default' | grep -v '^\.' | grep -v '=' | grep -v '^_' | sed 's/://' | xargs -n 1 echo ' -'
 
 ########################################################################################################################
 
-# stable available openemr release: v7_0_1_1|v7_0_1|v7_0_0_2|v5_0_2|v5_0_2_1|v5_0_2_2|v5_0_2_3
+# stable available openemr release: v7_0_2|v7_0_1_1|v7_0_1|v7_0_0_2|v5_0_2|v5_0_2_1|v5_0_2_2|v5_0_2_3
 # develop available openemr branch: master
 
 ifndef OE_RELEASE_ENV
-OE_RELEASE_ENV=v7_0_1_1
+OE_RELEASE_ENV=v7_0_2
 OE_DEVELOPMENT_ENV=development-easy
 OE_DOCKER_COMPOSE_FILE=var/openemr-instance/${OE_RELEASE_ENV}/docker/${OE_DEVELOPMENT_ENV}/docker-compose.yml
 endif
@@ -40,14 +40,14 @@ ifndef MODULE_ENV
 MODULE_ENV=medicalmundi/oe-module-todo-list
 endif
 
-download-oe-release:
+release-download:
 	echo
 	echo "Download Openemr:${OE_RELEASE_ENV}"
 	git clone https://github.com/openemr/openemr.git -b ${OE_RELEASE_ENV} var/openemr-release/${OE_RELEASE_ENV}
 	echo
 	echo "Openemr:${OE_RELEASE_ENV} downloaded"
 
-remove-oe-release:
+release-remove:
 	echo "Remove release folder for Openemr:${OE_RELEASE_ENV}"
 	rm -fR var/openemr-release/${OE_RELEASE_ENV}
 
@@ -62,6 +62,7 @@ instance-start:
 	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} up -d
 	$(MAKE) instance-fix-permission
 	$(MAKE) instance-status
+	$(MAKE) instance-log
 
 instance-stop:
 	echo "Stop Openemr instance version: ${OE_RELEASE_ENV}"
@@ -70,6 +71,10 @@ instance-stop:
 instance-status:
 	echo "Check Openemr instance status: ${OE_RELEASE_ENV}"
 	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} ps
+
+instance-log:
+	echo "Check Openemr instance status: ${OE_RELEASE_ENV}"
+	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} logs -f openemr
 
 instance-clean:
 	echo "Stop and Clean Openemr instance version: ${OE_RELEASE_ENV}"
