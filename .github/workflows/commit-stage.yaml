@@ -390,7 +390,7 @@ jobs:
     strategy:
       max-parallel: 6
       matrix:
-        openemr: [master, v7_0_1_1, v7_0_1]
+        openemr: [master, v7_0_2]
         php: ['8.1']
         is-php-experimental: [false]
 #        php:
@@ -458,8 +458,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-${{ matrix.php }}-openemr-${{ matrix.openemr }}-composer-
 
-      - name: === [UPDATE OPENEMR VENDOR= psr/log FROM 1.1.4 TO 2.0.0] ===
-        run: composer require psr/log:"^1.1.4|^2.0" --ansi
+#      - name: === [UPDATE OPENEMR VENDOR= psr/log FROM 1.1.4 TO 2.0.0] ===
+#        run: composer require psr/log:"^1.1.4|^2.0" --ansi
 
       - name: Composer info
         run: |
