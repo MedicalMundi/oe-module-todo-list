@@ -23,16 +23,16 @@ jobs:
       max-parallel: 5
       matrix:
         php:
-          - '8.0'
+          - '8.1'
         is-php-experimental: [false]
         generate-coverage-report: [false]
         include:
-          - php: '8.1'
+          - php: '8.2'
             is-php-experimental: false
             generate-coverage-report: false
-          - php: '8.2'
-            is-php-experimental: true
-            generate-coverage-report: false
+#          - php: '8.2'
+#            is-php-experimental: true
+#            generate-coverage-report: false
       fail-fast: false
     steps:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
@@ -124,7 +124,7 @@ jobs:
     strategy:
       matrix:
         php:
-          - '8.0'
+          - '8.1'
       fail-fast: true
     steps:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
@@ -182,7 +182,7 @@ jobs:
     strategy:
       matrix:
         php:
-          - '8.0'
+          - '8.1'
       fail-fast: true
     steps:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
@@ -251,7 +251,7 @@ jobs:
     strategy:
       matrix:
         php:
-          - '8.0'
+          - '8.1'
       fail-fast: true
     steps:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
@@ -319,7 +319,7 @@ jobs:
     strategy:
       matrix:
         php:
-          - '8.0'
+          - '8.1'
       fail-fast: true
     steps:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
@@ -391,10 +391,10 @@ jobs:
       max-parallel: 6
       matrix:
         openemr: [master, v7_0_1_1, v7_0_1]
-        php: ['8.0']
+        php: ['8.1']
         is-php-experimental: [false]
 #        php:
-#          - '8.0'
+#          - '8.1'
 #        is-php-experimental: [false]
 #        include:
 #          - php: '8.1'
