@@ -473,8 +473,12 @@ jobs:
 
       - name: Install openemr module with options --with-all-dependencies ( dev-main )
         if: failure()
-        run: composer require medicalmundi/oe-module-todo-list:dev-main --with-all-dependencies --ansi
+        run: |
+          composer remove medicalmundi/oe-module-todo-list --ansi
+          composer require medicalmundi/oe-module-todo-list:dev-main --with-all-dependencies --ansi
 
-      - name: Install openemr module ( last release )
+      - name: Install openemr module ( stable release )
         if: always()
-        run: composer require medicalmundi/oe-module-todo-list --ansi
+        run: |
+          composer remove medicalmundi/oe-module-todo-list --ansi
+          composer require medicalmundi/oe-module-todo-list --ansi
