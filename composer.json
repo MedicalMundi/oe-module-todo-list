@@ -21,10 +21,10 @@
     "require": {
         "php": ">=8.0",
         "doctrine/collections": "^1.8",
-        "ecotone/dbal": "^1.100",
-        "ecotone/ecotone": "^1.100",
-        "ecotone/jms-converter": "^1.100",
-        "ecotone/lite-application": "^1.100",
+        "ecotone/dbal": "^1.100 || ^1.200",
+        "ecotone/ecotone": "^1.100 || ^1.200",
+        "ecotone/jms-converter": "^1.100 || ^1.200",
+        "ecotone/lite-application": "^1.100 || ^1.200",
         "laminas/laminas-httphandlerrunner": "^2.2",
         "league/route": "^4.5 || ^5.1",
         "monolog/monolog": "^2.9",
@@ -53,6 +53,9 @@
         "allow-plugins": {
             "bamarni/composer-bin-plugin": true,
             "openemr/oe-module-installer-plugin": true
+        },
+        "platform": {
+            "php": "8.0"
         },
         "preferred-install": {
             "*": "dist"
