@@ -467,15 +467,15 @@ jobs:
           composer outdated
           cat composer.json
 
-      - name: Install openemr module --with-dependencies ( dev-main )
-        if: always()
-        run: composer require medicalmundi/oe-module-todo-list:dev-main --with-dependencies --ansi
-
-      - name: Install openemr module with options --with-all-dependencies ( dev-main )
-        if: failure()
-        run: |
-          composer remove medicalmundi/oe-module-todo-list --ansi
-          composer require medicalmundi/oe-module-todo-list:dev-main --with-all-dependencies --ansi
+#      - name: Install openemr module --with-dependencies ( dev-main )
+#        if: always()
+#        run: composer require medicalmundi/oe-module-todo-list:dev-main --with-dependencies --ansi
+#
+#      - name: Install openemr module with options --with-all-dependencies ( dev-main )
+#        if: failure()
+#        run: |
+#          composer remove medicalmundi/oe-module-todo-list --ansi
+#          composer require medicalmundi/oe-module-todo-list:dev-main --with-all-dependencies --ansi
 
       - name: Install openemr module ( stable release )
         if: always()
