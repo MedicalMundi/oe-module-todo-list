@@ -40,7 +40,7 @@
         "twig/twig": "^3.5 || ^3.7"
     },
     "conflict": {
-        "openemr/openemr": "<6.0.0",
+        "openemr/openemr": "<7.0.2",
         "symfony/cache": "^6",
         "symfony/event-dispatcher": "^6"
     },
@@ -70,8 +70,7 @@
         },
         "oe-module-todo-list": {
             "openemr-supported-version": [
-                "v7_0_1_1",
-                "v7_0_1"
+                "v7_0_2"
             ]
         }
     },
