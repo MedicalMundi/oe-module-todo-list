@@ -458,9 +458,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-${{ matrix.php }}-openemr-${{ matrix.openemr }}-composer-
 
-#      - name: === [UPDATE OPENEMR VENDOR= psr/log FROM 1.1.4 TO 2.0.0] ===
-#        run: composer require psr/log:"^1.1.4|^2.0" --ansi
-
       - name: Composer info
         run: |
           composer info
@@ -479,6 +476,5 @@ jobs:
 
       - name: Install openemr module ( stable release )
         if: always()
-        run: |
-          composer remove medicalmundi/oe-module-todo-list --ansi
-          composer require medicalmundi/oe-module-todo-list --ansi
+        run: composer require medicalmundi/oe-module-todo-list --ansi
+
