@@ -33,7 +33,8 @@ help:
 ifndef OE_RELEASE_ENV
 OE_RELEASE_ENV=v7_0_2
 OE_DEVELOPMENT_ENV=development-easy
-OE_DOCKER_COMPOSE_FILE=var/openemr-instance/${OE_RELEASE_ENV}/docker/${OE_DEVELOPMENT_ENV}/docker-compose.yml
+#OE_DOCKER_COMPOSE_FILE=var/openemr-instance/${OE_RELEASE_ENV}/docker/${OE_DEVELOPMENT_ENV}/docker-compose.yml
+OE_DOCKER_COMPOSE_FILE=./../openemr-instance/${OE_RELEASE_ENV}/docker/${OE_DEVELOPMENT_ENV}/docker-compose.yml -f docker-compose-module.yml
 endif
 
 ifndef MODULE_ENV
@@ -43,7 +44,8 @@ endif
 release-download:
 	echo
 	echo "Download Openemr:${OE_RELEASE_ENV}"
-	git clone https://github.com/openemr/openemr.git -b ${OE_RELEASE_ENV} var/openemr-release/${OE_RELEASE_ENV}
+	#git clone https://github.com/openemr/openemr.git -b ${OE_RELEASE_ENV} var/openemr-release/${OE_RELEASE_ENV}
+	git clone https://github.com/openemr/openemr.git -b ${OE_RELEASE_ENV} ./../openemr-release/${OE_RELEASE_ENV}
 	echo
 	echo "Openemr:${OE_RELEASE_ENV} downloaded"
 
@@ -54,8 +56,10 @@ release-remove:
 
 instance-init:
 	echo "Init Openemr instance version: ${OE_RELEASE_ENV}"
-	rm -fR var/openemr-instance/${OE_RELEASE_ENV}/
-	cp -fR var/openemr-release/${OE_RELEASE_ENV}/ var/openemr-instance/${OE_RELEASE_ENV}
+	#rm -fR var/openemr-instance/${OE_RELEASE_ENV}/
+	#cp -fR var/openemr-release/${OE_RELEASE_ENV}/ var/openemr-instance/${OE_RELEASE_ENV}
+	rm -fR ./../openemr-instance/${OE_RELEASE_ENV}/
+	cp -fR ./../openemr-release/${OE_RELEASE_ENV}/ ./../openemr-instance/${OE_RELEASE_ENV}
 
 instance-start:
 	echo "Start Openemr instance version: ${OE_RELEASE_ENV}"
