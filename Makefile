@@ -110,7 +110,7 @@ module-install:
 module-dev-install:
 	echo "Install ${MODULE_ENV} in openemr:${OE_RELEASE_ENV}"
 	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} exec openemr composer config repositories.medicalmundi/oe-module-todo-list vcs https://github.com/MedicalMundi/oe-module-todo-list.git --working-dir /var/www/localhost/htdocs/openemr
-	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} exec openemr composer require ${MODULE_ENV}:dev-pre-release --prefer-source --working-dir /var/www/localhost/htdocs/openemr
+	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} exec openemr composer require ${MODULE_ENV}:dev-mail --prefer-source --working-dir /var/www/localhost/htdocs/openemr
 	$(MAKE) instance-fix-permission
 	echo "Module ${MODULE_ENV} installed in Openemr:${OE_RELEASE_ENV}"
 
