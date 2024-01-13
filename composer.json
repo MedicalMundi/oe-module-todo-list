@@ -35,6 +35,7 @@
         "psr/container": "^1.0",
         "psr/log": "^2.0",
         "ramsey/uuid": "^4.2",
+        "symfony/cache": "^5.4",
         "symfony/event-dispatcher": "^5.4",
         "twig/string-extra": "^3.7",
         "twig/twig": "^3.5 || ^3.7"
