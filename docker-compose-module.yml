@@ -1,0 +1,9 @@
+version: '3.1'
+services:
+  openemr:
+    volumes:
+      - ../..:/openemr:rw
+      # MOUNTED IN / ROOT DIRECTORY
+      # - ./../../../../oe-module-todo-list/:/oe-module-todo-list:rw
+      # MOUNTED IN WEB DIRECTORY
+      - ./../../../../oe-module-todo-list/:/var/www/localhost/htdocs/openemr/interface/modules/custom_modules/oe-module-todo-list:rw
