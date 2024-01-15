@@ -21,6 +21,17 @@ use OpenEMR\Modules\MedicalMundiTodoList\Module;
             require __DIR__ . '/vendor/autoload.php';
         } else {
             require __DIR__ . '/../../../../vendor/autoload.php';
+
+            /**
+             * Il seguente if non è richiesto in produzione,
+             * ma abilita la modalità di sviluppo con installazione
+             * da directory (vedi makefile: local-module-install)
+             * eseguita con l'ausilio di composer-merge-plugin
+             * senza questo if il modulo cerca le classi di test e genera un errore
+             */
+            if(file_exists(__DIR__ . '/vendor/autoload.php')){
+                require __DIR__ . '/vendor/autoload.php';
+            }
         }
 
 
