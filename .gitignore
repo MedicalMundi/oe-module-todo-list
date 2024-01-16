@@ -1,6 +1,7 @@
 /.idea
 /extra
 /tools/**/vendor
+/var
 /vendor
 
 **.php.bk
