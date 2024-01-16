@@ -3,7 +3,19 @@ services:
   openemr:
     volumes:
       - ../..:/openemr:rw
-      # MOUNTED IN / ROOT DIRECTORY
-      # - ./../../../../oe-module-todo-list/:/oe-module-todo-list:rw
-      # MOUNTED IN WEB DIRECTORY
+      # exclude openemr git folder
+      # prevent permission error (chown apache:apache)
+      #
+      # Generated optimized autoload files containing 37468 classes
+      #openemr-1  | chown: /var/www/localhost/htdocs/openemr/.git/objects/pack/pack-ab4e025dfb294dfb9250e0d8f16638df59ab3d1f.idx: Permission denied
+      #openemr-1  | chown: /var/www/localhost/htdocs/openemr/.git/objects/pack/pack-ab4e025dfb294dfb9250e0d8f16638df59ab3d1f.pack: Permission denied
+      - /var/www/localhost/htdocs/openemr/.git
+
+
+
+      # MOUNTED LOCAL MODULE FOLDER IN WEB DIRECTORY
       - ./../../../../oe-module-todo-list/:/var/www/localhost/htdocs/openemr/interface/modules/custom_modules/oe-module-todo-list:rw
+
+      # exclude module git folder
+      # prevent permission error (chown apache:apache)
+      - /var/www/localhost/htdocs/openemr/interface/modules/custom_modules/oe-module-todo-list/.git
