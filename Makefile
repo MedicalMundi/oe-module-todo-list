@@ -205,6 +205,7 @@ composer-fix-issue-psr-cache:
 
 composer-add-merge-plugin:
 	echo "Fix composer issue psr/cache in openemr:${OE_RELEASE_ENV} composer.json"
+	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} -p ${CURRENT_INSTANCE_ENV} exec openemr composer config --no-interaction allow-plugins.wikimedia/composer-merge-plugin true --working-dir /var/www/localhost/htdocs/openemr
 	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} -p ${CURRENT_INSTANCE_ENV} exec openemr composer require wikimedia/composer-merge-plugin --working-dir /var/www/localhost/htdocs/openemr
 	echo "Module ${MODULE_ENV} removed in Openemr:${OE_RELEASE_ENV}"
 
