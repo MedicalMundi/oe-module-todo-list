@@ -68,7 +68,7 @@ class Todo implements TodoInterface, JsonSerializable
         return $this->status;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'id' => $this->todoId->toString(),
