@@ -8,9 +8,9 @@ class UrlService
 {
     private const MODULE_MAIN_URL = '/interface/modules/custom_modules/oe-module-todo-list/';
 
-    private bool $isStandAloneMode;
+    private readonly bool $isStandAloneMode;
 
-    private string $baseUrl;
+    private readonly string $baseUrl;
 
     /**
      * @var array <string>

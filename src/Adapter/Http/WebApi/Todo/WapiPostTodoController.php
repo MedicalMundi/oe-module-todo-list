@@ -12,8 +12,8 @@ use Psr\Log\LoggerInterface;
 class WapiPostTodoController
 {
     public function __construct(
-        private CommandBus $commandBus,
-        private LoggerInterface $logger,
+        private readonly CommandBus $commandBus,
+        private readonly LoggerInterface $logger,
     ) {
     }
 

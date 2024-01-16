@@ -13,8 +13,8 @@ use Psr\Log\LoggerInterface;
 class WapiShowTodoController
 {
     public function __construct(
-        private DocumentStore $documentStore,
-        private LoggerInterface $logger,
+        private readonly DocumentStore $documentStore,
+        private readonly LoggerInterface $logger,
     ) {
     }
 

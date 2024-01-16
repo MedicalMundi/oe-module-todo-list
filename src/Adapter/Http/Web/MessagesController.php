@@ -14,10 +14,10 @@ use Twig\Environment;
 class MessagesController
 {
     public function __construct(
-        private Environment $templateEngine,
-        private CommandBus $commandBus,
-        private QueryBus $queryBus,
-        private DocumentStore $documentStore,
+        private readonly Environment $templateEngine,
+        private readonly CommandBus $commandBus,
+        private readonly QueryBus $queryBus,
+        private readonly DocumentStore $documentStore,
     ) {
     }
 
