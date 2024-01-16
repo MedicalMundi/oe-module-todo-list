@@ -8,7 +8,7 @@ final class Title implements \Stringable
 
     public const MAX_LENGHT = 80;
 
-    private string $value;
+    private readonly string $value;
 
     public function __construct(string $value)
     {

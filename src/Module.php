@@ -21,15 +21,15 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class Module
 {
-    public const MODULE_NAME = 'ToDo List';
+    final public const MODULE_NAME = 'ToDo List';
 
-    public const MODULE_VERSION = 'v0.2.1';
+    final public const MODULE_VERSION = 'v0.2.1';
 
-    public const MODULE_SOURCE_CODE = 'https://github.com/MedicalMundi/oe-module-todo-list';
+    final public const MODULE_SOURCE_CODE = 'https://github.com/MedicalMundi/oe-module-todo-list';
 
-    public const VENDOR_NAME = 'MedicalMundi';
+    final public const VENDOR_NAME = 'MedicalMundi';
 
-    public const VENDOR_URL = 'https://github.com/MedicalMundi';
+    final public const VENDOR_URL = 'https://github.com/MedicalMundi';
 
     protected ?ContainerInterface $container = null;
 

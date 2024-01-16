@@ -13,9 +13,9 @@ use Twig\Environment;
 class ToDoListController
 {
     public function __construct(
-        private UrlService $urlService,
-        private Environment $templateEngine,
-        private DocumentStore $documentStore,
+        private readonly UrlService $urlService,
+        private readonly Environment $templateEngine,
+        private readonly DocumentStore $documentStore,
     ) {
     }
 

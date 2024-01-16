@@ -11,8 +11,8 @@ use Twig\Environment;
 class DashboardController
 {
     public function __construct(
-        private UrlService $urlService,
-        private Environment $templateEngine
+        private readonly UrlService $urlService,
+        private readonly Environment $templateEngine
     ) {
     }
 

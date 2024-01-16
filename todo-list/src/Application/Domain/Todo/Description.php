@@ -8,7 +8,7 @@ final class Description implements \Stringable
 
     public const MAX_LENGHT = 1500;
 
-    private string $value;
+    private readonly string $value;
 
     public function __construct(string $value)
     {

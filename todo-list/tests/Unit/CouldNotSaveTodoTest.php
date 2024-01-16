@@ -13,7 +13,7 @@ class CouldNotSaveTodoTest extends TestCase
     /**
      * @test
      */
-    public function when_todo_doest_exist_should_return_a_correct_error_message(): void
+    public function when_todo_doest_exist_should_return_a_correct_error_message(): never
     {
         $this->expectException(CouldNotSaveTodo::class);
         $this->expectExceptionMessage(\sprintf('Could not save todo with Id %s does not exist.', self::UUID));
@@ -24,7 +24,7 @@ class CouldNotSaveTodoTest extends TestCase
     /**
      * @test
      */
-    public function when_a_duplicated_todo_id_is_detected_should_return_a_correct_error_message(): void
+    public function when_a_duplicated_todo_id_is_detected_should_return_a_correct_error_message(): never
     {
         $this->expectException(CouldNotSaveTodo::class);
         $this->expectExceptionMessage(\sprintf('Could not save todo with Id %s, duplicated todoId detected.', self::UUID));
@@ -35,7 +35,7 @@ class CouldNotSaveTodoTest extends TestCase
     /**
      * @test
      */
-    public function when_database_connection_is_down_should_return_a_correct_error_message(): void
+    public function when_database_connection_is_down_should_return_a_correct_error_message(): never
     {
         $this->expectException(CouldNotSaveTodo::class);
         $this->expectExceptionMessage('Could not save todo, database connection is down.');
@@ -46,7 +46,7 @@ class CouldNotSaveTodoTest extends TestCase
     /**
      * @test
      */
-    public function when_unknow_database_error_occour_should_return_a_generic_error_message(): void
+    public function when_unknow_database_error_occour_should_return_a_generic_error_message(): never
     {
         $this->expectException(CouldNotSaveTodo::class);
         $this->expectExceptionMessage('Could not save todo, database error occur.');

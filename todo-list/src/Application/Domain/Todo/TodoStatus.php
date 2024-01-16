@@ -11,7 +11,7 @@ class TodoStatus
     private const EXPIRED = 'expired';
 
     private function __construct(
-        private string $value
+        private readonly string $value
     ) {
     }
 
