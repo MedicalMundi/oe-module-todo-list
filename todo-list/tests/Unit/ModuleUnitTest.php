@@ -14,7 +14,6 @@ class ModuleUnitTest extends TestCase
 {
     private Module $module;
 
-
     private MockObject|Router $router;
 
     protected function setUp(): void
