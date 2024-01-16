@@ -5,7 +5,7 @@ namespace MedicalMundi\TodoList\Application\Domain\Setting;
 class InitializeModuleSetting
 {
     public function __construct(
-        private int $moduleSettingId,
+        private readonly int $moduleSettingId,
     ) {
     }
 

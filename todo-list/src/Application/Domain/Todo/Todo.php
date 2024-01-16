@@ -21,8 +21,7 @@ class Todo implements TodoInterface, JsonSerializable
     private TodoStatus $status;
 
     private function __construct(
-        #[Identifier]
-        private TodoId $todoId,
+        #[Identifier] private readonly TodoId $todoId,
         private Title $title
     ) {
         $this->recordThat(new TodoWasPosted($this->todoId));
