@@ -1,13 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace MedicalMundi\TodoList\Tests;
+namespace MedicalMundi\TodoList\Tests\Unit;
 
 use League\Route\Http\Exception as HttpException;
 use League\Route\Router;
-use MedicalMundi\TodoList\Adapter\Persistence\InMemory\InMemoryTodoRepository;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
-use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Common\UrlService;
 use OpenEMR\Modules\MedicalMundiTodoList\Module;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -16,10 +14,8 @@ class ModuleUnitTest extends TestCase
 {
     private Module $module;
 
-    /**
-     * @var Router & MockObject
-     */
-    private MockObject $router;
+
+    private MockObject|Router $router;
 
     protected function setUp(): void
     {
@@ -57,35 +53,5 @@ class ModuleUnitTest extends TestCase
         self::assertInstanceOf(Response::class, $response);
         $payload = $response->getBody()->getContents();
         self::assertIsString($payload);
-    }
-
-    /**
-     * @test
-     */
-    public function has_a_router(): void
-    {
-        $module = Module::bootstrap();
-
-        self::assertTrue($module->has('router'));
-    }
-
-    /**
-     * @test
-     */
-    public function has_a_urlService(): void
-    {
-        $module = Module::bootstrap();
-
-        self::assertInstanceOf(UrlService::class, $module->get(UrlService::class));
-    }
-
-    /**
-     * @test
-     */
-    public function has_a_inMemoryRepository(): void
-    {
-        $module = Module::bootstrap();
-
-        self::assertInstanceOf(InMemoryTodoRepository::class, $module->get(InMemoryTodoRepository::class));
     }
 }

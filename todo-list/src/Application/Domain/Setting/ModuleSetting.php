@@ -13,8 +13,8 @@ class ModuleSetting
     use WithEvents;
 
     public function __construct(
-        #[Identifier] private int $moduleSettingId,
-        private string $name = 'Module Settings'
+        #[Identifier] private readonly int $moduleSettingId,
+        private readonly string $name = 'Module Settings'
     ) {
     }
 

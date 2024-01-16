@@ -12,9 +12,9 @@ use Twig\Environment;
 class AddTodoController
 {
     public function __construct(
-        private CommandBus $commandBus,
-        private Environment $templateEngine,
-        private LoggerInterface $logger,
+        private readonly CommandBus $commandBus,
+        private readonly Environment $templateEngine,
+        private readonly LoggerInterface $logger,
     ) {
     }
 

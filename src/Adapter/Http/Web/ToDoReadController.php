@@ -13,9 +13,9 @@ use Twig\Environment;
 class ToDoReadController
 {
     public function __construct(
-        private UrlService $urlService,
-        private Environment $templateEngine,
-        private DocumentStore $documentStore,
+        private readonly UrlService $urlService,
+        private readonly Environment $templateEngine,
+        private readonly DocumentStore $documentStore,
     ) {
     }
 
