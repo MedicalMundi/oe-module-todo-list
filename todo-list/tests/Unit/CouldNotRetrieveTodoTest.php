@@ -12,7 +12,7 @@ class CouldNotRetrieveTodoTest extends TestCase
     /**
      * @test
      */
-    public function when_database_connection_is_down_should_return_a_correct_error_message(): void
+    public function when_database_connection_is_down_should_return_a_correct_error_message(): never
     {
         $this->expectException(CouldNotRetrieveTodo::class);
         $this->expectExceptionMessage('Could not retrieve todo, database connection is down.');
@@ -23,7 +23,7 @@ class CouldNotRetrieveTodoTest extends TestCase
     /**
      * @test
      */
-    public function when_unknow_database_error_occour_should_return_a_generic_error_message(): void
+    public function when_unknow_database_error_occour_should_return_a_generic_error_message(): never
     {
         $this->expectException(CouldNotRetrieveTodo::class);
         $this->expectExceptionMessage('Could not retrieve todo, database error occur.');
