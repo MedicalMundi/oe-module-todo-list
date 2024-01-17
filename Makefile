@@ -30,7 +30,7 @@ help:
 # develop available openemr branch: master
 
 ifndef OE_RELEASE_ENV
-OE_RELEASE_ENV=master
+OE_RELEASE_ENV=v7_0_2
 OE_DEVELOPMENT_ENV=development-easy
 #OE_DOCKER_COMPOSE_FILE=./../openemr-instance/${OE_RELEASE_ENV}/docker/${OE_DEVELOPMENT_ENV}/docker-compose.yml -f docker-compose-module.yml
 endif
@@ -145,14 +145,6 @@ module-update:
 #	MODULE SOURCE: MOUNTED LOCAL FOLDER IN DOCKER
 # 	MODULE OPERATIONS INSIDE DOCKER
 #
-#
-# NOT WORK
-#local-module-install:
-#	echo "Install ${MODULE_ENV} as local module (from directory) in openemr:${OE_RELEASE_ENV}"
-#	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} -p ${CURRENT_INSTANCE_ENV} exec openemr composer config repositories.${MODULE_ENV} '{"type": "path", "url": "/var/www/localhost/htdocs/openemr/interface/modules/custom_modules/--IGNORE-ME--/", "options": {"symlink": true}}' --working-dir /var/www/localhost/htdocs/openemr
-#	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} -p ${CURRENT_INSTANCE_ENV} exec openemr composer require ${MODULE_ENV}:dev-main --working-dir /var/www/localhost/htdocs/openemr
-#	$(MAKE) instance-fix-permission
-#	echo "Module ${MODULE_ENV} installed in Openemr:${OE_RELEASE_ENV}"
 
 local-module-install:
 	echo "Install ${MODULE_ENV} as local module (from directory) in openemr:${OE_RELEASE_ENV}"
@@ -162,14 +154,13 @@ local-module-install:
 	$(MAKE) composer-trigger-module-deps
 	echo "Module ${MODULE_ENV} installed in Openemr:${OE_RELEASE_ENV}"
 
-
-
 local-module-remove:
 	echo "Remove ${MODULE_ENV} in openemr:${OE_RELEASE_ENV}"
-	echo "Remove composer repositories.${OE_RELEASE_ENV} reference in composer.json"
-	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} -p ${CURRENT_INSTANCE_ENV} exec openemr composer remove ${MODULE_ENV} --working-dir /var/www/localhost/htdocs/openemr
-	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} -p ${CURRENT_INSTANCE_ENV} exec openemr composer config --unset repositories.${MODULE_ENV} --working-dir /var/www/localhost/htdocs/openemr
+	$(MAKE) composer-remove-merge-plugin
+	$(MAKE) composer-unconfigure-merge-plugin
+	$(MAKE) composer-trigger-module-deps
 	echo "Module ${MODULE_ENV} removed in Openemr:${OE_RELEASE_ENV}"
+
 
 #
 #	MODULE SOURCE: GITHUB.COM
@@ -204,13 +195,23 @@ composer-fix-issue-psr-cache:
 
 
 composer-add-merge-plugin:
-	echo "Fix composer issue psr/cache in openemr:${OE_RELEASE_ENV} composer.json"
+	echo "Install wikimedia/composer-merge-plugin in openemr:${OE_RELEASE_ENV} composer.json"
 	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} -p ${CURRENT_INSTANCE_ENV} exec openemr composer config --no-interaction allow-plugins.wikimedia/composer-merge-plugin true --working-dir /var/www/localhost/htdocs/openemr
 	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} -p ${CURRENT_INSTANCE_ENV} exec openemr composer require wikimedia/composer-merge-plugin --working-dir /var/www/localhost/htdocs/openemr
-	echo "Module ${MODULE_ENV} removed in Openemr:${OE_RELEASE_ENV}"
+	echo "wikimedia/composer-merge-plugin installed in Openemr:${OE_RELEASE_ENV}"
+
+composer-remove-merge-plugin:
+	echo "Remove wikimedia/composer-merge-plugin in openemr:${OE_RELEASE_ENV} composer.json"
+	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} -p ${CURRENT_INSTANCE_ENV} exec openemr composer remove wikimedia/composer-merge-plugin --working-dir /var/www/localhost/htdocs/openemr
+	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} -p ${CURRENT_INSTANCE_ENV} exec openemr composer config --unset --no-interaction allow-plugins.wikimedia/composer-merge-plugin --working-dir /var/www/localhost/htdocs/openemr
+	echo "wikimedia/composer-merge-plugin removed from Openemr:${OE_RELEASE_ENV}"
+
 
 composer-configure-merge-plugin:
 	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} -p ${CURRENT_INSTANCE_ENV} exec openemr composer config --json extra.merge-plugin '{"include": "/var/www/localhost/htdocs/openemr/interface/modules/custom_modules/${PACKAGE_NAME_ENV}/composer.json", "merge-dev": false, "merge-scripts": false }' --working-dir /var/www/localhost/htdocs/openemr
+
+composer-unconfigure-merge-plugin:
+	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} -p ${CURRENT_INSTANCE_ENV} exec openemr composer config --unset extra.merge-plugin --working-dir /var/www/localhost/htdocs/openemr
 
 composer-trigger-module-deps:
 	docker-compose -f ${OE_DOCKER_COMPOSE_FILE} -p ${CURRENT_INSTANCE_ENV} exec openemr composer update psr/cache:2.0.0 --working-dir /var/www/localhost/htdocs/openemr
