@@ -20,6 +20,8 @@ $TwigEnvironment->addGlobal('module', [
     'source_code' => Module::MODULE_SOURCE_CODE,
     'vendor_name' => Module::VENDOR_NAME,
     'vendor_url' => Module::VENDOR_URL,
+    'license' => Module::LICENSE,
+    'license_url' => Module::LICENSE_URL,
     'isStandAlone' => Module::isStandAlone(),
 ]);
 

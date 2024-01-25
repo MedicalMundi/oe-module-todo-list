@@ -31,6 +31,10 @@ class Module
 
     final public const VENDOR_URL = 'https://github.com/MedicalMundi';
 
+    final public const LICENSE = 'GPL-3.0';
+
+    final public const LICENSE_URL = 'https://github.com/MedicalMundi/oe-module-todo-list/blob/main/LICENSE';
+
     protected ?ContainerInterface $container = null;
 
     private ?Router $router = null;
