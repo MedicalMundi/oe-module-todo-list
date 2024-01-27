@@ -30,6 +30,7 @@
         "monolog/monolog": "^3.5",
         "nyholm/psr7": "^1.8",
         "nyholm/psr7-server": "^1.0",
+        "odan/session": "^6.0",
         "openemr/oe-module-installer-plugin": "^0.1",
         "php-di/php-di": "^7.0",
         "psr/container": "^1.0",
