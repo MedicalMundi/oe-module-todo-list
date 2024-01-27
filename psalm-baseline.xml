@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="5.14.1@b9d355e0829c397b9b3b47d0c0ed042a8a70284d">
+  <file src="src/Adapter/Http/Web/AddTodoController.php">
+    <PossiblyInvalidArrayAccess>
+      <code><![CDATA[$form['title']]]></code>
+    </PossiblyInvalidArrayAccess>
+    <PossiblyNullArgument>
+      <code><![CDATA[$form['title']]]></code>
+    </PossiblyNullArgument>
+    <PossiblyNullArrayAccess>
+      <code><![CDATA[$form['title']]]></code>
+    </PossiblyNullArrayAccess>
+  </file>
   <file src="src/Adapter/Http/WebApi/Todo/WapiPostTodoController.php">
     <PossiblyUndefinedVariable>
       <code>$todoId</code>

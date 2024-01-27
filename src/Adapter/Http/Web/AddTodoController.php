@@ -5,6 +5,7 @@ namespace OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\Web;
 use Ecotone\Modelling\CommandBus;
 use MedicalMundi\TodoList\Application\Domain\Todo\Command\PostTodo;
 use Nyholm\Psr7\Factory\Psr17Factory;
+use Odan\Session\SessionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
@@ -17,6 +18,7 @@ class AddTodoController
         private readonly CommandBus $commandBus,
         private readonly Environment $templateEngine,
         private readonly LoggerInterface $logger,
+        private readonly SessionInterface $session,
     ) {
     }
 
@@ -27,18 +29,19 @@ class AddTodoController
 
             $command = new PostTodo(Uuid::uuid4()->toString(), $form['title']);
 
-            $result = $this->commandBus->send($command);
-
-            if (Uuid::isValid($result)) {
-                // TODO: add session + flash message feature
-                //$this->session->getFlash()->add('success', 'Todo saved!');
+            try {
+                $result = $this->commandBus->send($command);
+                $this->session->getFlash()->add('success', 'Todo saved!');
 
                 //TODO: perform a redirect to todo details page
-            } else {
-                // TODO: add session + flash message feature
-                //$this->session->getFlash()->add('error', 'Error');
+                return $this->render('todo/new.html.twig', []);
+            } catch (\Exception $exception) {
+                $this->session->getFlash()->add('error', 'Error: ' . $exception->getMessage());
 
-                // TODO: show error and form with data
+                //TODO: populate twig form with sended data
+                return $this->render('todo/new.html.twig', [
+                    'form' => $form,
+                ]);
             }
 
             return $this->render('todo/new.html.twig', []);
