@@ -74,6 +74,7 @@ class Module
         $containerBuilder->addDefinitions(__DIR__ . '/../config/di/twig.php');
         $containerBuilder->addDefinitions(__DIR__ . '/../config/di/controller.php');
         $containerBuilder->addDefinitions(__DIR__ . '/../config/di/ecotone.php');
+        $containerBuilder->addDefinitions(__DIR__ . '/../config/di/session.php');
 
         return $containerBuilder->build();
     }
