@@ -64,18 +64,6 @@ jobs:
           coverage: none
           tools: composer
 
-      - name: Dump context
-        uses: crazy-max/ghaction-dump-context@v2
-
-      - name: Clone Openemr tag ${{ matrix.openemr }}
-        uses: actions/checkout@v3
-        with:
-          repository: openemr/openemr
-          ref: ${{ matrix.openemr }}
-
-      - name: list directory
-        run: ls -al
-
       - name: Set Composer Cache Directory
         if: ${{ vars.USE_COMPOSER_CACHE }}
         id: composer-cache
@@ -90,6 +78,18 @@ jobs:
           key: ${{ runner.os }}-php-${{ matrix.php }}-openemr-${{ matrix.openemr }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-${{ matrix.php }}-openemr-${{ matrix.openemr }}-composer-
+
+      - name: Dump context
+        uses: crazy-max/ghaction-dump-context@v2
+
+      - name: Clone Openemr tag ${{ matrix.openemr }}
+        uses: actions/checkout@v3
+        with:
+          repository: openemr/openemr
+          ref: ${{ matrix.openemr }}
+
+      - name: list directory
+        run: ls -al
 
       - name: Composer info
         run: |
@@ -110,3 +110,100 @@ jobs:
       - name: Install openemr module ( stable release )
         if: always()
         run: composer require medicalmundi/oe-module-todo-list --ansi
+
+  check-composer-conflict-as-local-module:
+    name: Local Module conflict (php-${{ matrix.php }} openemr-${{ matrix.openemr }})
+    #if: ${{ github.ref_name == 'main' }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    continue-on-error: ${{ matrix.is-php-experimental }}
+    strategy:
+      max-parallel: 6
+      matrix:
+        openemr: [master, v7_0_2]
+        php: ['8.1']
+        is-php-experimental: [false]
+      #        php:
+      #          - '8.1'
+      #        is-php-experimental: [false]
+      #        include:
+      #          - php: '8.1'
+      #            openemr: [v7_0_1_1, v7_0_1]
+      #            is-php-experimental: false
+      #          - php: '8.2'
+      #            openemr: [v7_0_1_1, v7_0_1]
+      #            is-php-experimental: true
+      fail-fast: false
+    steps:
+      - name: Setup php extension cache environment
+        if: ${{ vars.USE_PHP_EXTENSION_CACHE }}
+        id: cache-php-extensions
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          key: ${{ env.PHP_EXTENSIONS_CACHE_KEY }}-${{ matrix.php }}
+
+      - name: Cache PHP extensions
+        if: ${{ vars.USE_PHP_EXTENSION_CACHE }}
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.cache-php-extensions.outputs.dir }}
+          key: ${{ steps.cache-php-extensions.outputs.key }}
+          restore-keys: ${{ steps.cache-php-extensions.outputs.key }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@2.25.5
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          ini-values: memory_limit=-1
+          coverage: none
+          tools: composer
+
+      - name: Set Composer Cache Directory
+        if: ${{ vars.USE_COMPOSER_CACHE }}
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        if: ${{ vars.USE_COMPOSER_CACHE }}
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-php-${{ matrix.php }}-openemr-${{ matrix.openemr }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php }}-openemr-${{ matrix.openemr }}-composer-
+
+      - name: Dump context
+        uses: crazy-max/ghaction-dump-context@v2
+
+      - name: Clone Openemr tag ${{ matrix.openemr }}
+        uses: actions/checkout@v3
+        with:
+          repository: openemr/openemr
+          ref: ${{ matrix.openemr }}
+
+      - name: list directory
+        run: ls -al
+
+      - name: Install wikimedia/composer-merge-plugin package
+        run: |
+          composer config --no-interaction allow-plugins.wikimedia/composer-merge-plugin true
+          composer require wikimedia/composer-merge-plugin
+          composer config --json extra.merge-plugin '{"include": "/var/www/localhost/htdocs/openemr/interface/modules/custom_modules/oe-module-todo-list/composer.json", "merge-dev": false, "merge-scripts": false }'
+
+      - name: Composer info
+        run: |
+          composer info
+          composer outdated
+          cat composer.json
+
+      - name: Add Module to openemr
+        run: git clone medicalmundi/oe-module-todo-list -b ${{ github.sha }} interface/modules/custom-modules/oe-module-todo-list
+
+      - name: Check custom module directory
+        run: |
+          ls -al interface/modules/custom-modules/
+          ls -al interface/modules/custom-modules/oe-module-todo-list
