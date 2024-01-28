@@ -70,6 +70,6 @@ jobs:
       - name: Download release
         uses: make release-download
 
-
-      - name: Init instance
-        uses: make instance-init
+#
+#      - name: Init instance
+#        uses: make instance-init
