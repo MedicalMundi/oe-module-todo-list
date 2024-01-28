@@ -179,11 +179,14 @@ jobs:
       - name: Dump context
         uses: crazy-max/ghaction-dump-context@v2
 
-      - name: Clone Openemr tag ${{ matrix.openemr }}
+      - name: Clone openEmr tag ${{ matrix.openemr }}
         uses: actions/checkout@v3
         with:
           repository: openemr/openemr
           ref: ${{ matrix.openemr }}
+
+      - name: Install openEmr vendor dependencies
+        run: composer install
 
       - name: list directory
         run: ls -al
@@ -200,10 +203,22 @@ jobs:
           composer outdated
           cat composer.json
 
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+
       - name: Add Module to openemr
-        run: git clone medicalmundi/oe-module-todo-list -b ${{ github.sha }} interface/modules/custom-modules/oe-module-todo-list
+        run: git clone https://github.com/medicalmundi/oe-module-todo-list.git -b ${{ steps.extract_branch.outputs.branch }} interface/modules/custom-modules/oe-module-todo-list
 
       - name: Check custom module directory
         run: |
           ls -al interface/modules/custom-modules/
           ls -al interface/modules/custom-modules/oe-module-todo-list
+
+      - name: Fix OpenEmr composer.json issues
+        run: |
+          composer update psr/cache:2.0.0
+
+      - name: Install module in openEmr
+        run: composer require medicalmundi/oe-module-todo-list
