@@ -1,4 +1,4 @@
-name: Commit stage
+name: Acceptance stage
 
 on:
   workflow_call:
@@ -16,7 +16,7 @@ env:
 jobs:
   check-composer-module-conflict:
     name: Module conflict (php-${{ matrix.php }} openemr-${{ matrix.openemr }})
-    if: ${{ github.ref_name == 'main' }}
+    #if: ${{ github.ref_name == 'main' }}
     runs-on: ubuntu-22.04
     timeout-minutes: 10
     continue-on-error: ${{ matrix.is-php-experimental }}
