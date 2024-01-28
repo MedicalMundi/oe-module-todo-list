@@ -30,7 +30,7 @@ help:
 # develop available openemr branch: master
 
 ifndef OE_RELEASE_ENV
-OE_RELEASE_ENV=v7_0_2
+OE_RELEASE_ENV=master
 OE_DEVELOPMENT_ENV=development-easy
 #OE_DOCKER_COMPOSE_FILE=./../openemr-instance/${OE_RELEASE_ENV}/docker/${OE_DEVELOPMENT_ENV}/docker-compose.yml -f docker-compose-module.yml
 endif
