@@ -10,6 +10,6 @@ jobs:
       triggering-sha: "${{ github.sha }}"
   acceptance-stage-workflow:
     name: Acceptance Stage
-    uses: medicalmundi/oe-module-todo-list/.github/workflows/acceptance-stage.yaml@main
+    uses: medicalmundi/oe-module-todo-list/.github/workflows/acceptance-stage.yaml@install-as-local-module
     with:
       triggering-sha: "${{ github.sha }}"
