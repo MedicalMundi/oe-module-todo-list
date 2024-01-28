@@ -8,8 +8,13 @@ jobs:
     uses: medicalmundi/oe-module-todo-list/.github/workflows/commit-stage.yaml@main
     with:
       triggering-sha: "${{ github.sha }}"
+    secrets: inherit
+
   acceptance-stage-workflow:
     name: Acceptance Stage
-    uses: medicalmundi/oe-module-todo-list/.github/workflows/acceptance-stage.yaml@install-as-local-module
+    needs:
+      - commit-stage-workflow
+    uses: medicalmundi/oe-module-todo-list/.github/workflows/acceptance-stage.yaml@main
     with:
       triggering-sha: "${{ github.sha }}"
+    secrets: inherit
