@@ -14,9 +14,9 @@ env:
   PHP_EXTENSIONS_CACHE_KEY: cache-php-extensions-v1
 
 jobs:
-  check-composer-module-conflict:
-    name: Module conflict (php-${{ matrix.php }} openemr-${{ matrix.openemr }})
-    if: ${{ github.ref_name == 'main' }}
+  check-composer-conflict-as-local-module:
+    name: Local Module conflict (php-${{ matrix.php }} openemr-${{ matrix.openemr }})
+    #if: ${{ github.ref_name == 'main' }}
     runs-on: ubuntu-22.04
     timeout-minutes: 10
     continue-on-error: ${{ matrix.is-php-experimental }}
@@ -64,18 +64,6 @@ jobs:
           coverage: none
           tools: composer
 
-      - name: Dump context
-        uses: crazy-max/ghaction-dump-context@v2
-
-      - name: Clone Openemr tag ${{ matrix.openemr }}
-        uses: actions/checkout@v3
-        with:
-          repository: openemr/openemr
-          ref: ${{ matrix.openemr }}
-
-      - name: list directory
-        run: ls -al
-
       - name: Set Composer Cache Directory
         if: ${{ vars.USE_COMPOSER_CACHE }}
         id: composer-cache
@@ -91,22 +79,49 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-${{ matrix.php }}-openemr-${{ matrix.openemr }}-composer-
 
+      - name: Dump context
+        uses: crazy-max/ghaction-dump-context@v2
+
+      - name: Clone openEmr tag ${{ matrix.openemr }}
+        uses: actions/checkout@v3
+        with:
+          repository: openemr/openemr
+          ref: ${{ matrix.openemr }}
+
+      - name: Install openEmr vendor dependencies
+        run: composer install
+
+      - name: list directory
+        run: ls -al
+
+      - name: Install wikimedia/composer-merge-plugin package
+        run: |
+          composer config --no-interaction allow-plugins.wikimedia/composer-merge-plugin true
+          composer require wikimedia/composer-merge-plugin
+          composer config --json extra.merge-plugin '{"include": "/var/www/localhost/htdocs/openemr/interface/modules/custom_modules/oe-module-todo-list/composer.json", "merge-dev": false, "merge-scripts": false }'
+
       - name: Composer info
         run: |
           composer info
           composer outdated
           cat composer.json
 
-      #      - name: Install openemr module --with-dependencies ( dev-main )
-      #        if: always()
-      #        run: composer require medicalmundi/oe-module-todo-list:dev-main --with-dependencies --ansi
-      #
-      #      - name: Install openemr module with options --with-all-dependencies ( dev-main )
-      #        if: failure()
-      #        run: |
-      #          composer remove medicalmundi/oe-module-todo-list --ansi
-      #          composer require medicalmundi/oe-module-todo-list:dev-main --with-all-dependencies --ansi
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
 
-      - name: Install openemr module ( stable release )
-        if: always()
-        run: composer require medicalmundi/oe-module-todo-list --ansi
+      - name: Add Module to openemr
+        run: git clone https://github.com/medicalmundi/oe-module-todo-list.git -b ${{ steps.extract_branch.outputs.branch }} interface/modules/custom_modules/oe-module-todo-list
+
+      - name: Check custom module directory
+        run: |
+          ls -al interface/modules/custom_modules/
+          ls -al interface/modules/custom_modules/oe-module-todo-list
+
+      - name: Fix OpenEmr composer.json issues
+        run: |
+          composer update psr/cache:2.0.0
+
+      - name: Install module in openEmr
+        run: composer require medicalmundi/oe-module-todo-list
