@@ -18,13 +18,7 @@
 
 
     <ul class="nav nav-pills">
-        {% if module.isStandAlone %}
-            <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
-        {% else %}
-            <li class="nav-item"><a class="nav-link" href="{{ module.url }}/dashboard">Dashboard</a></li>
-        {% endif %}
-
-
+        <li class="nav-item"><a class="nav-link" href="{{ module.url }}/dashboard">Dashboard</a></li>
         {# TODO MENU #}
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -37,45 +31,29 @@
 {#                <li><a class="dropdown-item" href="#">Something else here</a></li>#}
             </ul>
         </li>
-
-
         {# MESSAGES MENU #}
-        {% if module.isStandAlone %}
-            <li class="nav-item"><a class="nav-link" href="/messages">Messaging Test Page
-                </a></li>
-        {% else %}
-            <li class="nav-item"><a class="nav-link" href="{{ module.url }}/messages">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ module.url }}/messages">
                 Messaging Test Page
-            </a></li>
-        {% endif %}
-
+            </a>
+        </li>
         {# SETTINGS MENU #}
-        {% if module.isStandAlone %}
-            <li class="nav-item">
-                <a class="nav-link" href="/module-setting">Setting</a>
-            </li>
-        {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ module.url }}/module-setting">
-                    Setting
-                </a>
-            </li>
-        {% endif %}
-
+        <li class="nav-item">
+            <a class="nav-link" href="{{ module.url }}/module-setting">
+                Setting
+            </a>
+        </li>
         {# ABOUT MENU #}
-        {% if module.isStandAlone %}
-            <li class="nav-item">
-                <a class="nav-link" href="/about">About</a>
-            </li>
-        {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ module.url }}/about">
-                    About
-                </a>
-            </li>
-        {% endif %}
-
-        {#        <li class="nav-item"><a href="/interface/modules/custom_modules/oe-module-npi-registry/public/faq" class="nav-link">FAQs</a></li>#}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ module.url }}/about">
+                About
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ module.url }}/faq">
+                FAQs
+            </a>
+        </li>
     </ul>
 </header>
 

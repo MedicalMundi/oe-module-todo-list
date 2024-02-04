@@ -23,8 +23,7 @@ function oe_module_TodoList_add_menu_item(MenuEvent $event)
     $menuItem->menu_id = 'mod0';
 
     $menuItem->label = xlt("Todo List");
-    //$menuItem->url = "/interface/modules/custom_modules/oe-module-todo-list";
-    $menuItem->url = "/interface/modules/custom_modules/oe-module-todo-list/todos";
+    $menuItem->url = "/interface/modules/custom_modules/oe-module-todo-list";
     $menuItem->children = [];
     $menuItem->acl_req = ['patients', 'docs'];
     $menuItem->global_req = [];

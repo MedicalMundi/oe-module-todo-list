@@ -17,7 +17,6 @@ use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\WebApi\Todo\WapiDeleteTodo
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\WebApi\Todo\WapiPostTodoController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\WebApi\Todo\WapiShowTodoController;
 use OpenEMR\Modules\MedicalMundiTodoList\Adapter\Http\WebApi\Todo\WapiToDoListController;
-use OpenEMR\Modules\MedicalMundiTodoList\Module;
 use Psr\Container\ContainerInterface;
 
 class RouterFactory
@@ -31,19 +30,13 @@ class RouterFactory
         $router = new Router();
         $router->setStrategy($strategy);
 
-        if (Module::isStandAlone()) {
-            $prefix = '';
-            $webTodoRouterGroup = '/todos';
-            $webApiTodoRouterGroup = '/wapi/todos';
-            $webModuleSettingrouterGroup = '/module-setting';
-        } else {
-            $prefix = self::PREFIX_URL;
-            $webTodoRouterGroup = self::PREFIX_URL . '/todos';
-            $webApiTodoRouterGroup = self::PREFIX_URL . '/wapi/todos';
-            $webModuleSettingrouterGroup = self::PREFIX_URL . '/module-setting';
-        }
+        $prefix = self::PREFIX_URL;
+        $webTodoRouterGroup = self::PREFIX_URL . '/todos';
+        $webApiTodoRouterGroup = self::PREFIX_URL . '/wapi/todos';
+        $webModuleSettingrouterGroup = self::PREFIX_URL . '/module-setting';
 
-        $router->map('GET', $prefix . '/', HomeController::class);
+        $router->map('GET', '/', HomeController::class);
+        $router->map('GET', $prefix, HomeController::class);
         $router->map('GET', $prefix . '/dashboard', DashboardController::class);
         $router->map('GET', $prefix . '/about', AboutController::class);
         $router->map('GET', $prefix . '/help', HelpController::class);
