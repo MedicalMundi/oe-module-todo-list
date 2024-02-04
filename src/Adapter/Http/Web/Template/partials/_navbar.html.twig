@@ -1,5 +1,5 @@
 <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-{#    <a href="/interface/modules/custom_modules/oe-module-npi-registry/public/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">#}
+{#    <a href="{{ module.url }}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">#}
 {#        #}{#        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>#}
 {#        <span class="fs-4">{{ module.name }}</span>#}
 {#    </a>#}
@@ -9,7 +9,7 @@
             <span class="fs-4">{{ module.name }}</span>
         </a>
     {% else %}
-        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" href="/interface/modules/custom_modules/oe-module-todo-list">
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" href="{{ module.url }}">
             <span class="fs-4">{{ module.name }}</span>
         </a>
     {% endif %}
@@ -21,7 +21,7 @@
         {% if module.isStandAlone %}
             <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
         {% else %}
-            <li class="nav-item"><a class="nav-link" href="/interface/modules/custom_modules/oe-module-todo-list/dashboard">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ module.url }}/dashboard">Dashboard</a></li>
         {% endif %}
 
 
@@ -31,8 +31,8 @@
                 Todos
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/interface/modules/custom_modules/oe-module-todo-list/todos/new">New</a></li>
-                <li><a class="dropdown-item" href="/interface/modules/custom_modules/oe-module-todo-list/todos">List</a></li>
+                <li><a class="dropdown-item" href="{{ module.url }}/todos/new">New</a></li>
+                <li><a class="dropdown-item" href="{{ module.url }}/todos">List</a></li>
                 <li><hr class="dropdown-divider"></li>
 {#                <li><a class="dropdown-item" href="#">Something else here</a></li>#}
             </ul>
@@ -44,7 +44,7 @@
             <li class="nav-item"><a class="nav-link" href="/messages">Messaging Test Page
                 </a></li>
         {% else %}
-            <li class="nav-item"><a class="nav-link" href="/interface/modules/custom_modules/oe-module-todo-list/messages">
+            <li class="nav-item"><a class="nav-link" href="{{ module.url }}/messages">
                 Messaging Test Page
             </a></li>
         {% endif %}
@@ -56,7 +56,7 @@
             </li>
         {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="/interface/modules/custom_modules/oe-module-todo-list/module-setting">
+                <a class="nav-link" href="{{ module.url }}/module-setting">
                     Setting
                 </a>
             </li>
@@ -69,7 +69,7 @@
             </li>
         {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="/interface/modules/custom_modules/oe-module-todo-list/about">
+                <a class="nav-link" href="{{ module.url }}/about">
                     About
                 </a>
             </li>
