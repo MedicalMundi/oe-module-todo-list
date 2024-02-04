@@ -30,7 +30,7 @@
                                     {% if module.isStandAlone %}
                                         <a href="/todos/{{ todo.id }}">{{ todo.title }}</a>
                                     {% else %}
-                                        <a href="/interface/modules/custom_modules/oe-module-todo-list/todos/{{ todo.id }}">{{ todo.title }}</a>
+                                        <a href="{{ module.url }}/todos/{{ todo.id }}">{{ todo.title }}</a>
                                     {% endif %}
 
                                     </td>
