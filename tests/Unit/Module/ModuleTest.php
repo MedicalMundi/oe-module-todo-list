@@ -40,6 +40,14 @@ class ModuleTest extends TestCase
         self::assertSame('MedicalMundi', Module::VENDOR_NAME);
     }
 
+    public function testModuleHasPackageName(): void
+    {
+        self::assertIsString(Module::PACKAGE_NAME);
+        self::assertNotNull(Module::PACKAGE_NAME);
+        self::assertNotEmpty(Module::PACKAGE_NAME);
+        self::assertSame('oe-module-todo-list', Module::PACKAGE_NAME);
+    }
+
     public function testModuleHasVendorUrl(): void
     {
         self::assertIsString(Module::VENDOR_URL);
@@ -67,5 +75,17 @@ class ModuleTest extends TestCase
     {
         self::assertNotEmpty(Module::mainDir());
         self::assertSame(\dirname(__DIR__, 3), Module::mainDir());
+    }
+
+    public function testModuleExposeOwnMainUrl(): void
+    {
+        self::assertNotEmpty(Module::mainUrl());
+        self::assertSame('/interface/modules/custom_modules/oe-module-todo-list', Module::mainUrl());
+    }
+
+    public function testModuleExposeOwnAssetsPath(): void
+    {
+        self::assertNotEmpty(Module::assetsPath());
+        self::assertSame('/interface/modules/custom_modules/oe-module-todo-list/assets', Module::assetsPath());
     }
 }

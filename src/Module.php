@@ -29,6 +29,8 @@ class Module
 
     final public const VENDOR_NAME = 'MedicalMundi';
 
+    final public const PACKAGE_NAME = 'oe-module-todo-list';
+
     final public const VENDOR_URL = 'https://github.com/MedicalMundi';
 
     final public const LICENSE = 'GPL-3.0';
@@ -177,6 +179,16 @@ class Module
     public static function openemrDir(): string
     {
         return \dirname(__DIR__, 5);
+    }
+
+    public static function mainUrl(): string
+    {
+        return '/interface/modules/custom_modules/' . self::PACKAGE_NAME;
+    }
+
+    public static function assetsPath(): string
+    {
+        return self::mainUrl() . '/assets';
     }
 
     public function getContainer(): ?ContainerInterface

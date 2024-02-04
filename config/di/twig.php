@@ -27,6 +27,8 @@ return [
             'license' => Module::LICENSE,
             'license_url' => Module::LICENSE_URL,
             'isStandAlone' => Module::isStandAlone(),
+            'url' => Module::mainUrl(),
+            'assets' => Module::assetsPath(),
         ]);
 
         $flash = $container->get(SessionInterface::class)->getFlash();
