@@ -36,7 +36,7 @@ class RouterFactory
         $webModuleSettingrouterGroup = self::PREFIX_URL . '/module-setting';
 
         $router->map('GET', '/', HomeController::class);
-        $router->map('GET', $prefix, HomeController::class);
+        $router->map('GET', $prefix . '/', HomeController::class);
         $router->map('GET', $prefix . '/dashboard', DashboardController::class);
         $router->map('GET', $prefix . '/about', AboutController::class);
         $router->map('GET', $prefix . '/help', HelpController::class);
