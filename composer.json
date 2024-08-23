@@ -74,6 +74,18 @@
             "openemr-supported-version": [
                 "v7_0_2"
             ]
+        },
+        "openemr-module": {
+            "metadata": {
+                "oe-modules.com": {
+                    "category": "miscellaneous",
+                    "tags": [
+                        "todo",
+                        "organizer",
+                        "scheduler"
+                    ]
+                }
+            }
         }
     },
     "autoload": {
