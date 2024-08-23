@@ -84,6 +84,14 @@
                         "organizer",
                         "scheduler"
                     ]
+                },
+                "other-marketplace.com": {
+                    "category": "miscellaneous",
+                    "tags": [
+                        "todo",
+                        "organizer",
+                        "scheduler"
+                    ]
                 }
             }
         }
