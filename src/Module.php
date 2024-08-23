@@ -23,7 +23,7 @@ class Module
 {
     final public const MODULE_NAME = 'ToDo List';
 
-    final public const MODULE_VERSION = 'v0.2.1';
+    final public const MODULE_VERSION = 'v0.2.2';
 
     final public const MODULE_SOURCE_CODE = 'https://github.com/MedicalMundi/oe-module-todo-list';
 
