@@ -83,7 +83,7 @@ jobs:
         uses: crazy-max/ghaction-dump-context@v2
 
       - name: Clone openEmr tag ${{ matrix.openemr }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: openemr/openemr
           ref: ${{ matrix.openemr }}
